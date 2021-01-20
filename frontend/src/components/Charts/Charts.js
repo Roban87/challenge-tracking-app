@@ -31,12 +31,12 @@ function Charts() {
       setDatesLabel(dateArray);
     })();
   }, []);
-
+console.log(challenge.startDate);
   useEffect(() => {
     const getUsersData = async () => {
       const method = 'GET';
       const endpoint = '/users';
-  
+
       try {
         const users = await generalDataFetch(endpoint, method);
         setUsers(users.jsonData);
@@ -45,22 +45,33 @@ function Charts() {
       }
     };
     getUsersData();
-  }, [])
+  }, []);
 
-  let remaining = commitments
+  const remaining = commitments
     .filter((comm) => comm.userId === userId)
     .filter((commitment) => commitment.endDate >= moment(new Date()).format())
     .length;
-  let missed = commitments
+  const missed = commitments
     .filter((comm) => comm.userId === userId)
     .filter(
       (commitment) =>
         commitment.endDate < moment(new Date()).format() &&
         commitment.isDone === false
     ).length;
-  let completed = commitments
+  const completed = commitments
     .filter((comm) => comm.userId === userId)
     .filter((commitment) => commitment.isDone === true).length;
+
+  const completedPerDay = datesLabel.map((date) => {
+    const dailyComms = commitments
+      .filter((comm) => comm.userId === userId)
+      .filter((comm) => comm.endDate <= date);
+    const percent =
+      (dailyComms.filter((comm) => comm.isDone === true).length /
+        dailyComms.length) *
+      100;
+    return percent;
+  });
 
   const userSelectButtons = users.map((user) => {
     return (
@@ -89,12 +100,24 @@ function Charts() {
               datasets: [
                 {
                   label: 'Completition percentage',
-                  data: [],
+                  data: completedPerDay,
+                  backgroundColor: 'rgba(67, 170, 63, 0.2)',
                 },
               ],
             }}
-            width={400}
-            height={300}
+            options={{
+              responsive: true,
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      suggestedMin: 0,
+                      suggestedMax: 100,
+                    },
+                  },
+                ],
+              },
+            }}
           />
           <Pie
             data={{
@@ -111,8 +134,7 @@ function Charts() {
               ],
               labels: ['Done', 'Remaining', 'Missed'],
             }}
-            width={400}
-            height={300}
+            options={{ responsive: true }}
           />
         </div>
       </div>

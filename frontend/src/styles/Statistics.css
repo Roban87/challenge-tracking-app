@@ -12,6 +12,7 @@
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  height: max-content;
 }
 
 h1 {
@@ -51,4 +52,11 @@ input[type="radio"] {
 
 .user-select-form {
   display: flex;
+}
+
+.charts-container {
+  width: 600px;
+  height: max-content;
+  margin: auto;
+  margin-top: 20px;
 }
