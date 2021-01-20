@@ -22,4 +22,14 @@ export const usersRepo = {
       throw { status: 500, message: err.sqlMessage };
     }
   },
+
+  async getUsers() {
+    const sqlQuery = 'SELECT * FROM users';
+    try {
+      const queryData = await db.query(sqlQuery);
+      return queryData.results;
+    } catch (err) {
+      throw { status: 500, message: err.sqlMessage };
+    }
+  },
 };

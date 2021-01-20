@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Challenge from './pages/Challenge';
 import AdminPage from './pages/AdminPage';
+import Statistics from './pages/Statistics';
 import './App.css';
 import { getChallenge } from './redux/challenge/challenge.action';
 
@@ -34,6 +35,10 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route path="/challenge" component={Challenge} />
         <Route exact path="/admin" component={AdminPage}/>
+        <Route exact path="/stats" component={Statistics}/>
+        <Route exact path="/">
+            {tokenExists() ? <Redirect to="/challenge" /> : <Redirect to="/" />}
+        </Route>
       </Switch>
     </div>
     </Router>
