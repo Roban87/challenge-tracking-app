@@ -14,6 +14,7 @@ export const commitmentsService = {
     }));
     return formattedCommitments;
   },
+
   async addCommitment(commitment) {
     const queryData = await commitmentsRepo.addCommitment(commitment);
     const newCommitment = await commitmentsRepo.getCommitment(queryData.results.insertId);

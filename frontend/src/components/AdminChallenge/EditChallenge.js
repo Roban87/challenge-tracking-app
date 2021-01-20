@@ -14,8 +14,8 @@ function EditChallenge() {
 
   const [startDate, setStartDate] = useState(new Date(challenge.startDate));
   const [endDate, setEndDate] = useState(new Date(challenge.endDate));
-  const [challengeName, setChallengeName] = useState(null);
-  const [challengeDescription, setChallengeDescription] = useState(null);
+  const [challengeName, setChallengeName] = useState(challenge.title);
+  const [challengeDescription, setChallengeDescription] = useState(challenge.description);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const startDatePickerOnChange = (date) => {
@@ -84,7 +84,7 @@ function EditChallenge() {
             placeholder={challenge.title}
             onChange={(event) => setChallengeName(event.target.value)}
             disabled={!isUpdating}
-            defaultValue={challenge.title}
+            value={challengeName}
           />
           <label htmlFor='form-input' className='form-label'>
             <span>Challenge</span> Decription
@@ -94,7 +94,7 @@ function EditChallenge() {
             type='text'
             className='edit-form-input description'
             onChange={(event) => setChallengeDescription(event.target.value)}
-            defaultValue={challenge.description}
+            value={challengeDescription}
           />
         </div>
         <div className='challenge-date'>

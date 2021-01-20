@@ -17,3 +17,18 @@
 .commitment-item {
   display: block;
 }
+
+.table-header {
+  background-color:rgb(104,194,50);
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+}
+
+.group-header {
+  justify-content: space-around;
+}
+
+.group-title {
+  color: white;
+}

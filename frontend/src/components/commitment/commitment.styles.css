@@ -1,0 +1,11 @@
+.checkbox {
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
+}
+
+.remove-commitment {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}

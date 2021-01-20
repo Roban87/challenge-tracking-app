@@ -30,3 +30,7 @@ export function formatDateToString(date) {
   const month = (date.getMonth() + 1) < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
   return `${date.getFullYear()}-${month}-${date.getDate()}`;
 }
+
+export function formatDateString(dateString) {
+  return dateString.substring(0, 10);
+}

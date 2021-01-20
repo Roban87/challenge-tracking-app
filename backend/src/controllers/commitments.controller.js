@@ -11,6 +11,7 @@ export const commitmentsController = {
   },
   async post(req, res, next) {
     const { name, startDate, endDate } = req.body;
+    console.log(startDate, endDate);
     const userId = req.user.id;
     try {
       const newCommitment = await commitmentsService.addCommitment({

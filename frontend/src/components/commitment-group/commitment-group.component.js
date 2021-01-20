@@ -9,7 +9,7 @@ import './commitment-group.styles.css';
 
 export default function CommitmentGroup(props) {
   const dispatch = useDispatch();
-  const { numOfDays, name, startDate, commitments, endDate } = props;
+  const { numOfDays, name, startDate, commitments, endDate, handleClick } = props;
   const blockArray = createDateArray(startDate, numOfDays);
   const containerStyle = {
     display: 'flex',
@@ -43,10 +43,10 @@ export default function CommitmentGroup(props) {
 
   return (
     <div className="commitment-container" style={containerStyle}>
-      <h4 style={{
-        backgroundColor: 'white',
-        color: 'black'
-      }} date={new Date()}>{name} </h4>
+      <div className="table-header group-header" date={new Date()}>
+        <h4 className="group-title">{name}</h4> 
+        <i name={name} onClick={handleClick} class="fas fa-plus"></i>
+      </div>
       {
         blockArray.map((date, index) => {
           const commitment = commitments.filter((commitment) => formatDateToString(new Date(commitment.startDate)) === formatDateToString(date))[0];
