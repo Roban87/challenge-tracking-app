@@ -12,9 +12,8 @@ function Charts() {
   const challenge = useSelector((state) => state.challenge.challenge);
   const [datesLabel, setDatesLabel] = useState([]);
   const [users, setUsers] = useState([]);
-  const [remainingGoals, setRemainingGoals] = useState(0);
-  const [doneGoals, setDoneGoals] = useState(0);
-
+  const [selectedUserId, setSelectedUserId] = useState(userId);
+  
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
   }, [dispatch]);
@@ -31,7 +30,7 @@ function Charts() {
       setDatesLabel(dateArray);
     })();
   }, []);
-console.log(challenge.startDate);
+
   useEffect(() => {
     const getUsersData = async () => {
       const method = 'GET';
@@ -48,23 +47,23 @@ console.log(challenge.startDate);
   }, []);
 
   const remaining = commitments
-    .filter((comm) => comm.userId === userId)
+    .filter((comm) => comm.userId === selectedUserId)
     .filter((commitment) => commitment.endDate >= moment(new Date()).format())
     .length;
   const missed = commitments
-    .filter((comm) => comm.userId === userId)
+    .filter((comm) => comm.userId === selectedUserId)
     .filter(
       (commitment) =>
         commitment.endDate < moment(new Date()).format() &&
         commitment.isDone === false
     ).length;
   const completed = commitments
-    .filter((comm) => comm.userId === userId)
+    .filter((comm) => comm.userId === selectedUserId)
     .filter((commitment) => commitment.isDone === true).length;
 
   const completedPerDay = datesLabel.map((date) => {
     const dailyComms = commitments
-      .filter((comm) => comm.userId === userId)
+      .filter((comm) => comm.userId === selectedUserId)
       .filter((comm) => comm.endDate <= date);
     const percent =
       (dailyComms.filter((comm) => comm.isDone === true).length /
@@ -72,6 +71,12 @@ console.log(challenge.startDate);
       100;
     return percent;
   });
+  
+
+  const handelUserSelection = (event) => {
+    const id = users.filter(user => user.username === event.target.value)[0].id;
+    setSelectedUserId(id);
+  }
 
   const userSelectButtons = users.map((user) => {
     return (
@@ -81,6 +86,7 @@ console.log(challenge.startDate);
           id={user.username}
           name='contact'
           value={user.username}
+          onClick={handelUserSelection}
         />
         <label htmlFor={user.username}>{user.username}</label>
       </div>
