@@ -36,9 +36,6 @@ function App() {
         <Route path="/challenge" component={Challenge} />
         <Route exact path="/admin" component={AdminPage}/>
         <Route exact path="/stats" component={Statistics}/>
-        <Route exact path="/">
-            {tokenExists() ? <Redirect to="/challenge" /> : <Redirect to="/" />}
-        </Route>
       </Switch>
     </div>
     </Router>
