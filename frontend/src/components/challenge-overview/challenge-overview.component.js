@@ -30,7 +30,6 @@ export default function ChallengeOverview() {
   const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
   }
 
   const dateArray = createDateArray(startDate, numOfDays);
@@ -66,6 +65,7 @@ export default function ChallengeOverview() {
                   maxHeight: '30px',
                   minHeight: '30px',
                   lineHeight: '30px',
+                  backgroundColor: 'white',
                 }}>
                   { getMonthAndDayString(date) }
               </div>)

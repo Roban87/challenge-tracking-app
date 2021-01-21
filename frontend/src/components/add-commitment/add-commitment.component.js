@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCommitmentAsync} from '../../redux/commitments/commitments.actions';
 import { toggleCreateCommitmentForm } from '../../redux/commitment-form/commitment-form.actions';
 import { formatDateString, formatDateToString } from '../../utilities/date.utils';
@@ -7,11 +7,14 @@ import './add-commitment.styles.css';
 
 export default function AddCommitment(props) {
   const dispatch = useDispatch();
+  const { currentDate } = useSelector(state => state.currentDate);
   const { startDate, endDate, commitments, targetGroup } = props;
   const [commitmentName, setCommitmentName] = useState(targetGroup);
   const [commitmentStartDate, setCommitmentStartDate] = useState('')
   const [commitmentEndDate, setCommitmentEndDate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const minStartDate = startDate.getTime() > currentDate.getTime() ? startDate : currentDate;
+  const minEndDate = new Date(minStartDate.getTime() + (1000*60*60*24));
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -94,7 +97,7 @@ export default function AddCommitment(props) {
           onChange={handleChange}
           value={commitmentStartDate && commitmentStartDate}
           max={`${formatDateToString(endDate)}`}
-          min={`${formatDateToString(startDate)}`} 
+          min={`${formatDateToString(minStartDate)}`} 
         />
         <label>End Date</label>
         <input 
@@ -103,7 +106,7 @@ export default function AddCommitment(props) {
           onChange={handleChange}
           value={commitmentEndDate && commitmentEndDate}
           max={`${formatDateToString(endDate)}`}
-          min={`${formatDateToString(startDate)}`} 
+          min={`${formatDateToString(minEndDate)}`} 
         />
         {
           errorMessage ? <p>{errorMessage}</p> : null

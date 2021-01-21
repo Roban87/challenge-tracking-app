@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createDateArray, addDays, formatDateToString } from '../../utilities/date.utils';
 import Commitment from '../commitment/commitment.component';
 
@@ -9,6 +9,7 @@ import './commitment-group.styles.css';
 
 export default function CommitmentGroup(props) {
   const dispatch = useDispatch();
+  const { currentDate } = useSelector(state => state.currentDate);
   const { numOfDays, name, startDate, commitments, endDate, handleClick } = props;
   const blockArray = createDateArray(startDate, numOfDays);
   const containerStyle = {
@@ -30,7 +31,7 @@ export default function CommitmentGroup(props) {
     let containerName = ev.target.getAttribute('container-name');
     let targetDate = ev.target.getAttribute('date');
     if (name === containerName) {
-      if ((new Date(targetDate).getDate() + Number(numOfDays)) <= endDate.getDate()) {
+      if ((new Date(targetDate).getDate() + Number(numOfDays)) <= endDate.getDate() && currentDate.getDate() <= new Date(targetDate).getDate()) {
         ev.target.appendChild(document.getElementById(commitmentId));
         const commitment = commitments.find((commitment) => commitment.id === Number(commitmentId));
         commitment.startDate = targetDate;
@@ -42,8 +43,8 @@ export default function CommitmentGroup(props) {
   };
 
   return (
-    <div className="commitment-container" style={containerStyle}>
-      <div className="table-header group-header" date={new Date()}>
+    <div className="commitment-group-container" style={containerStyle}>
+      <div className="table-header" date={new Date()}>
         <h4 className="group-title">{name}</h4> 
         <i name={name} onClick={handleClick} class="fas fa-plus"></i>
       </div>
