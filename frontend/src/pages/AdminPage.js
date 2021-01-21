@@ -12,6 +12,7 @@ import {
   Provider as AlertProvider,
 } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import TimeMachine from '../components/time-machine/time-machine.component';
 
 function AdminPage() {
   const history = useHistory();
@@ -45,6 +46,7 @@ function AdminPage() {
       <div className="btn admin-btn" >
         <a href="/challenge" style={{color: 'white'}}>TO CHALLANGE PAGE</a>
       </div>
+      <TimeMachine />
       <AlertProvider template={AlertTemplate} {...options}>
         {currentTimestamp < challengeEndTimestamp ? <EditChallenge /> : <CreateChallenge />}
       </AlertProvider>
