@@ -15,7 +15,10 @@ function EditChallenge() {
   const [startDate, setStartDate] = useState(new Date(challenge.startDate));
   const [endDate, setEndDate] = useState(new Date(challenge.endDate));
   const [challengeName, setChallengeName] = useState(challenge.title);
-  const [challengeDescription, setChallengeDescription] = useState(challenge.description);
+  const [challengeDescription, setChallengeDescription] = useState(
+    challenge.description
+  );
+  const [minCommit, setMinCommit] = useState(challenge.minCommit);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const startDatePickerOnChange = (date) => {
@@ -42,6 +45,7 @@ function EditChallenge() {
         challengeDescription,
         startDate: moment(startDate).format().slice(0, 10),
         endDate: moment(endDate).format().slice(0, 10),
+        minCommit,
       },
     };
     try {
@@ -75,17 +79,34 @@ function EditChallenge() {
       </h1>
       <div className='create-challenge-container'>
         <div className='challenge-form'>
-          <label htmlFor='form-input' className='form-label'>
-            <span>Challenge</span> Title
-          </label>
-          <textarea
-            type='text'
-            className='edit-form-input title'
-            placeholder={challenge.title}
-            onChange={(event) => setChallengeName(event.target.value)}
-            disabled={!isUpdating}
-            value={challengeName}
-          />
+          <div className='title-number'>
+            <div className='title'>
+              <label htmlFor='form-input' className='form-label'>
+                <span>Challenge</span> Title
+              </label>
+              <textarea
+                type='text'
+                className='edit-form-input title'
+                placeholder={challenge.title}
+                onChange={(event) => setChallengeName(event.target.value)}
+                disabled={!isUpdating}
+                value={challengeName}
+              />
+            </div>
+            <div className='commit-number'>
+              <label htmlFor='form-input' className='form-label'>
+                Min. Commitments
+              </label>
+              <textarea
+                type='text'
+                className='edit-form-input title'
+                placeholder={challenge.minCommit}
+                onChange={(event) => setMinCommit(event.target.value)}
+                disabled={!isUpdating}
+                value={minCommit}
+              />
+            </div>
+          </div>
           <label htmlFor='form-input' className='form-label'>
             <span>Challenge</span> Decription
           </label>

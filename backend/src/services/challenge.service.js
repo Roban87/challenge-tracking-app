@@ -15,6 +15,7 @@ export const challengeService = {
       description,
       startDate: challenge.start_date,
       endDate: challenge.end_date,
+      minCommit: challenge.min_commitments,
     };
   },
 
