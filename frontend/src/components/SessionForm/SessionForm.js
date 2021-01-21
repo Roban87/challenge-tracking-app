@@ -12,6 +12,7 @@ function SessionForm({ formType }) {
   const [email, setEmail] = useState('');
   const loginError = useSelector((state) => ( state.session.sessionError ));
   const challenge = useSelector((state) => ( state.challenge.challenge ));
+  const currentTime = useSelector(state=> state.currentDate.currentDate);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ function SessionForm({ formType }) {
 
   function determinePath(isAdmin) {
     let challengeEndTimestamp = new Date(challenge.endDate).getTime();
-    if (challengeEndTimestamp < Date.now()) {
+    if (challengeEndTimestamp < currentTime) {
       if (isAdmin === 1) {
         return '/admin';
       }
