@@ -58,7 +58,6 @@ span {
 }
 
 .title {
-  height: 40px;
   font-size: 1em;
   font-family: -apple-system, BlinkMacSystemFont, 'Raleway', 'Segoe UI',
     'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
@@ -67,6 +66,14 @@ span {
   border: none;
   padding: 5px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  margin: 0;
+}
+
+.edit-form-input:disabled {
+  background-color: #bbbbbb;
 }
 
 
@@ -116,16 +123,7 @@ span {
   outline:none;
 }
 
-.edit-form-input:disabled {
-  background-color: #bbbbbb;
-  font-size: 1em;
-  margin-bottom: 20px;
-  outline: none;
-  border-radius: 5px;
-  border: none;
-  padding: 5px;
-  color: black;
-}
+
 
 .edit-form-input::placeholder {
   color: black;
@@ -200,15 +198,10 @@ span {
 .commit-number {
   display: flex;
   flex-direction: column;
-  height: 100px;
-  margin: 0;
-  padding: 0;
+  height: 95px;
+  margin-bottom: 5px;
 }
 
-.title {
-  display: flex;
-  flex-direction: column;
-  height: 100px;
-  margin: 0;
-  padding: 0;
+.commit-number label {
+  margin-top: 5px;
 }
