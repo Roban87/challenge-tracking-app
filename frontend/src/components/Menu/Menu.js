@@ -28,6 +28,9 @@ function Menu() {
         <div className="statistics-btn btn">
           <NavLink to="/challenge/statistics">Statistics</NavLink>
         </div>
+        <div className="final-statistics-btn btn">
+          <NavLink to="/challenge/final-statistics">All Statistics</NavLink>
+        </div>
         
         { 
         isAdmin ?
