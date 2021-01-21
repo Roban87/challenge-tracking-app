@@ -16,7 +16,6 @@ export default function CommitmentGroup(props) {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    backgroundColor: 'antiquewhite'
   }
 
   function allowDrop(ev) {

@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 import '../styles/Landing.css';
 
 function Landing() {
-  const challenge = useSelector((state) => state.challenge.challenge)
+  const challenge = useSelector((state) => state.challenge.challenge);
+  const currentTime = useSelector(state=> state.currentDate.currentDate);
   
   let challengeStartTimestamp = new Date(challenge.startDate).getTime();
   let challengeEndTimestamp = new Date(challenge.endDate).getTime();
-  let currentTimestamp = Date.now();
+  let currentTimestamp = currentTime;
 
   return(
     <div className="landing-container">
