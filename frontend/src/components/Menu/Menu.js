@@ -25,10 +25,6 @@ function Menu() {
           <NavLink to="/challenge/commitments">Commitments</NavLink>
         </div>
 
-        <div className="overview-btn btn">
-          <NavLink to="/challenge/overview">Overview</NavLink>
-        </div>
-
         <div className="statistics-btn btn">
           <NavLink to="/challenge/statistics">Statistics</NavLink>
         </div>

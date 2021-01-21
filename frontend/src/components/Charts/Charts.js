@@ -118,7 +118,7 @@ function Charts() {
                 {
                   label: 'User Completition percentage',
                   data: completedPerDay,
-                  backgroundColor: 'rgba(67, 170, 63, 0.2)',
+                  backgroundColor: '#86c2327b',
                 },
                 {
                   label: 'Total Completition percentage',
@@ -148,9 +148,9 @@ function Charts() {
                   label: 'Completition percentage',
                   data: [completed, remaining, missed],
                   backgroundColor: [
-                    'rgba(67, 170, 63, 0.2)',
+                    '#86c2327b',
                     'rgba(144, 144, 144, 0.2)',
-                    'rgba(170, 63, 63, 0.2)',
+                    'rgba(255, 30, 30, 0.4)',
                   ],
                 },
               ],
