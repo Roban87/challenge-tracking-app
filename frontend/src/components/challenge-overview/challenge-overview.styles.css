@@ -3,6 +3,9 @@
   overflow-y: scroll;
   display: flex;
   flex-direction: row;
+  height: 400px;
+  overflow-y: scroll;
+  position: relative;
 }
 
 .challenge-days {
@@ -13,4 +16,9 @@
   width: 800px;
   display: flex;
   flex-direction: row; 
+}
+
+.toggle-create-form-button {
+  color: black;
+  height: 50px;
 }

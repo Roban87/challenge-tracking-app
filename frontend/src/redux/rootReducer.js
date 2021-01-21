@@ -7,6 +7,7 @@ import sessionReducer from './session/session.reducer';
 import challengeReducer from './challenge/challenge.reducer';
 import commitmentsReducer from './commitments/commitments.reducer';
 import userReducer from './user/user.reducer';
+import commitmentFormReducer from './commitment-form/commitment-form.reducer';
 
 const persistConfig = {
   key: 'root',
@@ -19,6 +20,7 @@ const appReducer = combineReducers({
   challenge: challengeReducer,
   commitments: commitmentsReducer,
   user: userReducer,
+  commitmentForm: commitmentFormReducer,
 });
 
 const rootReducer = (state, action) => {

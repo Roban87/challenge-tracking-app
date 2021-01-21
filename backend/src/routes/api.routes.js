@@ -5,6 +5,7 @@ import {
   registerController,
   loginController,
   commitmentsController,
+  usersController,
 } from '../controllers/index';
 import authHandler from '../middlewares/authHandler';
 
@@ -21,6 +22,7 @@ router.post('/admin/challenge', challengeController.post);
 router.put('/admin/challenge', challengeController.put);
 router.post('/register', registerController.post);
 router.post('/login', loginController.post);
+router.get('/users', usersController.get);
 
 router.use(authHandler);
 
