@@ -14,6 +14,7 @@ function Charts() {
   const [datesLabel, setDatesLabel] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(userId);
+  const machineDate = useSelector(state => state.currentDate.currentDate);
   
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
@@ -49,13 +50,13 @@ function Charts() {
 
   const remaining = commitments
     .filter((comm) => comm.userId === selectedUserId)
-    .filter((commitment) => commitment.endDate >= moment(new Date()).format())
+    .filter((commitment) => commitment.endDate >= moment(machineDate).format())
     .length;
   const missed = commitments
     .filter((comm) => comm.userId === selectedUserId)
     .filter(
       (commitment) =>
-        commitment.endDate < moment(new Date()).format() &&
+        commitment.endDate < moment(machineDate).format() &&
         commitment.isDone === false
     ).length;
   const completed = commitments
