@@ -51,22 +51,13 @@ export default function ChallengeOverview() {
           <button className="toggle-create-form-button" type="button" onClick={() => {
             setTargetGroup('');
             dispatch(toggleCreateCommitmentForm())
-            }}>Create new commitment</button>
-          <h4 style={{ color: 'black'}}>Date</h4>
+            }}> &#43; Commitment</button>
+          <h4 className="table-date-head">Date</h4>
         </div>
         {
           dateArray.map((date, index) => {
             return (
-              <div 
-                key={`day-${index}`} className="" 
-                style={ { 
-                  color: 'black',  
-                  margin: '0px',
-                  maxHeight: '30px',
-                  minHeight: '30px',
-                  lineHeight: '30px',
-                  backgroundColor: 'white',
-                }}>
+              <div key={`day-${index}`} className="table-date" >
                   { getMonthAndDayString(date) }
               </div>)
           })

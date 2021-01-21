@@ -67,11 +67,11 @@ export default function Commitment({ commitment }) {
 
   const style = {
     height: `${30*numOfDays}px`,
-    backgroundColor: isDone ? 'green' : 'red',
+    backgroundColor: isDone ? '#86c232' : '#6b6e70',
     zIndex: '200',
     position: 'absolute',
-    width:'98%',
-    border: '1px solid black'
+    width:'100%',
+    border: '1px solid #474b4f'
   }
   return (
     <div>

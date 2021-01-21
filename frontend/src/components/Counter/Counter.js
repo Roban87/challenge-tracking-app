@@ -6,11 +6,12 @@ import './Counter.css';
 
 function Counter() {
   const challenge = useSelector((state) => state.challenge.challenge);
+  const currentTime = useSelector(state=> state.currentDate.currentDate);
   const [ until, setUntil ] = useState();
 
   const challengeStartTimestamp = new Date(challenge.startDate).getTime();
   const challengeEndTimestamp = new Date(challenge.endDate).getTime();
-  const currentTimestamp = Date.now();
+  const currentTimestamp = currentTime;
 
   const convertTime = (timestamp) => {
     let seconds = moment.duration(timestamp).seconds();

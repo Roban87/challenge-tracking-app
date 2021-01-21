@@ -1,19 +1,17 @@
 .challenge-overview {
-  height: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: row;
-  height: 600px;
-  overflow-y: scroll;
-  position: relative;
+  height: 100%;
 }
+
 
 .challenge-overview::-webkit-scrollbar {
   display: none;
 }
 
 .challenge-days {
-  width: 150px;
+  width: 200px;
 }
 
 .commitments-container {
@@ -24,14 +22,46 @@
 }
 
 .toggle-create-form-button {
-  color: black;
-  height: 50px;
+  color: white;
+  height: 30px;
+  width: 150px;
+  border-radius: 25px;
+  border: .5px solid #86c232;
+  outline: none;
+  background-color: #61892f;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.toggle-create-form-button:hover {
+  background-color: #86c232;
 }
 
 .table-header {
-  background-color:rgb(104,194,50);
-  min-height: 100px;
+  /* position: fixed; */
+  background-color: #61892f;
+  min-height: 70px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+
+.table-date-head {
+  color:#474b4f;
+  padding-bottom: 10px;
+}
+
+.table-date {
+  color: white;
+  font-size: 17px; 
+  margin: 0px;
+  height: 35px;
+  line-height: 30px;
+  text-align: left;
+  padding-left: 30px;
+  border:none;
+}
+
+.table-date:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.2);
 }

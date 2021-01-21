@@ -27,19 +27,18 @@ span {
 }
 
 .line-chart-container {
-  background-color: rgb(216, 216, 216);
+  background-color: rgba(255, 255, 255, 0.7);
   padding: 10px;
-  /* display: flex;
+  display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  width: 800px; */
 }
 
 input[type="radio"] {
   -ms-transform: scale(0.4); /* IE 9 */
   -webkit-transform: scale(0.4); /* Chrome, Safari, Opera */
   transform: scale(0.4);
-  width: 30px;
+  width: 35px;
 }
 
 .user {
