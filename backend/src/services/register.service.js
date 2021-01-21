@@ -22,11 +22,14 @@ export const registerService = {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     return hashedPassword;
   },
-  async insertNewUser(username, password, email) {
+  async insertNewUser(username, password, email, admin) {
+    if (admin) {
+      const hashedPassword = await this.hashUserPassword(password);
+      return await usersRepo.insertAdmin(username, hashedPassword, email);
+    }
     this.validateUsernameAndPassword(username, password, email);
     const hashedPassword = await this.hashUserPassword(password);
     const userData = await usersRepo.insertUser(username, hashedPassword, email);
-    console.log(userData);
     const token = await loginService.getToken(userData.results.insertId);
     return {
       token,
