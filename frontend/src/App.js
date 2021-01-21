@@ -28,6 +28,7 @@ function App() {
     <Router>
     <div className="App">
       <Switch>
+        <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route path="/challenge" component={Challenge} />
