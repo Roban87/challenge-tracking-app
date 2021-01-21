@@ -15,6 +15,7 @@ import AdminPage from './pages/AdminPage';
 import Statistics from './pages/Statistics';
 import './App.css';
 import { getChallenge } from './redux/challenge/challenge.action';
+import FinalStatistics from './pages/FinalStatistics';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/challenge" component={Challenge} />
         <Route exact path="/admin" component={AdminPage}/>
         <Route exact path="/stats" component={Statistics}/>
+        <Route exact path="/finalstats" component={FinalStatistics}/>
       </Switch>
     </div>
     </Router>

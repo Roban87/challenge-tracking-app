@@ -72,7 +72,16 @@ function Charts() {
       100;
     return percent;
   });
-  
+
+  const totalCompletedPerDay = datesLabel.map((date) => {
+    const dailyComms = commitments
+      .filter((comm) => comm.endDate <= date);
+    const percent =
+      (dailyComms.filter((comm) => comm.isDone === true).length /
+        dailyComms.length) *
+      100;
+    return percent;
+  });
 
   const handelUserSelection = (event) => {
     const id = users.filter(user => user.username === event.target.value)[0].id;
@@ -106,9 +115,14 @@ function Charts() {
               labels: datesLabel,
               datasets: [
                 {
-                  label: 'Completition percentage',
+                  label: 'User Completition percentage',
                   data: completedPerDay,
                   backgroundColor: 'rgba(67, 170, 63, 0.2)',
+                },
+                {
+                  label: 'Total Completition percentage',
+                  data: totalCompletedPerDay,
+                  backgroundColor: 'rgba(191, 188, 8, 0.2)',
                 },
               ],
             }}
