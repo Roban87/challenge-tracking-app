@@ -27,6 +27,10 @@ exports.up = function(db, callback) {
       type: 'timestamp',
       notNull: true,
     },
+    min_commitments: {
+      type: 'int',
+      notNull: true,
+    },
   }, callback);
 };
 

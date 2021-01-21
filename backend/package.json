@@ -10,7 +10,8 @@
     "test:cover": "jest --collectCoverage",
     "start": "nodemon --exec babel-node -r ./node_modules/dotenv/config src/index.js",
     "build": "babel src -d dist",
-    "serve": "node -r dotenv/config dist/index.js"
+    "serve": "node -r dotenv/config dist/index.js",
+    "create-admin": "babel-node -r ./node_modules/dotenv/config src/createAdmin.js "
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
