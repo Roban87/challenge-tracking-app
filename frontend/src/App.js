@@ -24,14 +24,10 @@ function App() {
     dispatch(getChallenge());
   }, [dispatch]);
  
-  const token = useSelector(state => state.session.token);
   return (
     <Router>
     <div className="App">
       <Switch>
-        <Route exact path="/">
-            {token ? <Redirect to="/challenge" /> : <Landing />}
-        </Route>
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route path="/challenge" component={Challenge} />
