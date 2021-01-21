@@ -1,6 +1,6 @@
 import userActionTypes from './user.types';
 
-export const setUser = (userId, isAdmin, isValidated) => ({
+export const setUser = (userId, username, isAdmin, isValidated) => ({
   type: userActionTypes.SET_USER,
-  payload: { userId, isAdmin, isValidated }
+  payload: { userId, username, isAdmin, isValidated }
 });
