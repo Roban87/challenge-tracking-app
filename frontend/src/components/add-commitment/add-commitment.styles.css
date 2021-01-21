@@ -1,7 +1,7 @@
 .create-commitment-container {
   position: absolute;
   width: 500px;
-  height: 340px;
+  height: 390px;
   padding: 20px;
   border: 1px solid black;
   background-color: #474b4f;
@@ -13,17 +13,37 @@
   align-items: center;
 }
 
+.create-commitment-container h2 {
+  margin-bottom: 20px;
+}
+
 .create-commitment-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.create-commitment-button {
-  color: black;
-}
-
 .exit-form {
   margin-right: 10px;
   margin-left: auto;
+}
+
+label {
+  margin-bottom: 3px;
+}
+
+.create-commitment-button {
+  width: 200px;
+  height: 40px;
+  border: none;
+  background-color: #86c232;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  transition: font-size .5s;
+}
+
+.create-commitment-button:hover {
+  background-color: #61892f;
+  font-size: 20px;
 }

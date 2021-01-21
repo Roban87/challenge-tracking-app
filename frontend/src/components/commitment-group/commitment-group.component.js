@@ -12,12 +12,6 @@ export default function CommitmentGroup(props) {
   const { currentDate } = useSelector(state => state.currentDate);
   const { numOfDays, name, startDate, commitments, endDate, handleClick } = props;
   const blockArray = createDateArray(startDate, numOfDays);
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    backgroundColor: 'antiquewhite'
-  }
 
   function allowDrop(ev) {
     ev.preventDefault();
@@ -43,7 +37,7 @@ export default function CommitmentGroup(props) {
   };
 
   return (
-    <div className="commitment-group-container" style={containerStyle}>
+    <div className="commitment-group-container" >
       <div className="table-header" date={new Date()}>
         <h4 className="group-title">{name}</h4> 
         <i name={name} onClick={handleClick} class="fas fa-plus"></i>
