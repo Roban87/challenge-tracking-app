@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
 import generalDataFetch from '../../utilities/generalFetch';
-import { Line, Pie } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
 
-function Charts() {
+function FinalCharts() {
   const dispatch = useDispatch();
   const commitments = useSelector((state) => state.commitments.commitments);
   const userId = useSelector((state) => state.user.userId);
@@ -14,7 +14,7 @@ function Charts() {
   const [datesLabel, setDatesLabel] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(userId);
-  
+
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
   }, [dispatch]);
@@ -74,8 +74,7 @@ function Charts() {
   });
 
   const totalCompletedPerDay = datesLabel.map((date) => {
-    const dailyComms = commitments
-      .filter((comm) => comm.endDate <= date);
+    const dailyComms = commitments.filter((comm) => comm.endDate <= date);
     const percent =
       (dailyComms.filter((comm) => comm.isDone === true).length /
         dailyComms.length) *
@@ -83,46 +82,51 @@ function Charts() {
     return percent;
   });
 
-  const handelUserSelection = (event) => {
-    const id = users.filter(user => user.username === event.target.value)[0].id;
-    setSelectedUserId(id);
-  }
+  const usersDoneCommitments = commitments
+    .filter((comm) => comm.isDone === true)
+    .map((comm) => comm.userId)
+    .reduce(function (prev, cur) {
+      prev[cur] = (prev[cur] || 0) + 1;
+      return prev;
+    }, {});
 
-  const userSelectButtons = users.map((user) => {
-    return (
-      <div className='user' key={user.username}>
-        <input
-          type='radio'
-          id={user.username}
-          name='contact'
-          value={user.username}
-          onClick={handelUserSelection}
-        />
-        <label htmlFor={user.username}>{user.username}</label>
-      </div>
-    );
-  });
+  const eligableUsers = Object.entries(usersDoneCommitments)
+    .filter((res) => res[1] >= challenge.minCommit)
+    .map((id) => +id[0]);
+
+  const usersTotalCommitments = commitments
+    .map((comm) => comm.userId)
+    .reduce(function (prev, cur) {
+      prev[cur] = (prev[cur] || 0) + 1;
+      return prev;
+    }, {});
+
+  const results = Object.entries(usersDoneCommitments)
+    .map((user, index) => [
+      user[0],
+      (user[1] / Object.entries(usersTotalCommitments)[index][1]) * 100,
+    ])
+    .filter((user) => eligableUsers.includes(+user[0]));
+
+  const sortedResults = results.sort(([, a], [, b]) => b - a);
+  const resultIds = sortedResults.map((res) => +res[0]);
+  const resultNames = resultIds
+    .map((id) => users.filter((user) => user.id === id))
+    .map((user) => user.map((u) => u.username))
+    .map((e) => e[0]);
 
   return (
     <div className='charts-main-container'>
-      <div className='user-select-container'>
-        <form className='user-select-form'>{userSelectButtons}</form>
-      </div>
-      <div className='charts-container'>
+      <div className='final-charts-container'>
         <div className='line-chart-container'>
-          <Line
+          <Bar
             data={{
-              labels: datesLabel,
+              labels: resultNames,
               datasets: [
                 {
                   label: 'User Completition percentage',
-                  data: completedPerDay,
-                  backgroundColor: 'rgba(67, 170, 63, 0.2)',
-                },
-                {
-                  label: 'Total Completition percentage',
-                  data: totalCompletedPerDay,
-                  backgroundColor: 'rgba(191, 188, 8, 0.2)',
+                  data: sortedResults.map((user) => user[1]),
+                  backgroundColor: 'rgba(67, 170, 63, 0.5)',
                 },
               ],
             }}
@@ -140,27 +144,10 @@ function Charts() {
               },
             }}
           />
-          <Pie
-            data={{
-              datasets: [
-                {
-                  label: 'Completition percentage',
-                  data: [completed, remaining, missed],
-                  backgroundColor: [
-                    'rgba(67, 170, 63, 0.2)',
-                    'rgba(144, 144, 144, 0.2)',
-                    'rgba(170, 63, 63, 0.2)',
-                  ],
-                },
-              ],
-              labels: ['Done', 'Remaining', 'Missed'],
-            }}
-            options={{ responsive: true }}
-          />
         </div>
       </div>
     </div>
   );
 }
 
-export default Charts;
+export default FinalCharts;
