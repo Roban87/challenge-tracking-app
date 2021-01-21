@@ -64,11 +64,11 @@ function SessionForm({ formType }) {
         return dispatch(sessionFailed(loginResponse.jsonData.message)) 
       } 
 
-      const { token, userId, isAdmin, isValidated } = loginResponse.jsonData;
+      const { token, userId, username, isAdmin, isValidated } = loginResponse.jsonData;
       setPassword('');
       setUsername('');
       dispatch(sessionSuccess(token));
-      dispatch(setUser(userId, isAdmin, isValidated))
+      dispatch(setUser(userId, username, isAdmin, isValidated))
       history.push(determinePath(isAdmin));
     } catch (error) {
       return dispatch(sessionFailed(error.message));

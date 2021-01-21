@@ -3,6 +3,7 @@ import {
   useSelector, 
   useDispatch 
 } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import './Menu.css';
 import logo from '../../assets/accepted-logo.svg';
 import { sessionLogout } from '../../redux/session/session.actions';
@@ -21,21 +22,21 @@ function Menu() {
 
       <div className="nav-btns">
         <div className="commitments-btn btn">
-          <a href="/challenge/commitments" >Commitments</a>
+          <NavLink to="/challenge/commitments">Commitments</NavLink>
         </div>
 
         <div className="overview-btn btn">
-          <a href="/challenge/overview" >Overview</a>
+          <NavLink to="/challenge/overview">Overview</NavLink>
         </div>
 
         <div className="statistics-btn btn">
-        <a href="/challenge/statistics" >Statistics</a>
+          <NavLink to="/challenge/statistics">Statistics</NavLink>
         </div>
         
         { 
         isAdmin ?
         (<div className="setting-btn btn">
-          <a href="/admin" >Settings</a>
+          <NavLink to="/admin">Settings</NavLink>
         </div>) : 
         null
         }

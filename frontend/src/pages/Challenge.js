@@ -3,16 +3,17 @@ import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Menu from '../components/Menu/Menu';
 import Counter from '../components/Counter/Counter';
+import MessageBoard from '../components/MessageBoard/MessageBoard';
 import { fetchCommitmentsAsync } from '../redux/commitments/commitments.actions';
 import ChallengeOverview from '../components/challenge-overview/challenge-overview.component';
 import '../styles/Challenge.css';
 
 function Challenge() {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <div className="challenge-container">
@@ -31,7 +32,8 @@ function Challenge() {
             </Switch>
           </div>
         </div>
-        <div className="message-board dummy" />
+        
+        < MessageBoard />
       </main>
     </div>
   );

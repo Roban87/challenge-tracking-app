@@ -1,0 +1,50 @@
+.message-container {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: auto;
+}
+
+.message-container::-webkit-scrollbar {
+  display: none;
+}
+
+.messages {
+  height: 100%;
+}
+
+.message-form {
+  height: 15%;
+  padding-top: 5px;
+}
+
+.message-form * {
+  color: #474b4f;
+  font-size: 1.2em;
+}
+
+.message-form textarea {
+  resize: none;
+  width: 100%;
+  height: 80%;
+  outline: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.send-btn {
+  width: 120px;
+  height: 40px;
+  border: none;
+  background-color: #86c232;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  transition: font-size .5s;
+}
+
+.send-btn:hover {
+  background-color: #61892f;
+  font-size: 20px;
+}

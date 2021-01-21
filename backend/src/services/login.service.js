@@ -32,6 +32,7 @@ export const loginService = {
     return {
       token,
       userId: userData.results[0].id,
+      username: userData.results[0].username,
       isAdmin: userData.results[0].is_admin,
       isValidated: userData.results[0].is_validated,
     };
