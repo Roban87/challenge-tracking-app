@@ -25,7 +25,7 @@ export const registerService = {
   async insertNewUser(username, password, email, admin) {
     if (admin) {
       const hashedPassword = await this.hashUserPassword(password);
-      return await usersRepo.insertAdmin(username, hashedPassword, email);
+      return await usersRepo.insertAdmin(username, hashedPassword, email, 1);
     }
     this.validateUsernameAndPassword(username, password, email);
     const hashedPassword = await this.hashUserPassword(password);

@@ -12,10 +12,10 @@ export const usersRepo = {
       throw errorObj;
     }
   },
-  async insertAdmin(username, password, email) {
-    const sqlQuery = 'INSERT INTO users(username, password, email, isAdmin) VALUES(?,?,?, 1);';
+  async insertAdmin(username, password, email, isAdmin) {
+    const sqlQuery = 'INSERT INTO users(is_admin, username, password, email) VALUES(?,?,?,?);';
     try {
-      return await db.query(sqlQuery, [username, password, email]);
+      return await db.query(sqlQuery, [isAdmin, username, password, email]);
     } catch (err) {
       const errorObj = /Duplicate entry/.test(err.sqlMessage)
         ? { status: 401, message: 'User already exists' }
