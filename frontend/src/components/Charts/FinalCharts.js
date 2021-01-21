@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
@@ -9,28 +8,13 @@ import moment from 'moment';
 function FinalCharts() {
   const dispatch = useDispatch();
   const commitments = useSelector((state) => state.commitments.commitments);
-  const userId = useSelector((state) => state.user.userId);
   const challenge = useSelector((state) => state.challenge.challenge);
-  const [datesLabel, setDatesLabel] = useState([]);
   const [users, setUsers] = useState([]);
-  const [selectedUserId, setSelectedUserId] = useState(userId);
+  
 
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
   }, [dispatch]);
-
-  useEffect(() => {
-    (function setChartDates() {
-      let dateArray = [];
-      let currentDate = moment(challenge.startDate);
-      let stopDate = moment(challenge.endDate);
-      while (currentDate <= stopDate) {
-        dateArray.push(moment(currentDate).format('YYYY-MM-DD'));
-        currentDate = moment(currentDate).add(1, 'days');
-      }
-      setDatesLabel(dateArray);
-    })();
-  }, []);
 
   useEffect(() => {
     const getUsersData = async () => {
@@ -46,41 +30,6 @@ function FinalCharts() {
     };
     getUsersData();
   }, []);
-
-  const remaining = commitments
-    .filter((comm) => comm.userId === selectedUserId)
-    .filter((commitment) => commitment.endDate >= moment(new Date()).format())
-    .length;
-  const missed = commitments
-    .filter((comm) => comm.userId === selectedUserId)
-    .filter(
-      (commitment) =>
-        commitment.endDate < moment(new Date()).format() &&
-        commitment.isDone === false
-    ).length;
-  const completed = commitments
-    .filter((comm) => comm.userId === selectedUserId)
-    .filter((commitment) => commitment.isDone === true).length;
-
-  const completedPerDay = datesLabel.map((date) => {
-    const dailyComms = commitments
-      .filter((comm) => comm.userId === selectedUserId)
-      .filter((comm) => comm.endDate <= date);
-    const percent =
-      (dailyComms.filter((comm) => comm.isDone === true).length /
-        dailyComms.length) *
-      100;
-    return percent;
-  });
-
-  const totalCompletedPerDay = datesLabel.map((date) => {
-    const dailyComms = commitments.filter((comm) => comm.endDate <= date);
-    const percent =
-      (dailyComms.filter((comm) => comm.isDone === true).length /
-        dailyComms.length) *
-      100;
-    return percent;
-  });
 
   const usersDoneCommitments = commitments
     .filter((comm) => comm.isDone === true)
