@@ -20,14 +20,16 @@ export const challengeRepo = {
       challengeDescription,
       startDate,
       endDate,
+      minCommit,
     } = challengeDetails;
     try {
-      const sqlQuery = 'INSERT INTO challenge (title, description, start_date, end_date) VALUES(?, ?, ?, ?)';
+      const sqlQuery = 'INSERT INTO challenge (title, description, start_date, end_date, min_commitments) VALUES(?, ?, ?, ?, ?)';
       await db.query(sqlQuery, [
         challengeName,
         challengeDescription,
         startDate,
         endDate,
+        minCommit,
       ]);
       const responseSqlQuery = 'SELECT * FROM challenge ORDER BY id DESC LIMIT 1';
       const challengeQueryData = await db.query(responseSqlQuery);
@@ -45,14 +47,16 @@ export const challengeRepo = {
       challengeDescription,
       startDate,
       endDate,
+      minCommit,
     } = challengeDetails;
     try {
-      const sqlQuery = 'UPDATE challenge SET title=?, description=?, start_date=?, end_date=?';
+      const sqlQuery = 'UPDATE challenge SET title=?, description=?, start_date=?, end_date=?, min_commitments=?';
       await db.query(sqlQuery, [
         challengeName,
         challengeDescription,
         startDate,
         endDate,
+        minCommit,
       ]);
       const responseSqlQuery = 'SELECT * FROM challenge ORDER BY id DESC LIMIT 1';
       const challengeQueryData = await db.query(responseSqlQuery);

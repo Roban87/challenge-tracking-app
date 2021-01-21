@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import CreateChallenge from '../components/AdminChallenge/CreateChallenge';
 import EditChallenge from '../components/AdminChallenge/EditChallenge';
 import { getChallenge } from '../redux/challenge/challenge.action';
@@ -13,8 +14,14 @@ import {
 import AlertTemplate from 'react-alert-template-basic';
 
 function AdminPage() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challenge.challenge)
+  const isAdmin = useSelector((state) => state.user.isAdmin)
+
+  if(!isAdmin){
+    history.push('/challenge');
+  }
 
   useEffect(() => {
     dispatch(getChallenge());

@@ -189,3 +189,26 @@ span {
   background-color: #474b4f;
   align-self: flex-end;
 }
+
+.title-number {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: max-content;
+}
+
+.commit-number {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+}
