@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import sessionTypes from './session/session.types';
-
+import messageReducer from './message/message.reducer';
 import sessionReducer from './session/session.reducer';
 import challengeReducer from './challenge/challenge.reducer';
 import commitmentsReducer from './commitments/commitments.reducer';
@@ -13,7 +13,7 @@ import currentDateReducer from './current-date/current-date.reducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['session', 'user', 'challenge']
+  whitelist: ['session', 'user', 'challenge', 'messages']
 };
 
 const appReducer = combineReducers({
@@ -23,6 +23,7 @@ const appReducer = combineReducers({
   user: userReducer,
   commitmentForm: commitmentFormReducer,
   currentDate: currentDateReducer,
+  messages: messageReducer,
 });
 
 const rootReducer = (state, action) => {

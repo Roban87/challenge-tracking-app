@@ -2,6 +2,7 @@ import userActionTypes from './user.types';
 
 const initialState = {
   userId: null,
+  username: '',
   isAdmin: false,
   isValidated: false,
 };
@@ -12,6 +13,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userId: action.payload.userId,
+        username: action.payload.username,
         isAdmin: action.payload.isAdmin,
         isValidated: action.payload.isValidated,
       };

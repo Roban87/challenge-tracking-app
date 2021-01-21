@@ -1,9 +1,15 @@
 .challenge-overview {
+  height: 100%;
+  overflow-y: auto;
   display: flex;
   flex-direction: row;
   height: 600px;
   overflow-y: scroll;
   position: relative;
+}
+
+.challenge-overview::-webkit-scrollbar {
+  display: none;
 }
 
 .challenge-days {
