@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getNumOfDays, formatDateToString } from '../../utilities/date.utils';
 import { updateCommitmentAsync, removeCommitmentAsync } from '../../redux/commitments/commitments.actions';
 import './commitment.styles.css';
@@ -7,12 +7,17 @@ import './commitment.styles.css';
 export default function Commitment({ commitment }) {
   const { startDate, endDate, name, id, isDone } = commitment;
   const dispatch = useDispatch();
+  const { currentDate } = useSelector(state => state.currentDate);
   const [isRemoveHidden, setIsRemoveHidden] = useState(true);
   const startDateString = formatDateToString(new Date(startDate));
   const endDateString = formatDateToString(new Date(endDate));
   const numOfDays = getNumOfDays(new Date(startDate), new Date(endDate));
 
+  const isCommitmentActive = new Date(endDate).getTime() >= (currentDate.getTime() + (1000*60*60*24));
   function toggleIsDone(e) {
+    if (!isCommitmentActive) {
+      return;
+    }
     dispatch(updateCommitmentAsync({
       startDate: startDateString,
       endDate: endDateString,
@@ -23,6 +28,9 @@ export default function Commitment({ commitment }) {
   }
 
   function drag(ev) {
+    if (!isCommitmentActive) {
+      return;
+    }
     const name = ev.target.getAttribute('name');
     const numOfDays = ev.target.getAttribute('numofdays');
     const container = document.querySelector(`[date="${startDateString}"][container-name="${name}"]`)
@@ -81,10 +89,12 @@ export default function Commitment({ commitment }) {
         numofdays={`${numOfDays}`}
         >
         {
-          !isRemoveHidden ? <i onClick={() => dispatch(removeCommitmentAsync(id))} className="fas fa-times remove-commitment"></i> : null
+         isCommitmentActive ? !isRemoveHidden ? <i onClick={() => dispatch(removeCommitmentAsync(id))} className="fas fa-times remove-commitment"></i> : null : null
         }
         {name}
-        <i onClick={toggleIsDone} className={`${isDone ? "fas fa-check-square" : "far fa-square"} checkbox`}></i>
+        {
+          isCommitmentActive ? <i onClick={toggleIsDone} className={`${isDone ? "fas fa-check-square" : "far fa-square"} checkbox`}></i> : null
+        }      
       </div>
     </div>
   )
