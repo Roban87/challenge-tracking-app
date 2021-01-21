@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
 import generalDataFetch from '../../utilities/generalFetch';
 import { Bar } from 'react-chartjs-2';
-import moment from 'moment';
 
 function FinalCharts() {
   const dispatch = useDispatch();
