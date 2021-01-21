@@ -22,23 +22,26 @@ function MessageBoard() {
     socket.on('message', message => {
       dispatch(setMessage(message));
     });
+
+    let messageContainer = document.getElementById("box");
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+
     return () => socket.disconnect();
   }, [socket, dispatch]);
 
 
-  const handleSendMessage = async (event, message) => {
+  const handleSendMessage = (event, message) => {
     event.preventDefault();
+    
     if (message === '') {
       return;
     }
-    await socket.emit('send-message', { 
+    socket.emit('send-message', { 
       message, 
       senderName: user, 
       id: Date.now() 
     });
 
-    let messageContainer = document.getElementById("box");
-    messageContainer.scrollTop = messageContainer.scrollHeight;
     // setText(''); -> TODO debugolni
   }
 
