@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMonthAndDayString,  createDateArray, getNumOfDays } from '../../utilities/date.utils';
+import { getMonthAndDayString,  createDateArray } from '../../utilities/date.utils';
 import moment from 'moment';
 import CommitmentGroup from '../commitment-group/commitment-group.component';
 import AddCommitment from '../add-commitment/add-commitment.component';

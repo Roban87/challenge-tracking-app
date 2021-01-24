@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { createDateArray, addDays, formatDateToString, getNumOfDays } from '../../utilities/date.utils';
+import { createDateArray } from '../../utilities/date.utils';
 import Commitment from '../commitment/commitment.component';
 
 import { updateCommitmentAsync } from '../../redux/commitments/commitments.actions';
