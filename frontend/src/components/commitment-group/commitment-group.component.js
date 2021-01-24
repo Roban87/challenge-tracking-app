@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createDateArray, addDays, formatDateToString } from '../../utilities/date.utils';
+import { createDateArray, addDays, formatDateToString, getNumOfDays } from '../../utilities/date.utils';
 import Commitment from '../commitment/commitment.component';
 
 import { updateCommitmentAsync } from '../../redux/commitments/commitments.actions';
@@ -30,7 +30,8 @@ export default function CommitmentGroup(props) {
     let containerName = ev.target.getAttribute('container-name');
     let targetDate = ev.target.getAttribute('date');
     if (name === containerName) {
-      if ((new Date(targetDate).getDate() + Number(numOfDays)) <= endDate.getDate() && currentDate.getDate() <= new Date(targetDate).getDate()) {
+      console.log(currentDate, new Date(targetDate));
+      if ((getNumOfDays(startDate, new Date(targetDate)) + Number(numOfDays)) <= getNumOfDays(startDate, endDate) && getNumOfDays(startDate, currentDate) <= (getNumOfDays(startDate, new Date(targetDate)) + Number(numOfDays))) {
         ev.target.appendChild(document.getElementById(commitmentId));
         const commitment = commitments.find((commitment) => commitment.id === Number(commitmentId));
         commitment.startDate = targetDate;

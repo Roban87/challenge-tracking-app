@@ -38,7 +38,6 @@ export default function Commitment({ commitment }) {
     ev.dataTransfer.setData("commitmentId", ev.target.id);
     ev.dataTransfer.setData("name", name);
     ev.dataTransfer.setData("numofdays", numOfDays);
-    console.log(name);
     setTimeout(() => {
       children.forEach((child) => {
         child.style.display = 'none';
@@ -50,7 +49,6 @@ export default function Commitment({ commitment }) {
     ev.stopPropagation();
   }
   function dragEnd(ev) {
-    console.log(ev.target);
     setTimeout(() => {
       ev.target.style.display = 'block';
       ev.target.parentNode.style.display = 'block';
