@@ -33,7 +33,7 @@ export const challengeRepo = {
       ]);
       const responseSqlQuery = 'SELECT * FROM challenge ORDER BY id DESC LIMIT 1';
       const challengeQueryData = await db.query(responseSqlQuery);
-      return challengeQueryData.results[0];
+      return challengeQueryData;
     } catch (err) {
       throw {
         status: 500,

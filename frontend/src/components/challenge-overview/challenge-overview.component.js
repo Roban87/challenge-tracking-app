@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMonthAndDayString,  createDateArray, getNumOfDays } from '../../utilities/date.utils';
+import { getMonthAndDayString,  createDateArray } from '../../utilities/date.utils';
+import moment from 'moment';
 import CommitmentGroup from '../commitment-group/commitment-group.component';
 import AddCommitment from '../add-commitment/add-commitment.component';
 
@@ -11,16 +12,15 @@ export default function ChallengeOverview() {
   const dispatch = useDispatch();
   const [targetGroup, setTargetGroup] = useState('');
   const createFormOpenStatus = useSelector(state => state.commitmentForm.createCommitmentForm);
-  console.log(createFormOpenStatus);
   const { challenge } = useSelector(state => state.challenge);
   const { userId } = useSelector(state => state.user);
   const userCommitments = useSelector(state => {
     const userCommitments = state.commitments.commitments.filter((commitment) => commitment.userId === userId);
     return userCommitments;
   });
-  const startDate = new Date(challenge.startDate);
-  const endDate = new Date(challenge.endDate);
-  const numOfDays = getNumOfDays(startDate, endDate);
+  const endDate = moment(challenge.endDate).format('YYYY-MM-DD');
+  const startDate = moment(challenge.startDate).format('YYYY-MM-DD');
+  const numOfDays = moment(endDate).diff(startDate, 'days');
   const commitmentGroups = userCommitments.reduce((acc, commitment) => {
       if (!acc.includes(commitment.name)) {
         acc.push(commitment.name);

@@ -11,7 +11,6 @@ export const commitmentsController = {
   },
   async post(req, res, next) {
     const { name, startDate, endDate } = req.body;
-    console.log(startDate, endDate);
     const userId = req.user.id;
     try {
       const newCommitment = await commitmentsService.addCommitment({
@@ -51,10 +50,16 @@ export const commitmentsController = {
       isDone,
     } = req.body;
     const userId = req.user.id;
+    const commitment = {
+      name,
+      startDate,
+      endDate,
+      id,
+      userId,
+      isDone,
+    };
     try {
-      const updatedCommitment = await commitmentsService.updateCommitment({
-        name, startDate, endDate, id, isDone, userId,
-      });
+      const updatedCommitment = await commitmentsService.updateCommitment(commitment);
       res.status(200).json(updatedCommitment);
     } catch (err) {
       next(err);

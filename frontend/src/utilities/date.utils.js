@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export function addDays(date, days) {
   const copy = new Date(Number(date))
   copy.setDate(date.getDate() + days)
@@ -10,7 +12,7 @@ export function getNumOfDays(startDate, endDate) {
 }
 
 export function getMonthAndDayString(date) {
-  const dateString = date.toDateString();
+  const dateString = new Date(date).toDateString();
 
   return dateString.substring(0, dateString.length - 4);
 }
@@ -18,7 +20,7 @@ export function getMonthAndDayString(date) {
 export function createDateArray(startDate, numOfDays) {
   const days = [];
   for(let i = 0; i < numOfDays; i++) {
-    days.push(addDays(startDate, i))
+    days.push(moment(startDate).add(i, 'd').format('YYYY-MM-DD'));
   }
   return days;
 }

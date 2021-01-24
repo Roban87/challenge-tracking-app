@@ -4,9 +4,8 @@ import {
   Router,
   Switch,
   Route,
-  Redirect
 } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';

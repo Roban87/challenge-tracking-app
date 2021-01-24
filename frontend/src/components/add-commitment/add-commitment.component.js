@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 import { addCommitmentAsync} from '../../redux/commitments/commitments.actions';
 import { toggleCreateCommitmentForm } from '../../redux/commitment-form/commitment-form.actions';
-import { formatDateString, formatDateToString } from '../../utilities/date.utils';
 import './add-commitment.styles.css';
 
 export default function AddCommitment(props) {
@@ -13,7 +13,7 @@ export default function AddCommitment(props) {
   const [commitmentStartDate, setCommitmentStartDate] = useState('')
   const [commitmentEndDate, setCommitmentEndDate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const minStartDate = startDate.getTime() > currentDate.getTime() ? startDate : currentDate;
+  const minStartDate = moment(startDate).diff(currentDate, 'days') > 0 ? startDate : currentDate;
   const minEndDate = new Date(minStartDate.getTime() + (1000*60*60*24));
 
   const handleChange = (e) => {
@@ -22,10 +22,10 @@ export default function AddCommitment(props) {
       setCommitmentName(value)
     }
     if (name === "start-date") {
-      setCommitmentStartDate(`${value}`)
+      setCommitmentStartDate(moment(value).format('YYYY-MM-DD'));
     }
     if (name === "end-date") {
-      setCommitmentEndDate(`${value}`)
+      setCommitmentEndDate(moment(value).format('YYYY-MM-DD'));
     }
   }
 
@@ -47,20 +47,18 @@ export default function AddCommitment(props) {
     const commitmentsByName = commitments.filter((commitment) => commitment.name === commitmentName);
 
     if (commitmentsByName.length !== 0) {
-      const startDateCompare = new Date(commitmentStartDate);
-      const endDateCompare = new Date(commitmentEndDate);
+
 
       for (let i = 0; i < commitmentsByName.length; i++) {
-        if (startDateCompare >= new Date(formatDateString(commitmentsByName[i].startDate)) 
-          && startDateCompare < new Date(formatDateString(commitmentsByName[i].endDate))) {
-            console.log(formatDateString(commitmentsByName[i].endDate))
-            setErrorMessage('Existing commitment in selected timeslot')
-            return;
+        if (moment(commitmentStartDate).diff(commitmentsByName[i].startDate, 'days') >= 0 
+          && moment(commitmentStartDate).diff(commitmentsByName[i].endDate, 'days') < 0) {   
+          setErrorMessage('Existing commitment in selected timeslot')
+          return;
         }
-        if (endDateCompare > new Date(formatDateString(commitmentsByName[i].startDate)) 
-          && endDateCompare <= new Date(formatDateString(commitmentsByName[i].endDate))) {
-            setErrorMessage('Existing commitment in selected timeslot')
-            return;
+        if (moment(commitmentEndDate).diff(commitmentsByName[i].startDate, 'days') > 0 
+          && moment(commitmentEndDate).diff(commitmentsByName[i].endDate, 'days') <= 0) {
+          setErrorMessage('Existing commitment in selected timeslot')
+          return;
         }
       }
     }
@@ -96,8 +94,8 @@ export default function AddCommitment(props) {
           type="date"
           onChange={handleChange}
           value={commitmentStartDate && commitmentStartDate}
-          max={`${formatDateToString(endDate)}`}
-          min={`${formatDateToString(minStartDate)}`} 
+          max={`${moment(endDate).format('YYYY-MM-DD')}`}
+          min={`${moment(minStartDate).format('YYYY-MM-DD')}`} 
         />
         <label>End Date</label>
         <input 
@@ -105,8 +103,8 @@ export default function AddCommitment(props) {
           type="date"
           onChange={handleChange}
           value={commitmentEndDate && commitmentEndDate}
-          max={`${formatDateToString(endDate)}`}
-          min={`${formatDateToString(minEndDate)}`} 
+          max={`${moment(endDate).format('YYYY-MM-DD')}`}
+          min={`${moment(minEndDate).format('YYYY-MM-DD')}`} 
         />
         {
           errorMessage ? <p>{errorMessage}</p> : null
