@@ -40,7 +40,7 @@
 .table-header {
   /* position: fixed; */
   background-color: #61892f;
-  min-height: 70px;
+  min-height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -55,7 +55,8 @@
   color: white;
   font-size: 17px; 
   margin: 0px;
-  height: 35px;
+  max-height: 35px;
+  min-height: 35px;
   line-height: 30px;
   text-align: left;
   padding-left: 30px;

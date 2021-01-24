@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { commitmentsRepo } from '../repositories';
 
 export const commitmentsService = {
@@ -8,8 +9,8 @@ export const commitmentsService = {
       name: commitment.name,
       userId: commitment.user_id,
       challengeId: commitment.challenge_id,
-      startDate: commitment.start_date,
-      endDate: commitment.end_date,
+      startDate: moment(commitment.start_date).format('YYYY-MM-DD'),
+      endDate: moment(commitment.end_date).format('YYYY-MM-DD'),
       isDone: Boolean(commitment.is_done),
     }));
     return formattedCommitments;
@@ -23,8 +24,8 @@ export const commitmentsService = {
       name: newCommitment.name,
       userId: newCommitment.user_id,
       challengeId: newCommitment.challenge_id,
-      startDate: newCommitment.start_date,
-      endDate: newCommitment.end_date,
+      startDate: moment(newCommitment.start_date).format('YYYY-MM-DD'),
+      endDate: moment(newCommitment.end_date).format('YYYY-MM-DD'),
       isDone: Boolean(newCommitment.is_done),
     };
   },
@@ -48,8 +49,8 @@ export const commitmentsService = {
       name: updatedCommitment.name,
       userId: updatedCommitment.user_id,
       challengeId: updatedCommitment.challenge_id,
-      startDate: updatedCommitment.start_date,
-      endDate: updatedCommitment.end_date,
+      startDate: moment(updatedCommitment.start_date).format('YYYY-MM-DD'),
+      endDate: moment(updatedCommitment.end_date).format('YYYY-MM-DD'),
       isDone: Boolean(updatedCommitment.is_done),
     };
   },

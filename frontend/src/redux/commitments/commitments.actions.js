@@ -13,7 +13,6 @@ export const updateCommitment = (commitment) => ({
 
 export const updateCommitmentAsync = (commitment) => {
   return async (dispatch) => {
-    console.log(commitment);
     const endpoint = '/commitments';
     const method = 'PUT';
     const results = await generalDataFetch(endpoint, method, commitment);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNumOfDays, formatDateToString } from '../../utilities/date.utils';
+import moment from 'moment';
 import { updateCommitmentAsync, removeCommitmentAsync } from '../../redux/commitments/commitments.actions';
 import './commitment.styles.css';
 
@@ -9,18 +9,15 @@ export default function Commitment({ commitment }) {
   const dispatch = useDispatch();
   const { currentDate } = useSelector(state => state.currentDate);
   const [isRemoveHidden, setIsRemoveHidden] = useState(true);
-  const startDateString = formatDateToString(new Date(startDate));
-  const endDateString = formatDateToString(new Date(endDate));
-  const numOfDays = getNumOfDays(new Date(startDate), new Date(endDate));
-
-  const isCommitmentActive = new Date(endDate).getTime() >= (currentDate.getTime() + (1000*60*60*24));
+  const numOfDays = moment(endDate).diff(startDate, 'days');
+  const isCommitmentActive = moment(currentDate).diff(endDate, 'days') <= 1;
   function toggleIsDone(e) {
     if (!isCommitmentActive) {
       return;
     }
     dispatch(updateCommitmentAsync({
-      startDate: startDateString,
-      endDate: endDateString,
+      startDate,
+      endDate,
       name,
       id,
       isDone: !isDone,
@@ -33,7 +30,7 @@ export default function Commitment({ commitment }) {
     }
     const name = ev.target.getAttribute('name');
     const numOfDays = ev.target.getAttribute('numofdays');
-    const container = document.querySelector(`[date="${startDateString}"][container-name="${name}"]`)
+    const container = document.querySelector(`[date="${startDate}"][container-name="${name}"]`)
     const children = Array.from(container.children);
     ev.dataTransfer.setData("commitmentId", ev.target.id);
     ev.dataTransfer.setData("name", name);
@@ -64,7 +61,7 @@ export default function Commitment({ commitment }) {
   }
 
   const style = {
-    height: `${30*numOfDays}px`,
+    height: `${35*numOfDays}px`,
     backgroundColor: isDone ? '#86c232' : '#6b6e70',
     zIndex: '200',
     position: 'absolute',

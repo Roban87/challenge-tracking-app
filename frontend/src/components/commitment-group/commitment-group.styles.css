@@ -8,8 +8,8 @@
 .calendar-block {
   background-color:transparent;
   color: black; 
-  max-height: 30px;
-  min-height: 30px; 
+  max-height: 35px;
+  min-height: 35px; 
   margin: 0px;
   overflow-y: visible;
   position: relative;

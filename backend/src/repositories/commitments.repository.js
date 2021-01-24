@@ -83,8 +83,8 @@ export const commitmentsRepo = {
     try {
       return await db.query(sqlQuery, [
         name,
-        new Date(startDate).toISOString().slice(0, 19).replace('T', ' '),
-        new Date(endDate).toISOString().slice(0, 19).replace('T', ' '),
+        startDate,
+        endDate,
         isDone,
         id,
         userId,

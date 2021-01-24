@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 import { createDateArray, addDays, formatDateToString, getNumOfDays } from '../../utilities/date.utils';
 import Commitment from '../commitment/commitment.component';
 
@@ -24,18 +25,41 @@ export default function CommitmentGroup(props) {
   
   const drop = (ev) => {
     ev.preventDefault();
-    let commitmentId = ev.dataTransfer.getData("commitmentId");
+    let commitmentId = Number(ev.dataTransfer.getData("commitmentId"));
     let name = ev.dataTransfer.getData("name");
-    let numOfDays = ev.dataTransfer.getData("numofdays");
+    let commitDays = ev.dataTransfer.getData("numofdays");
     let containerName = ev.target.getAttribute('container-name');
     let targetDate = ev.target.getAttribute('date');
+    let isBeforeEndDate = moment(endDate).diff(moment(targetDate).add(commitDays, 'd'), 'days') >= 0;
+    let isAfterCurrentDate = moment(targetDate).add(Number(numOfDays), 'd').diff(currentDate, 'days') >= 0;
+    let commitEndDate = moment(targetDate).add(commitDays, 'd').format('YYYY-MM-DD');
+
+    const isSlotFree = (commitment, allCommitments) => {
+      const { startDate, endDate, id } = commitment;
+      const otherCommitments = allCommitments.filter((otherCommitment) => otherCommitment.id !== id);
+      for (let i = 0; i < otherCommitments.length; i++) {
+        if (moment(startDate).diff(otherCommitments[i].startDate, 'days') >= 0 
+          && moment(startDate).diff(otherCommitments[i].endDate, 'days') < 0) {   
+            return false;
+        }
+        if (moment(endDate).diff(otherCommitments[i].startDate, 'days') > 0 
+          && moment(endDate).diff(otherCommitments[i].endDate, 'days') <= 0) {
+            return false;
+        }
+      }
+      return true;
+    }
+
     if (name === containerName) {
-      console.log(currentDate, new Date(targetDate));
-      if ((getNumOfDays(startDate, new Date(targetDate)) + Number(numOfDays)) <= getNumOfDays(startDate, endDate) && getNumOfDays(startDate, currentDate) <= (getNumOfDays(startDate, new Date(targetDate)) + Number(numOfDays))) {
+      if (isBeforeEndDate && isAfterCurrentDate && isSlotFree({
+            id: commitmentId, 
+            endDate: commitEndDate, 
+            startDate: targetDate,
+          }, commitments)) {
         ev.target.appendChild(document.getElementById(commitmentId));
         const commitment = commitments.find((commitment) => commitment.id === Number(commitmentId));
         commitment.startDate = targetDate;
-        commitment.endDate = formatDateToString(addDays(new Date(targetDate), Number(numOfDays)));
+        commitment.endDate = commitEndDate;
         dispatch(updateCommitmentAsync(commitment));
       }
     }
@@ -50,12 +74,13 @@ export default function CommitmentGroup(props) {
       </div>
       {
         blockArray.map((date, index) => {
-          const commitment = commitments.filter((commitment) => formatDateToString(new Date(commitment.startDate)) === formatDateToString(date))[0];
+          const commitment = commitments.filter((commitment) => (
+            moment(commitment.startDate).diff(date,'days') === 0))[0];
           return (
             <div 
               key={`${name}-${index}`} 
               container-name={`${name}`} 
-              date={`${formatDateToString(date)}`} 
+              date={`${date}`} 
               className="calendar-block" 
               onDrop={drop}
               onDragOver={allowDrop}

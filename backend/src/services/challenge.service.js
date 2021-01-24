@@ -1,7 +1,8 @@
+import moment from 'moment';
 import { challengeRepo } from '../repositories';
 
 export const challengeService = {
-  getChallenge: async () => {
+  async getChallenge() {
     const challenge = await challengeRepo.getChallenge();
     if (!challenge) {
       throw {
@@ -13,8 +14,8 @@ export const challengeService = {
     return {
       title,
       description,
-      startDate: challenge.start_date,
-      endDate: challenge.end_date,
+      startDate: moment(challenge.start_date).format('YYYY-MM-DD'),
+      endDate: moment(challenge.end_date).format('YYYY-MM-DD'),
       minCommit: challenge.min_commitments,
     };
   },
