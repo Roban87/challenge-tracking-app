@@ -20,11 +20,11 @@ exports.up = function(db, callback) {
     title: 'string',
     description: 'string',
     start_date: {
-      type: 'timestamp',
+      type: 'datetime',
       notNull: true,
     },
     end_date: {
-      type: 'timestamp',
+      type: 'datetime',
       notNull: true,
     },
     min_commitments: {
