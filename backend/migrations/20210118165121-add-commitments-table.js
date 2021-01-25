@@ -19,11 +19,11 @@ exports.up = function(db, callback) {
     id: { type: 'int', primaryKey: true, autoIncrement: true},  
     name: 'string',
     start_date: {
-      type: 'timestamp',
+      type: 'datetime',
       notNull: true
     },
     end_date: {
-      type: 'timestamp',
+      type: 'datetime',
       notNull: true,
     },
     is_done: {
