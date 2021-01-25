@@ -22,4 +22,4 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(socketPort, () => logger.info(`Socket listening on port ${socketPort}`));
+server.listen(socketPort, () => logger.info(`Socket is listening on ${socketPort}`));

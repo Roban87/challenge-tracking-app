@@ -10,6 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 function EditChallenge() {
   const challenge = useSelector((state) => state.challenge.challenge);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
   const dispatch = useDispatch();
 
   const [startDate, setStartDate] = useState(new Date(challenge.startDate));
@@ -41,6 +42,7 @@ function EditChallenge() {
     const endpoint = '/admin/challenge';
     const data = {
       challengeDetails: {
+        isAdmin,
         challengeName,
         challengeDescription,
         startDate: moment(startDate).format().slice(0, 10),
