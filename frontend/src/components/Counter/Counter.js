@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
-import TimeMachine from '../time-machine/time-machine.component';
+// import TimeMachine from '../time-machine/time-machine.component';
 import './Counter.css';
 
 function Counter() {
@@ -47,7 +47,7 @@ function Counter() {
 
   return (
     <div className="counter-container">
-      <TimeMachine />
+      {/* <TimeMachine /> */}
       {currentTimestamp < challengeStartTimestamp ?
       <h1><span>{until}</span> 'till <span>CHALLENGE</span> starts</h1> :
       (currentTimestamp < challengeEndTimestamp ? 
