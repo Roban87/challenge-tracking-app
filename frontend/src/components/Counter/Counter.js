@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
-// import TimeMachine from '../time-machine/time-machine.component';
+import TimeMachine from '../time-machine/time-machine.component';
 import './Counter.css';
 
 function Counter() {
   const challenge = useSelector((state) => state.challenge.challenge);
-  const currentTime = useSelector(state=> state.currentDate.currentDate);
   const [ until, setUntil ] = useState();
 
-  const challengeStartTimestamp = new Date(challenge.startDate).getTime();
-  const challengeEndTimestamp = new Date(challenge.endDate).getTime();
-  const currentTimestamp = currentTime;
+  const challengeStartTimestamp = moment(challenge.startDate);
+  const challengeEndTimestamp = moment(challenge.endDate);
+  const currentTimestamp = moment(new Date());
 
   const convertTime = (timestamp) => {
     let seconds = moment.duration(timestamp).seconds();
     let minutes = moment.duration(timestamp).minutes();
-    let hours = moment.duration(timestamp).hours() + 1;
+    let hours = moment.duration(timestamp).hours();
     let days = moment.duration(timestamp).days();
 
     let formatedTime = 
@@ -47,7 +46,7 @@ function Counter() {
 
   return (
     <div className="counter-container">
-      {/* <TimeMachine /> */}
+      <TimeMachine />
       {currentTimestamp < challengeStartTimestamp ?
       <h1><span>{until}</span> 'till <span>CHALLENGE</span> starts</h1> :
       (currentTimestamp < challengeEndTimestamp ? 
