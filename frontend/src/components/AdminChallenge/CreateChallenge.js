@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { useAlert } from 'react-alert';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -7,6 +8,7 @@ import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
 function CreateChallenge() {
+  const isAdmin = useSelector((state) => state.user.isAdmin);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [challengeName, setChallengeName] = useState(null);
@@ -27,6 +29,7 @@ function CreateChallenge() {
     const endpoint = '/admin/challenge';
     const data = {
       challengeDetails: {
+        isAdmin,
         challengeName,
         challengeDescription,
         startDate: moment(startDate).format().slice(0, 10),

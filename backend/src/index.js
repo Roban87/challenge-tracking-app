@@ -17,11 +17,9 @@ const io = require('socket.io')(server, {
 });
 
 io.on('connection', (socket) => {
-  socket.emit('connection', 'hello');
-
   socket.on('send-message', (message) => {
     io.emit('message', message);
   });
 });
 
-server.listen(socketPort, () => console.log(`Listening on port ${socketPort}`));
+server.listen(socketPort, () => logger.info(`Socket is listening on ${socketPort}`));
