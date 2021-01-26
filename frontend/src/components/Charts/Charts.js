@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Line, Pie } from 'react-chartjs-2';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
 import generalDataFetch from '../../utilities/generalFetch';
 
@@ -22,11 +22,11 @@ function Charts() {
   useEffect(() => {
     (function setChartDates() {
       const dateArray = [];
-      let currentDate = moment(challenge.startDate);
-      const stopDate = moment(challenge.endDate);
+      let currentDate = dayjs(challenge.startDate);
+      const stopDate = dayjs(challenge.endDate);
       while (currentDate <= stopDate) {
-        dateArray.push(moment(currentDate).format('YYYY-MM-DD'));
-        currentDate = moment(currentDate).add(1, 'days');
+        dateArray.push(dayjs(currentDate).format('YYYY-MM-DD'));
+        currentDate = dayjs(currentDate).add(1, 'd');
       }
       setDatesLabel(dateArray);
     }());
@@ -49,12 +49,12 @@ function Charts() {
 
   const remaining = commitments
     .filter((comm) => comm.userId === selectedUserId)
-    .filter((commitment) => commitment.endDate >= moment(machineDate).format())
+    .filter((commitment) => commitment.endDate >= dayjs(machineDate).format())
     .length;
   const missed = commitments
     .filter((comm) => comm.userId === selectedUserId)
     .filter(
-      (commitment) => commitment.endDate < moment(machineDate).format()
+      (commitment) => commitment.endDate < dayjs(machineDate).format()
         && commitment.isDone === false,
     ).length;
   const completed = commitments

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { createDateArray } from '../../utilities/date.utils';
 import Commitment from '../commitment/commitment.component';
 
@@ -38,21 +38,21 @@ function CommitmentGroup(props) {
     const commitDays = ev.dataTransfer.getData('numofdays');
     const containerName = ev.target.getAttribute('container-name');
     const targetStartDate = ev.target.getAttribute('date');
-    const isBeforeEndDate = moment(challengeEndDate).diff(moment(targetStartDate).add(commitDays, 'd'), 'days') >= 0;
-    const isAfterCurrentDate = moment(targetStartDate).add(Number(commitDays), 'd').diff(currentDate, 'days') >= 0;
-    const targetEndDate = moment(targetStartDate).add(commitDays, 'd').format('YYYY-MM-DD');
+    const isBeforeEndDate = dayjs(challengeEndDate).diff(dayjs(targetStartDate).add(commitDays, 'd'), 'd') >= 0;
+    const isAfterCurrentDate = dayjs(targetStartDate).add(Number(commitDays), 'd').diff(currentDate, 'd') >= 0;
+    const targetEndDate = dayjs(targetStartDate).add(commitDays, 'd').format('YYYY-MM-DD');
 
     const isSlotFree = (commitment, allCommitments) => {
       const { startDate, endDate, id } = commitment;
       const otherCommitments = allCommitments.filter((otherCommitment) => (
         otherCommitment.id !== id));
       for (let i = 0; i < otherCommitments.length; i++) {
-        if (moment(startDate).diff(otherCommitments[i].startDate, 'days') >= 0
-          && moment(startDate).diff(otherCommitments[i].endDate, 'days') < 0) {
+        if (dayjs(startDate).diff(otherCommitments[i].startDate, 'd') >= 0
+          && dayjs(startDate).diff(otherCommitments[i].endDate, 'd') < 0) {
           return false;
         }
-        if (moment(endDate).diff(otherCommitments[i].startDate, 'days') > 0
-          && moment(endDate).diff(otherCommitments[i].endDate, 'days') <= 0) {
+        if (dayjs(endDate).diff(otherCommitments[i].startDate, 'd') > 0
+          && dayjs(endDate).diff(otherCommitments[i].endDate, 'd') <= 0) {
           return false;
         }
       }
@@ -83,7 +83,7 @@ function CommitmentGroup(props) {
       {
         blockArray.map((date, index) => {
           const commitment = commitments.filter((commit) => (
-            moment(commit.startDate).diff(date, 'days') === 0))[0];
+            dayjs(commit.startDate).diff(date, 'd') === 0))[0];
           return (
             <div
               key={`${name}-${index}`}

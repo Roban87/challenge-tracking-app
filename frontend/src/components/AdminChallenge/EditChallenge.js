@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import { useAlert } from 'react-alert';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import generalDataFetch from '../../utilities/generalFetch';
 import { getChallenge } from '../../redux/challenge/challenge.action';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -35,7 +35,6 @@ function EditChallenge() {
 
   const alert = useAlert();
   const history = useHistory();
-  moment().format();
 
   const submitChallenge = async () => {
     const method = 'PUT';
@@ -45,8 +44,8 @@ function EditChallenge() {
         isAdmin,
         challengeName,
         challengeDescription,
-        startDate: moment(startDate).format().slice(0, 10),
-        endDate: moment(endDate).format().slice(0, 10),
+        startDate: dayjs(startDate).format().slice(0, 10),
+        endDate: dayjs(endDate).format().slice(0, 10),
         minCommit,
       },
     };

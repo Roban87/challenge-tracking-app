@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import TimeMachine from '../time-machine/time-machine.component';
 import './Counter.css';
 
 function Counter() {
+  dayjs.extend(duration);
   const challenge = useSelector((state) => state.challenge.challenge);
   const [until, setUntil] = useState();
 
-  const challengeStartTimestamp = moment(challenge.startDate);
-  const challengeEndTimestamp = moment(challenge.endDate);
-  const currentTimestamp = moment(new Date());
+  const challengeStartTimestamp = dayjs(challenge.startDate);
+  const challengeEndTimestamp = dayjs(challenge.endDate);
+  const currentTimestamp = dayjs();
 
   const convertTime = (timestamp) => {
-    const seconds = moment.duration(timestamp).seconds();
-    const minutes = moment.duration(timestamp).minutes();
-    const hours = moment.duration(timestamp).hours();
-    const days = moment.duration(timestamp).days();
+    const seconds = dayjs.duration(timestamp).seconds();
+    const minutes = dayjs.duration(timestamp).minutes();
+    const hours = dayjs.duration(timestamp).hours();
+    const days = dayjs.duration(timestamp).days();
 
     const formatedTime = `${days.toString()} day(s) ${
       hours.toString().padStart(2, '0')} h ${

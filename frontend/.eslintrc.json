@@ -59,7 +59,8 @@
     "jsx-a11y/control-has-associated-label": "off",
     "no-param-reassign": "off",
     "no-nested-ternary": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "linebreak-style": "off"
   },
   "ignorePatterns": "src/serviceWorker.js"
 }

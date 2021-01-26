@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { addCommitmentAsync } from '../../redux/commitments/commitments.actions';
 import { toggleCreateCommitmentForm } from '../../redux/commitment-form/commitment-form.actions';
 import './add-commitment.styles.css';
@@ -16,8 +16,8 @@ function AddCommitment(props) {
   const [commitmentStartDate, setCommitmentStartDate] = useState('');
   const [commitmentEndDate, setCommitmentEndDate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const minStartDate = moment(startDate).diff(moment(currentDate).format('YYYY-MM-DD'), 'days') > 0 ? startDate : currentDate;
-  const minEndDate = moment(minStartDate).add(1, 'd');
+  const minStartDate = dayjs(startDate).diff(dayjs(currentDate).format('YYYY-MM-DD'), 'd') > 0 ? startDate : currentDate;
+  const minEndDate = dayjs(minStartDate).add(1, 'd');
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -25,10 +25,10 @@ function AddCommitment(props) {
       setCommitmentName(value);
     }
     if (name === 'start-date') {
-      setCommitmentStartDate(moment(value).format('YYYY-MM-DD'));
+      setCommitmentStartDate(dayjs(value).format('YYYY-MM-DD'));
     }
     if (name === 'end-date') {
-      setCommitmentEndDate(moment(value).format('YYYY-MM-DD'));
+      setCommitmentEndDate(dayjs(value).format('YYYY-MM-DD'));
     }
   };
 
@@ -52,13 +52,13 @@ function AddCommitment(props) {
 
     if (commitmentsByName.length !== 0) {
       for (let i = 0; i < commitmentsByName.length; i++) {
-        if (moment(commitmentStartDate).diff(commitmentsByName[i].startDate, 'days') >= 0
-          && moment(commitmentStartDate).diff(commitmentsByName[i].endDate, 'days') < 0) {
+        if (dayjs(commitmentStartDate).diff(commitmentsByName[i].startDate, 'd') >= 0
+          && dayjs(commitmentStartDate).diff(commitmentsByName[i].endDate, 'd') < 0) {
           setErrorMessage('Existing commitment in selected timeslot');
           return;
         }
-        if (moment(commitmentEndDate).diff(commitmentsByName[i].startDate, 'days') > 0
-          && moment(commitmentEndDate).diff(commitmentsByName[i].endDate, 'days') <= 0) {
+        if (dayjs(commitmentEndDate).diff(commitmentsByName[i].startDate, 'd') > 0
+          && dayjs(commitmentEndDate).diff(commitmentsByName[i].endDate, 'd') <= 0) {
           setErrorMessage('Existing commitment in selected timeslot');
           return;
         }
@@ -96,8 +96,8 @@ function AddCommitment(props) {
           type="date"
           onChange={handleChange}
           value={commitmentStartDate && commitmentStartDate}
-          max={`${moment(endDate).format('YYYY-MM-DD')}`}
-          min={`${moment(minStartDate).format('YYYY-MM-DD')}`}
+          max={`${dayjs(endDate).format('YYYY-MM-DD')}`}
+          min={`${dayjs(minStartDate).format('YYYY-MM-DD')}`}
         />
         <label htmlFor="end-date">End Date</label>
         <input
@@ -105,8 +105,8 @@ function AddCommitment(props) {
           type="date"
           onChange={handleChange}
           value={commitmentEndDate && commitmentEndDate}
-          max={`${moment(endDate).format('YYYY-MM-DD')}`}
-          min={`${moment(minEndDate).format('YYYY-MM-DD')}`}
+          max={`${dayjs(endDate).format('YYYY-MM-DD')}`}
+          min={`${dayjs(minEndDate).format('YYYY-MM-DD')}`}
         />
         {
           errorMessage ? <p>{errorMessage}</p> : null
@@ -119,24 +119,24 @@ function AddCommitment(props) {
 
 AddCommitment.defaultProps = {
   commitments: [],
-  targetGroup: [],
+  targetGroup: '',
 };
 
 AddCommitment.propTypes = {
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   commitments: PropTypes.arrayOf(
-    PropTypes.objectOf({
+    PropTypes.shape({
       startDate: PropTypes.string,
       endDate: PropTypes.string,
       id: PropTypes.number,
       userId: PropTypes.number,
       name: PropTypes.string,
       challengeId: PropTypes.number,
-      isDone: PropTypes.number,
+      isDone: PropTypes.bool,
     }),
   ),
-  targetGroup: PropTypes.arrayOf(PropTypes.string),
+  targetGroup: PropTypes.string,
 };
 
 export default AddCommitment;

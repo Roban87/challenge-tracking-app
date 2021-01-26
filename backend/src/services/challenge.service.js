@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { challengeRepo } from '../repositories';
 
 export const challengeService = {
@@ -14,8 +14,8 @@ export const challengeService = {
     return {
       title,
       description,
-      startDate: moment(challenge.start_date).format('YYYY-MM-DD'),
-      endDate: moment(challenge.end_date).format('YYYY-MM-DD'),
+      startDate: dayjs(challenge.start_date).format('YYYY-MM-DD'),
+      endDate: dayjs(challenge.end_date).format('YYYY-MM-DD'),
       minCommit: challenge.min_commitments,
     };
   },
