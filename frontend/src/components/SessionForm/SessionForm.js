@@ -80,7 +80,7 @@ function SessionForm({ formType }) {
         alert.error(
           <div style={{ color: 'white' }}>
             Please check your e-mails for user verification!
-          </div>
+          </div>,
         );
         throw Error('User is not verified');
       }
@@ -89,9 +89,6 @@ function SessionForm({ formType }) {
         return dispatch(sessionFailed(loginResponse.jsonData.message));
       }
 
-      const {
-        token, userId, username, isAdmin, isValidated,
-      } = loginResponse.jsonData;
       setPassword('');
       setUsername('');
       dispatch(sessionSuccess(token));
@@ -117,7 +114,7 @@ function SessionForm({ formType }) {
       const registerResponse = await generalDataFetch(
         endpoint,
         method,
-        registData
+        registData,
       );
       if (registerResponse.status !== 200) {
         return dispatch(sessionFailed(registerResponse.jsonData.message));
@@ -151,12 +148,12 @@ function SessionForm({ formType }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className='session-form'>
+      <form onSubmit={handleSubmit} className="session-form">
         <input
-          type='text'
-          id='username-input'
+          type="text"
+          id="username-input"
           value={username}
-          placeholder='Username'
+          placeholder="Username"
           onChange={onUsernameChange}
         />
 
@@ -171,10 +168,10 @@ function SessionForm({ formType }) {
         ) : null}
 
         <input
-          type='password'
-          id='password-input'
+          type="password"
+          id="password-input"
           value={password}
-          placeholder='Password'
+          placeholder="Password"
           onChange={onPasswordChange}
         />
         {/* {formType === 'register' && (
