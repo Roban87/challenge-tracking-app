@@ -1,5 +1,4 @@
 import React from 'react';
-import SessionForm from '../components/SessionForm/SessionForm';
 import '../styles/Login.css';
 import {
   transitions,
@@ -8,6 +7,7 @@ import {
   Provider as AlertProvider,
 } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import SessionForm from '../components/SessionForm/SessionForm';
 
 const options = {
   // you can also just use 'bottom center'
@@ -22,12 +22,14 @@ const options = {
 function Login() {
   return (
     <div>
-      <h1 className='head-text'>
-        See your <span>CHALLENGE</span>
+      <h1 className="head-text">
+        See your
+        {' '}
+        <span>CHALLENGE</span>
       </h1>
-      <div className='form-container login-form'>
+      <div className="form-container login-form">
         <AlertProvider template={AlertTemplate} {...options}>
-          <SessionForm formType={'login'} />
+          <SessionForm formType="login" />
         </AlertProvider>
       </div>
     </div>

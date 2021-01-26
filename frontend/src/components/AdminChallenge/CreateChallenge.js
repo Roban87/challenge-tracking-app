@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { useAlert } from 'react-alert';
 import 'react-datepicker/dist/react-datepicker.css';
 import dayjs from 'dayjs';
 import { useHistory } from 'react-router-dom';
+import { getChallenge, setChallengeError } from '../../redux/challenge/challenge.action';
 import generalDataFetch from '../../utilities/generalFetch';
 
 function CreateChallenge() {
+  const dispatch = useDispatch();
   const isAdmin = useSelector((state) => state.user.isAdmin);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -50,10 +52,11 @@ function CreateChallenge() {
         throw Error('Missing data');
       }
 
-      await generalDataFetch(endpoint, method, data);
+      const results = await generalDataFetch(endpoint, method, data);
+      dispatch(getChallenge(results.jsonData));
       history.push('/challenge');
     } catch (error) {
-      console.log(error);
+      dispatch(setChallengeError(error.message));
     }
   };
 

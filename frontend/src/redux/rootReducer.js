@@ -9,6 +9,7 @@ import commitmentsReducer from './commitments/commitments.reducer';
 import userReducer from './user/user.reducer';
 import commitmentFormReducer from './commitment-form/commitment-form.reducer';
 import currentDateReducer from './current-date/current-date.reducer';
+import usersReducer from './users/users.reducer';
 
 const persistConfig = {
   key: 'root',
@@ -24,6 +25,7 @@ const appReducer = combineReducers({
   commitmentForm: commitmentFormReducer,
   currentDate: currentDateReducer,
   messages: messageReducer,
+  users: usersReducer,
 });
 
 const rootReducer = (state, action) => {

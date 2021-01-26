@@ -1,7 +1,17 @@
 import generalDataFetch from '../../utilities/generalFetch';
 import challengeActionTypes from './challenge.types';
 
-export const getChallenge = () => {
+export const getChallenge = (challengeData) => ({
+  type: challengeActionTypes.CHALLENGE_LOAD_SUCCESS,
+  payload: challengeData,
+});
+
+export const setChallengeError = (errorMessage) => ({
+  type: challengeActionTypes.CHALLENGE_LOAD_FAILED,
+  payload: errorMessage,
+});
+
+export const getChallengeAsync = () => {
   const endpoint = '/challenge';
   const method = 'GET';
 
@@ -10,15 +20,9 @@ export const getChallenge = () => {
     try {
       const result = await generalDataFetch(endpoint, method);
 
-      return dispatch({
-        type: challengeActionTypes.CHALLENGE_LOAD_SUCCESS,
-        payload: result.jsonData,
-      });
+      return dispatch(getChallenge(result.jsonData));
     } catch (error) {
-      return dispatch({
-        type: challengeActionTypes.CHALLENGE_LOAD_FAILED,
-        message: 'Can\'t load challenge. Please refresh the page!',
-      });
+      return dispatch(setChallengeError(error.message));
     }
   };
 };

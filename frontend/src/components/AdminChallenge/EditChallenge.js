@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import { useAlert } from 'react-alert';
 import dayjs from 'dayjs';
 import generalDataFetch from '../../utilities/generalFetch';
-import { getChallenge } from '../../redux/challenge/challenge.action';
+import { getChallengeAsync, getChallenge, setChallengeError } from '../../redux/challenge/challenge.action';
 import 'react-datepicker/dist/react-datepicker.css';
 
 function EditChallenge() {
@@ -30,7 +30,7 @@ function EditChallenge() {
   };
 
   useEffect(() => {
-    dispatch(getChallenge());
+    dispatch(getChallengeAsync());
   }, [dispatch]);
 
   const alert = useAlert();
@@ -70,10 +70,11 @@ function EditChallenge() {
         throw Error('Missing data');
       }
 
-      await generalDataFetch(endpoint, method, data);
+      const results = await generalDataFetch(endpoint, method, data);
+      dispatch(getChallenge(results.jsonData));
       history.push('/challenge');
     } catch (error) {
-      console.log(error);
+      dispatch(setChallengeError(error.message));
     }
   };
 

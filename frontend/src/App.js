@@ -14,30 +14,30 @@ import AdminPage from './pages/AdminPage';
 import Statistics from './pages/Statistics';
 import VerificationPage from './pages/VerificationPage';
 import './App.css';
-import { getChallenge } from './redux/challenge/challenge.action';
+import { getChallengeAsync } from './redux/challenge/challenge.action';
 import FinalStatistics from './pages/FinalStatistics';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getChallenge());
+    dispatch(getChallengeAsync());
   }, [dispatch]);
 
   return (
     <Router>
-    <div className="App">
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-        <Route path="/challenge" component={Challenge} />
-        <Route exact path="/admin" component={AdminPage}/>
-        <Route exact path="/stats" component={Statistics}/>
-        <Route exact path="/finalstats" component={FinalStatistics}/>
-        <Route exact path="/verification/:userId/:verificationToken" component={VerificationPage} />
-      </Switch>
-    </div>
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route path="/challenge" component={Challenge} />
+          <Route exact path="/admin" component={AdminPage} />
+          <Route exact path="/stats" component={Statistics} />
+          <Route exact path="/finalstats" component={FinalStatistics} />
+          <Route exact path="/verification/:userId/:verificationToken" component={VerificationPage} />
+        </Switch>
+      </div>
     </Router>
   );
 }

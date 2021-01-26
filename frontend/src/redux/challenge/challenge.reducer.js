@@ -12,18 +12,20 @@ const challengeReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         challengeLoad: true,
+        error: '',
       };
     case challengeActionTypes.CHALLENGE_LOAD_SUCCESS:
       return {
         ...state,
         challengeLoad: false,
         challenge: action.payload,
+        error: '',
       };
     case challengeActionTypes.CHALLENGE_LOAD_FAILED:
       return {
         ...state,
         challengeLoad: false,
-        error: action.message,
+        error: action.payload,
         challenge: {},
       };
     default:
