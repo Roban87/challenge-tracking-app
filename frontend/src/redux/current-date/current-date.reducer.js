@@ -5,17 +5,17 @@ const INTITAL_STATE = {
 };
 
 const currentDateReducer = (state = INTITAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CurrentDateActionTypes.SET_DATE:
       return {
         ...state,
         currentDate: action.payload,
-      }
+      };
     case CurrentDateActionTypes.RESET_DATE:
       return {
         ...state,
         currentDate: new Date(),
-      }
+      };
     default:
       return state;
   }

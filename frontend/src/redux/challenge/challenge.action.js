@@ -6,19 +6,19 @@ export const getChallenge = () => {
   const method = 'GET';
 
   return async (dispatch) => {
-    dispatch({ type: challengeActionTypes.CHALLENGE_LOADING })
+    dispatch({ type: challengeActionTypes.CHALLENGE_LOADING });
     try {
       const result = await generalDataFetch(endpoint, method);
-      
+
       return dispatch({
         type: challengeActionTypes.CHALLENGE_LOAD_SUCCESS,
-        payload: result.jsonData
+        payload: result.jsonData,
       });
     } catch (error) {
-      return dispatch({ 
+      return dispatch({
         type: challengeActionTypes.CHALLENGE_LOAD_FAILED,
-        message: 'Can\'t load challenge. Please refresh the page!'
+        message: 'Can\'t load challenge. Please refresh the page!',
       });
     }
-  }
-}
+  };
+};

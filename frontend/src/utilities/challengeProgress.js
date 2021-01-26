@@ -4,18 +4,18 @@ export default function defineChallengeProgress() {
   const state = store.getState();
   const { startDate, endDate } = state.challenge;
 
-  let challengeStartTimestamp = new Date(startDate).getTime();
-  let challengeEndTimestamp = new Date(endDate).getTime();
-  let currentTimestamp = Date.now();
+  const challengeStartTimestamp = new Date(startDate).getTime();
+  const challengeEndTimestamp = new Date(endDate).getTime();
+  const currentTimestamp = Date.now();
 
-  if (currentTimestamp < challengeStartTimestamp ) {
-    return "startSoon";
+  if (currentTimestamp < challengeStartTimestamp) {
+    return 'startSoon';
   }
-  if (currentTimestamp < challengeEndTimestamp ) {
-    return "started";
+  if (currentTimestamp < challengeEndTimestamp) {
+    return 'started';
   }
-  if (currentTimestamp > challengeEndTimestamp ) {
-    return "ended";
+  if (currentTimestamp > challengeEndTimestamp) {
+    return 'ended';
   }
-  
+  return null;
 }

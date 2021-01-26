@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
-import generalDataFetch from '../../utilities/generalFetch';
 import { Line, Pie } from 'react-chartjs-2';
 import moment from 'moment';
+import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
+import generalDataFetch from '../../utilities/generalFetch';
 
 function Charts() {
   const dispatch = useDispatch();
@@ -14,23 +13,23 @@ function Charts() {
   const [datesLabel, setDatesLabel] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(userId);
-  const machineDate = useSelector(state => state.currentDate.currentDate);
-  
+  const machineDate = useSelector((state) => state.currentDate.currentDate);
+
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
   }, [dispatch]);
 
   useEffect(() => {
     (function setChartDates() {
-      let dateArray = [];
+      const dateArray = [];
       let currentDate = moment(challenge.startDate);
-      let stopDate = moment(challenge.endDate);
+      const stopDate = moment(challenge.endDate);
       while (currentDate <= stopDate) {
         dateArray.push(moment(currentDate).format('YYYY-MM-DD'));
         currentDate = moment(currentDate).add(1, 'days');
       }
       setDatesLabel(dateArray);
-    })();
+    }());
   }, []);
 
   useEffect(() => {
@@ -39,8 +38,8 @@ function Charts() {
       const endpoint = '/users';
 
       try {
-        const users = await generalDataFetch(endpoint, method);
-        setUsers(users.jsonData);
+        const usersData = await generalDataFetch(endpoint, method);
+        setUsers(usersData.jsonData);
       } catch (error) {
         console.log(error);
       }
@@ -55,9 +54,8 @@ function Charts() {
   const missed = commitments
     .filter((comm) => comm.userId === selectedUserId)
     .filter(
-      (commitment) =>
-        commitment.endDate < moment(machineDate).format() &&
-        commitment.isDone === false
+      (commitment) => commitment.endDate < moment(machineDate).format()
+        && commitment.isDone === false,
     ).length;
   const completed = commitments
     .filter((comm) => comm.userId === selectedUserId)
@@ -67,50 +65,46 @@ function Charts() {
     const dailyComms = commitments
       .filter((comm) => comm.userId === selectedUserId)
       .filter((comm) => comm.endDate <= date);
-    const percent =
-      (dailyComms.filter((comm) => comm.isDone === true).length /
-        dailyComms.length) *
-      100;
+    const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+        / dailyComms.length)
+      * 100;
     return percent;
   });
 
   const totalCompletedPerDay = datesLabel.map((date) => {
     const dailyComms = commitments
       .filter((comm) => comm.endDate <= date);
-    const percent =
-      (dailyComms.filter((comm) => comm.isDone === true).length /
-        dailyComms.length) *
-      100;
+    const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+        / dailyComms.length)
+      * 100;
     return percent;
   });
 
   const handelUserSelection = (event) => {
-    const id = users.filter(user => user.username === event.target.value)[0].id;
+    const { id } = users.filter((user) => user.username === event.target.value)[0];
     setSelectedUserId(id);
-  }
+  };
 
-  const userSelectButtons = users.map((user) => {
-    return (
-      <div className='user' key={user.username}>
-        <input
-          type='radio'
-          id={user.username}
-          name='contact'
-          value={user.username}
-          onClick={handelUserSelection}
-        />
-        <label htmlFor={user.username}>{user.username}</label>
-      </div>
-    );
-  });
+  const userSelectButtons = users.map((user) => (
+    <div className="user" key={user.username}>
+      <input
+        type="radio"
+        id={user.username}
+        name="contact"
+        value={user.username}
+        onClick={handelUserSelection}
+      />
+      <label htmlFor={user.username}>{user.username}</label>
+    </div>
+  ));
 
   return (
-    <div className='charts-main-container'>
-      <div className='user-select-container'>
-        <form className='user-select-form'>{userSelectButtons}</form>
+    <div className="charts-main-container">
+      <div className="user-select-container">
+        <form className="user-select-form">{userSelectButtons}</form>
       </div>
-      <div className='charts-container'>
-        <div className='line-chart-container'>
+      <div className="charts-container">
+        <div className="line-chart-container">
           <Line
             data={{
               labels: datesLabel,

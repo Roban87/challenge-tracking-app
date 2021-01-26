@@ -13,19 +13,19 @@ const sessionReducer = (state = INTITAL_STATE, action) => {
         ...state,
         sessionLoading: true,
       };
-      case SessionActionTypes.SESSION_SUCCESS:
-        return {
-          ...state,
-          token: action.payload,
-          sessionLoading: false,
-        }
-        case SessionActionTypes.SESSION_FAILED:
-          return {
-            ...state,
-            sessionError: action.message,
-            sessionLoading: false,
-          }
-    default: 
+    case SessionActionTypes.SESSION_SUCCESS:
+      return {
+        ...state,
+        token: action.payload,
+        sessionLoading: false,
+      };
+    case SessionActionTypes.SESSION_FAILED:
+      return {
+        ...state,
+        sessionError: action.message,
+        sessionLoading: false,
+      };
+    default:
       return state;
   }
 };

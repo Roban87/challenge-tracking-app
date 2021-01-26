@@ -5,13 +5,13 @@ const INITIAL_STATE = {
 };
 
 const commitmentFormReducer = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CommitmentFormActionTypes.TOGGLE_CREATE_COMMITMENT_FORM:
       return {
         ...state,
         createCommitmentForm: !state.createCommitmentForm,
-      }
-    default: 
+      };
+    default:
       return state;
   }
 };

@@ -1,6 +1,8 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import generalDataFetch from '../../utilities/generalFetch';
 import { sessionLoading, sessionSuccess, sessionFailed } from '../../redux/session/session.actions';
 import { setUser } from '../../redux/user/user.actions';
@@ -10,9 +12,9 @@ function SessionForm({ formType }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const loginError = useSelector((state) => ( state.session.sessionError ));
-  const challenge = useSelector((state) => ( state.challenge.challenge ));
-  const currentTime = useSelector(state=> state.currentDate.currentDate);
+  const loginError = useSelector((state) => (state.session.sessionError));
+  const challenge = useSelector((state) => (state.challenge.challenge));
+  const currentTime = useSelector((state) => state.currentDate.currentDate);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -38,7 +40,7 @@ function SessionForm({ formType }) {
   };
 
   function determinePath(isAdmin) {
-    let challengeEndTimestamp = new Date(challenge.endDate).getTime();
+    const challengeEndTimestamp = new Date(challenge.endDate).getTime();
     if (challengeEndTimestamp < currentTime) {
       if (isAdmin === 1) {
         return '/admin';
@@ -46,7 +48,7 @@ function SessionForm({ formType }) {
       return '/';
     }
     return '/challenge';
-  };
+  }
 
   const loginUser = async () => {
     dispatch(sessionLoading());
@@ -62,15 +64,17 @@ function SessionForm({ formType }) {
       const loginResponse = await generalDataFetch(endpoint, method, loginData);
 
       if (loginResponse.status !== 200) {
-        return dispatch(sessionFailed(loginResponse.jsonData.message)) 
-      } 
+        return dispatch(sessionFailed(loginResponse.jsonData.message));
+      }
 
-      const { token, userId, username, isAdmin, isValidated } = loginResponse.jsonData;
+      const {
+        token, userId, username, isAdmin, isValidated,
+      } = loginResponse.jsonData;
       setPassword('');
       setUsername('');
       dispatch(sessionSuccess(token));
-      dispatch(setUser(userId, username, isAdmin, isValidated))
-      history.push(determinePath(isAdmin));
+      dispatch(setUser(userId, username, isAdmin, isValidated));
+      return history.push(determinePath(isAdmin));
     } catch (error) {
       return dispatch(sessionFailed(error.message));
     }
@@ -94,8 +98,8 @@ function SessionForm({ formType }) {
         registData,
       );
       if (registerResponse.status !== 200) {
-        return dispatch(sessionFailed(registerResponse.jsonData.message)) 
-      } 
+        return dispatch(sessionFailed(registerResponse.jsonData.message));
+      }
 
       history.push('/login');
     } catch (error) {
@@ -136,12 +140,12 @@ function SessionForm({ formType }) {
 
         {formType === 'register' ? (
           <input
-          type="email"
-          id="email-input"
-          value={email}
-          placeholder="Email"
-          onChange={onEmailChange}
-        />
+            type="email"
+            id="email-input"
+            value={email}
+            placeholder="Email"
+            onChange={onEmailChange}
+          />
         ) : null}
 
         <input
@@ -156,7 +160,7 @@ function SessionForm({ formType }) {
         )} */}
 
         <p className="error-message">{loginError && loginError}</p>
-        
+
         <button type="submit">
           {formType === 'register' ? 'ACCEPTED!' : 'LOG IN'}
         </button>
@@ -164,5 +168,9 @@ function SessionForm({ formType }) {
     </div>
   );
 }
+
+SessionForm.propTypes = {
+  formType: PropTypes.string.isRequired,
+};
 
 export default SessionForm;

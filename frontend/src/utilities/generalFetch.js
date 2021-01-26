@@ -1,11 +1,12 @@
 import { store } from '../redux/store';
+
 const generalDataFetch = async (endpoint, method, data = undefined) => {
   const state = store.getState();
   const { token } = state.session;
   const options = {
     method,
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
   };

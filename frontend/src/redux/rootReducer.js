@@ -13,7 +13,7 @@ import currentDateReducer from './current-date/current-date.reducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['session', 'user', 'challenge', 'messages']
+  whitelist: ['session', 'user', 'challenge', 'messages'],
 };
 
 const appReducer = combineReducers({
@@ -27,13 +27,12 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === sessionTypes.SESSION_LOGOUT ) {
-    window.localStorage.removeItem('persist:root')
-    window.localStorage.removeItem('persist:rootReducer')
+  if (action.type === sessionTypes.SESSION_LOGOUT) {
+    window.localStorage.removeItem('persist:root');
+    window.localStorage.removeItem('persist:rootReducer');
     state = undefined;
-}
-return appReducer(state, action);
-}
+  }
+  return appReducer(state, action);
+};
 
-
-export default persistReducer(persistConfig, rootReducer)
+export default persistReducer(persistConfig, rootReducer);

@@ -6,5 +6,5 @@ export const setDate = (date) => ({
 });
 
 export const resetDate = () => ({
-  type: CurrentDateActionTypes.RESET_DATE
+  type: CurrentDateActionTypes.RESET_DATE,
 });

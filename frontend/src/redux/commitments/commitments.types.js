@@ -6,6 +6,6 @@ const CommitmentActionTypes = {
   COMMITMENTS_LOADING: 'COMMITMENTS_LOADING',
   COMMITMENTS_ERROR: 'COMMITMENTS_ERROR',
   UPDATE_COMMITMENT: 'UPDATE_COMMITMENT',
-}
+};
 
 export default CommitmentActionTypes;

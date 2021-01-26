@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter as 
+  BrowserRouter as
   Router,
   Switch,
   Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -22,20 +22,20 @@ function App() {
   useEffect(() => {
     dispatch(getChallenge());
   }, [dispatch]);
- 
+
   return (
     <Router>
-    <div className="App">
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-        <Route path="/challenge" component={Challenge} />
-        <Route exact path="/admin" component={AdminPage}/>
-        <Route exact path="/stats" component={Statistics}/>
-        <Route exact path="/finalstats" component={FinalStatistics}/>
-      </Switch>
-    </div>
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route path="/challenge" component={Challenge} />
+          <Route exact path="/admin" component={AdminPage} />
+          <Route exact path="/stats" component={Statistics} />
+          <Route exact path="/finalstats" component={FinalStatistics} />
+        </Switch>
+      </div>
     </Router>
   );
 }
