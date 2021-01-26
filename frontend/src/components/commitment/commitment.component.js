@@ -9,6 +9,8 @@ function Commitment({ commitment }) {
   const {
     startDate, endDate, name, id, isDone,
   } = commitment;
+
+  console.log(commitment);
   const dispatch = useDispatch();
   const { currentDate } = useSelector((state) => state.currentDate);
   const [isRemoveHidden, setIsRemoveHidden] = useState(true);
@@ -94,12 +96,14 @@ function Commitment({ commitment }) {
 }
 
 Commitment.propTypes = {
-  commitment: PropTypes.objectOf({
+  commitment: PropTypes.shape({
     startDate: PropTypes.string.isRequired,
     endDate: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    isDone: PropTypes.number.isRequired,
+    isDone: PropTypes.bool.isRequired,
+    challengeId: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
   }).isRequired,
 };
 

@@ -108,7 +108,17 @@ CommitmentGroup.propTypes = {
   challengeNumOfDays: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   challengeStartDate: PropTypes.string.isRequired,
-  commitments: PropTypes.string.isRequired,
+  commitments: PropTypes.arrayOf(
+    PropTypes.shape({
+      startDate: PropTypes.string.isRequired,
+      endDate: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      isDone: PropTypes.bool.isRequired,
+      challengeId: PropTypes.number.isRequired,
+      userId: PropTypes.number.isRequired,
+    }).isRequired,
+  ).isRequired,
   challengeEndDate: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
 };

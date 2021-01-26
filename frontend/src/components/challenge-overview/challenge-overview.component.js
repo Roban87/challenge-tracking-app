@@ -80,6 +80,7 @@ export default function ChallengeOverview() {
           const commitments = userCommitments.filter((commitment) => commitment.name === group);
           return (
             <CommitmentGroup
+              key={group}
               handleClick={handleClick}
               name={group}
               challengeStartDate={challenge.startDate}

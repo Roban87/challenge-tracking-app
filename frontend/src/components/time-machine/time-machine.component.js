@@ -19,9 +19,14 @@ export default function TimeMachine() {
       dispatch(resetDate());
     }
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    return null;
+  };
+
   return (
     <div className="time-machine">
-      <form onSubmit>
+      <form onSubmit={handleSubmit}>
         <h4>Time Machine</h4>
         <input onChange={handleChange} type="date" />
         <div className="time-machine-button-container">

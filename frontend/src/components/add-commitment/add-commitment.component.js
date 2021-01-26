@@ -125,15 +125,17 @@ AddCommitment.defaultProps = {
 AddCommitment.propTypes = {
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
-  commitments: PropTypes.arrayOf({
-    startDate: PropTypes.string,
-    endDate: PropTypes.string,
-    id: PropTypes.number,
-    userId: PropTypes.number,
-    name: PropTypes.string,
-    challengeId: PropTypes.number,
-    isDone: PropTypes.number,
-  }),
+  commitments: PropTypes.arrayOf(
+    PropTypes.objectOf({
+      startDate: PropTypes.string,
+      endDate: PropTypes.string,
+      id: PropTypes.number,
+      userId: PropTypes.number,
+      name: PropTypes.string,
+      challengeId: PropTypes.number,
+      isDone: PropTypes.number,
+    }),
+  ),
   targetGroup: PropTypes.arrayOf(PropTypes.string),
 };
 
