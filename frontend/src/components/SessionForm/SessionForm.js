@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -14,6 +14,10 @@ import { setUser } from '../../redux/user/user.actions';
 import './SessionForm.css';
 
 function SessionForm({ formType }) {
+  let alert;
+  if (formType === 'login') {
+    alert = useAlert();
+  }
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -22,7 +26,6 @@ function SessionForm({ formType }) {
   const currentTime = useSelector((state) => state.currentDate.currentDate);
   const history = useHistory();
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const onUsernameChange = (event) => {
     if (loginError) {
@@ -145,6 +148,10 @@ function SessionForm({ formType }) {
     }
     return null;
   };
+
+  useEffect(() => {
+    dispatch(sessionFailed(''));
+  }, []);
 
   return (
     <div>

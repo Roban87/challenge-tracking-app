@@ -1,33 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
-import generalDataFetch from '../../utilities/generalFetch';
+import { getUsersAsync } from '../../redux/users/users.actions';
 
 function FinalCharts() {
   const dispatch = useDispatch();
   const commitments = useSelector((state) => state.commitments.commitments);
   const challenge = useSelector((state) => state.challenge.challenge);
-  const [users, setUsers] = useState([]);
+  const { users } = useSelector((state) => state.users);
 
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
+    dispatch(getUsersAsync());
   }, [dispatch]);
-
-  useEffect(() => {
-    const getUsersData = async () => {
-      const method = 'GET';
-      const endpoint = '/users';
-
-      try {
-        const usersData = await generalDataFetch(endpoint, method);
-        setUsers(usersData.jsonData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUsersData();
-  }, []);
 
   const usersDoneCommitments = commitments
     .filter((comm) => comm.isDone === true)

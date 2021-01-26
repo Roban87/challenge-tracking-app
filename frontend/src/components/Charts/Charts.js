@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Line, Pie } from 'react-chartjs-2';
 import dayjs from 'dayjs';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
-import generalDataFetch from '../../utilities/generalFetch';
+import { getUsersAsync } from '../../redux/users/users.actions';
 
 function Charts() {
   const dispatch = useDispatch();
@@ -11,12 +11,13 @@ function Charts() {
   const userId = useSelector((state) => state.user.userId);
   const challenge = useSelector((state) => state.challenge.challenge);
   const [datesLabel, setDatesLabel] = useState([]);
-  const [users, setUsers] = useState([]);
+  const { users } = useSelector((state) => state.users);
   const [selectedUserId, setSelectedUserId] = useState(userId);
   const machineDate = useSelector((state) => state.currentDate.currentDate);
 
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
+    dispatch(getUsersAsync());
   }, [dispatch]);
 
   useEffect(() => {
@@ -30,21 +31,6 @@ function Charts() {
       }
       setDatesLabel(dateArray);
     }());
-  }, []);
-
-  useEffect(() => {
-    const getUsersData = async () => {
-      const method = 'GET';
-      const endpoint = '/users';
-
-      try {
-        const usersData = await generalDataFetch(endpoint, method);
-        setUsers(usersData.jsonData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUsersData();
   }, []);
 
   const remaining = commitments

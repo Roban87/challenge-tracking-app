@@ -9,9 +9,10 @@ import {
 import AlertTemplate from 'react-alert-template-basic';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import dayjs from 'dayjs';
 import CreateChallenge from '../components/AdminChallenge/CreateChallenge';
 import EditChallenge from '../components/AdminChallenge/EditChallenge';
-import { getChallenge } from '../redux/challenge/challenge.action';
+import { getChallengeAsync } from '../redux/challenge/challenge.action';
 import '../styles/AdminPage.css';
 
 function AdminPage() {
@@ -19,13 +20,14 @@ function AdminPage() {
   const dispatch = useDispatch();
   const challenge = useSelector((state) => state.challenge.challenge);
   const isAdmin = useSelector((state) => state.user.isAdmin);
+  const { currentDate } = useSelector((state) => state.currentDate);
 
   if (!isAdmin) {
     history.push('/challenge');
   }
 
   useEffect(() => {
-    dispatch(getChallenge());
+    dispatch(getChallengeAsync());
   }, [dispatch]);
 
   const options = {
@@ -38,16 +40,13 @@ function AdminPage() {
     transition: transitions.SCALE,
   };
 
-  const challengeEndTimestamp = new Date(challenge.endDate).getTime();
-  const currentTimestamp = Date.now();
-
   return (
     <div className="admin-main-container">
       <div className="btn admin-btn">
         <a href="/challenge" style={{ color: 'white' }}>TO CHALLANGE PAGE</a>
       </div>
       <AlertProvider template={AlertTemplate} {...options}>
-        {currentTimestamp < challengeEndTimestamp ? <EditChallenge /> : <CreateChallenge />}
+        {dayjs(challenge.endDate).diff(currentDate, 'd') > 0 ? <EditChallenge /> : <CreateChallenge />}
       </AlertProvider>
 
     </div>

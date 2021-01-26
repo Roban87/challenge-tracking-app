@@ -25,6 +25,14 @@ export const challengeService = {
   },
 
   async putChallenge(challengeDetails) {
-    return await challengeRepo.putChallenge(challengeDetails);
+    const challenge = await challengeRepo.putChallenge(challengeDetails);
+    const { title, description } = challenge;
+    return {
+      title,
+      description,
+      startDate: dayjs(challenge.start_date).format('YYYY-MM-DD'),
+      endDate: dayjs(challenge.end_date).format('YYYY-MM-DD'),
+      minCommit: challenge.min_commitments,
+    };
   },
 };
