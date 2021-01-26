@@ -9,6 +9,7 @@ import {
 } from '../controllers/index';
 import authHandler from '../middlewares/authHandler';
 import adminAuthHandler from '../middlewares/adminAuthHandler';
+import verificationHandler from '../middlewares/emailVerificationHandler';
 
 const cors = require('cors');
 
@@ -20,6 +21,8 @@ router.use(express.json());
 router.get('/hello', helloController.get);
 router.get('/challenge', challengeController.get);
 router.post('/register', registerController.post);
+router.put('/verification', verificationHandler, registerController.verifyUser);
+router.get('/verification/:email', registerController.getVerificationEmail);
 router.post('/login', loginController.post);
 router.get('/users', usersController.get);
 

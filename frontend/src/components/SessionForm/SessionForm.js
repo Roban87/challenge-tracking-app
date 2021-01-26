@@ -3,8 +3,13 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useAlert } from 'react-alert';
 import generalDataFetch from '../../utilities/generalFetch';
-import { sessionLoading, sessionSuccess, sessionFailed } from '../../redux/session/session.actions';
+import {
+  sessionLoading,
+  sessionSuccess,
+  sessionFailed,
+} from '../../redux/session/session.actions';
 import { setUser } from '../../redux/user/user.actions';
 import './SessionForm.css';
 
@@ -17,6 +22,7 @@ function SessionForm({ formType }) {
   const currentTime = useSelector((state) => state.currentDate.currentDate);
   const history = useHistory();
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   const onUsernameChange = (event) => {
     if (loginError) {
@@ -62,14 +68,27 @@ function SessionForm({ formType }) {
 
     try {
       const loginResponse = await generalDataFetch(endpoint, method, loginData);
+      const {
+        token,
+        userId,
+        username,
+        isAdmin,
+        isValidated,
+      } = loginResponse.jsonData;
+
+      if (isValidated !== 1) {
+        alert.error(
+          <div style={{ color: 'white' }}>
+            Please check your e-mails for user verification!
+          </div>,
+        );
+        throw Error('User is not verified');
+      }
 
       if (loginResponse.status !== 200) {
         return dispatch(sessionFailed(loginResponse.jsonData.message));
       }
 
-      const {
-        token, userId, username, isAdmin, isValidated,
-      } = loginResponse.jsonData;
       setPassword('');
       setUsername('');
       dispatch(sessionSuccess(token));
