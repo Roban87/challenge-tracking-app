@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { updateCommitmentAsync, removeCommitmentAsync } from '../../redux/commitments/commitments.actions';
 import './commitment.styles.css';
 
@@ -9,13 +9,11 @@ function Commitment({ commitment }) {
   const {
     startDate, endDate, name, id, isDone,
   } = commitment;
-
-  console.log(commitment);
   const dispatch = useDispatch();
   const { currentDate } = useSelector((state) => state.currentDate);
   const [isRemoveHidden, setIsRemoveHidden] = useState(true);
-  const numOfDays = moment(endDate).diff(startDate, 'days');
-  const isCommitmentActive = moment(currentDate).diff(endDate, 'days') <= 1;
+  const numOfDays = dayjs(endDate).diff(startDate, 'd');
+  const isCommitmentActive = dayjs(currentDate).diff(endDate, 'd') <= 1;
   function toggleIsDone() {
     if (!isCommitmentActive) {
       return;

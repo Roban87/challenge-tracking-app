@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { commitmentsRepo } from '../repositories';
 
 export const commitmentsService = {
@@ -9,8 +9,8 @@ export const commitmentsService = {
       name: commitment.name,
       userId: commitment.user_id,
       challengeId: commitment.challenge_id,
-      startDate: moment(commitment.start_date).format('YYYY-MM-DD'),
-      endDate: moment(commitment.end_date).format('YYYY-MM-DD'),
+      startDate: dayjs(commitment.start_date).format('YYYY-MM-DD'),
+      endDate: dayjs(commitment.end_date).format('YYYY-MM-DD'),
       isDone: Boolean(commitment.is_done),
     }));
     return formattedCommitments;
@@ -24,8 +24,8 @@ export const commitmentsService = {
       name: newCommitment.name,
       userId: newCommitment.user_id,
       challengeId: newCommitment.challenge_id,
-      startDate: moment(newCommitment.start_date).format('YYYY-MM-DD'),
-      endDate: moment(newCommitment.end_date).format('YYYY-MM-DD'),
+      startDate: dayjs(newCommitment.start_date).format('YYYY-MM-DD'),
+      endDate: dayjs(newCommitment.end_date).format('YYYY-MM-DD'),
       isDone: Boolean(newCommitment.is_done),
     };
   },
@@ -49,8 +49,8 @@ export const commitmentsService = {
       name: updatedCommitment.name,
       userId: updatedCommitment.user_id,
       challengeId: updatedCommitment.challenge_id,
-      startDate: moment(updatedCommitment.start_date).format('YYYY-MM-DD'),
-      endDate: moment(updatedCommitment.end_date).format('YYYY-MM-DD'),
+      startDate: dayjs(updatedCommitment.start_date).format('YYYY-MM-DD'),
+      endDate: dayjs(updatedCommitment.end_date).format('YYYY-MM-DD'),
       isDone: Boolean(updatedCommitment.is_done),
     };
   },

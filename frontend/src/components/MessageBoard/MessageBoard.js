@@ -4,7 +4,7 @@ import React,
   useEffect,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import socketIOClient from 'socket.io-client';
 import { setMessage } from '../../redux/message/message.action';
 import MessageBox from '../MessageBox/MessageBox';
@@ -49,7 +49,7 @@ function MessageBoard() {
       <div className="message-container" id="box">
         <div className="messages">
           {messages.map((message) => (
-            <MessageBox key={message.id} message={message.message} sender={message.senderName} time={`${moment(message.id).format('LT')}`} />
+            <MessageBox key={message.id} message={message.message} sender={message.senderName} time={`${dayjs(message.id).format('LT')}`} />
           ))}
         </div>
       </div>

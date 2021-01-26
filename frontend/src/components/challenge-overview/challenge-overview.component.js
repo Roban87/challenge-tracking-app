@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { getMonthAndDayString, createDateArray } from '../../utilities/date.utils';
 import CommitmentGroup from '../commitment-group/commitment-group.component';
 import AddCommitment from '../add-commitment/add-commitment.component';
@@ -19,7 +19,7 @@ export default function ChallengeOverview() {
       commitment.userId === userId));
     return filteredCommitments;
   });
-  const numOfDays = moment(challenge.endDate).diff(challenge.startDate, 'days');
+  const numOfDays = dayjs(challenge.endDate).diff(challenge.startDate, 'd');
   const commitmentGroups = userCommitments.reduce((acc, commitment) => {
     if (!acc.includes(commitment.name)) {
       acc.push(commitment.name);

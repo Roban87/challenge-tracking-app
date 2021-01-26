@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { challengeService } from './src/services/challenge.service';
 import { registerService } from './src/services/register.service';
 import { commitmentsService } from './src/services/commitments.service';
@@ -10,8 +10,8 @@ const createFakeDB = async () => {
   const { userId } = user;
   const numOfDays = 15;
 
-  const challengeStartDate = moment(new Date()).format('YYYY-MM-DD');
-  const challengeEndDate = moment(new Date()).add(numOfDays, 'd').format('YYYY-MM-DD');
+  const challengeStartDate = dayjs().format('YYYY-MM-DD');
+  const challengeEndDate = dayjs().add(numOfDays, 'day').format('YYYY-MM-DD');
   const challengeName = 'Test challenge';
   const challengeDescription = `Test your strength for ${numOfDays} days. Workout as many times as you can.`;
   const minCommit = 8;
@@ -28,50 +28,50 @@ const createFakeDB = async () => {
     {
       userId,
       name: 'Run',
-      startDate: moment(new Date()).format('YYYY-MM-DD'),
-      endDate: moment(new Date()).add(1, 'd').format('YYYY-MM-DD'),
+      startDate: dayjs().format('YYYY-MM-DD'),
+      endDate: dayjs().add(1, 'd').format('YYYY-MM-DD'),
     },
     {
       userId,
       name: 'Run',
-      startDate: moment(new Date()).add(3, 'd').format('YYYY-MM-DD'),
-      endDate: moment(new Date()).add(4, 'd').format('YYYY-MM-DD'),
+      startDate: dayjs().add(3, 'd').format('YYYY-MM-DD'),
+      endDate: dayjs().add(4, 'd').format('YYYY-MM-DD'),
     },
     {
       userId,
       name: 'Run',
-      startDate: moment(new Date()).add(7, 'd').format('YYYY-MM-DD'),
-      endDate: moment(new Date()).add(8, 'd').format('YYYY-MM-DD'),
+      startDate: dayjs().add(7, 'd').format('YYYY-MM-DD'),
+      endDate: dayjs().add(8, 'd').format('YYYY-MM-DD'),
     },
     {
       userId,
       name: 'Swim',
       startDate: new Date(),
-      endDate: moment(new Date()).add(2, 'd').format('YYYY-MM-DD'),
+      endDate: dayjs().add(2, 'd').format('YYYY-MM-DD'),
     },
     {
       userId,
       name: 'Swim',
-      startDate: moment(new Date()).add(4, 'd').format('YYYY-MM-DD'),
-      endDate: moment(new Date()).add(6, 'd').format('YYYY-MM-DD'),
+      startDate: dayjs().add(4, 'd').format('YYYY-MM-DD'),
+      endDate: dayjs().add(6, 'd').format('YYYY-MM-DD'),
     },
     {
       userId,
       name: 'Swim',
-      startDate: moment(new Date()).add(8, 'd').format('YYYY-MM-DD'),
-      endDate: moment(new Date()).add(10, 'd').format('YYYY-MM-DD'),
+      startDate: dayjs().add(8, 'd').format('YYYY-MM-DD'),
+      endDate: dayjs().add(10, 'd').format('YYYY-MM-DD'),
     },
     {
       userId,
       name: 'Workout',
-      startDate: moment(new Date()).add(4, 'd').format('YYYY-MM-DD'),
-      endDate: moment(new Date()).add(8, 'd').format('YYYY-MM-DD'),
+      startDate: dayjs().add(4, 'd').format('YYYY-MM-DD'),
+      endDate: dayjs().add(8, 'd').format('YYYY-MM-DD'),
     },
     {
       userId,
       name: 'Workout',
-      startDate: moment(new Date()).add(11, 'd').format('YYYY-MM-DD'),
-      endDate: moment(new Date()).add(15, 'd').format('YYYY-MM-DD'),
+      startDate: dayjs().add(11, 'd').format('YYYY-MM-DD'),
+      endDate: dayjs().add(15, 'd').format('YYYY-MM-DD'),
     },
   ];
   await Promise.all(

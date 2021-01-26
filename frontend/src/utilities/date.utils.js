@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export function addDays(date, days) {
   const copy = new Date(Number(date));
@@ -20,7 +20,7 @@ export function getMonthAndDayString(date) {
 export function createDateArray(startDate, numOfDays) {
   const days = [];
   for (let i = 0; i < numOfDays; i++) {
-    days.push(moment(startDate).add(i, 'd').format('YYYY-MM-DD'));
+    days.push(dayjs(startDate).add(i, 'd').format('YYYY-MM-DD'));
   }
   return days;
 }
