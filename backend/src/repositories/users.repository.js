@@ -42,4 +42,12 @@ export const usersRepo = {
       throw { status: 500, message: err.sqlMessage };
     }
   },
+  async getUserByEmail(email) {
+    const sql = 'SELECT * FROM users WHERE email=?;';
+    return await db.query(sql, [email]);
+  },
+  async verifyUser(userId) {
+    const sql = 'UPDATE users SET is_validated=1 WHERE id=?';
+    return await db.query(sql, [userId]);
+  },
 };

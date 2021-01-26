@@ -1,0 +1,11 @@
+doctype html
+head
+body
+main(style='width: 400px; text-align: center; margin: 30px auto; box-shadow: 0px 0px 5px 1px #333; padding: 20px; font-family: sans-serif')
+  h2 Welcome to Accepted, #{name}
+  h3 Verify your email address to finalize your account
+  p(style='font-size: 16px;') By clicking the button below, you confirm your email address.
+  button(style='width: 300px; height: 70px; background-color: #00a6a6ff; color: white; font-size: 22px; border:none; border-radius: 4px;'): a(href=link, style='color:white; text-decoration:none;') Verify your email
+  p Or paste this link into your browser
+  p: a(href=link) #{link}
+footer(style='text-align: center; color: #333;') © 2021 RubberDucKings. All rights reserved.
