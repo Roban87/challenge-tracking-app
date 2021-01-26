@@ -1,10 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
-import CreateChallenge from '../components/AdminChallenge/CreateChallenge';
-import EditChallenge from '../components/AdminChallenge/EditChallenge';
-import { getChallenge } from '../redux/challenge/challenge.action';
-import '../styles/AdminPage.css';
 import {
   transitions,
   types,
@@ -12,14 +7,20 @@ import {
   Provider as AlertProvider,
 } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import CreateChallenge from '../components/AdminChallenge/CreateChallenge';
+import EditChallenge from '../components/AdminChallenge/EditChallenge';
+import { getChallenge } from '../redux/challenge/challenge.action';
+import '../styles/AdminPage.css';
 
 function AdminPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const challenge = useSelector((state) => state.challenge.challenge)
-  const isAdmin = useSelector((state) => state.user.isAdmin)
+  const challenge = useSelector((state) => state.challenge.challenge);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
 
-  if(!isAdmin){
+  if (!isAdmin) {
     history.push('/challenge');
   }
 
@@ -37,18 +38,18 @@ function AdminPage() {
     transition: transitions.SCALE,
   };
 
-  let challengeEndTimestamp = new Date(challenge.endDate).getTime();
-  let currentTimestamp = Date.now();
-  
+  const challengeEndTimestamp = new Date(challenge.endDate).getTime();
+  const currentTimestamp = Date.now();
+
   return (
-    <div className='admin-main-container'>
-      <div className="btn admin-btn" >
-        <a href="/challenge" style={{color: 'white'}}>TO CHALLANGE PAGE</a>
+    <div className="admin-main-container">
+      <div className="btn admin-btn">
+        <a href="/challenge" style={{ color: 'white' }}>TO CHALLANGE PAGE</a>
       </div>
       <AlertProvider template={AlertTemplate} {...options}>
         {currentTimestamp < challengeEndTimestamp ? <EditChallenge /> : <CreateChallenge />}
       </AlertProvider>
-      
+
     </div>
   );
 }

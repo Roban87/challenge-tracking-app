@@ -26,16 +26,16 @@ function Challenge() {
       <main>
         <div className="middle-content">
           <Counter />
-          <div className="content-container" >
+          <div className="content-container">
             <Switch>
-              <Route exact path={["/challenge", "/challenge/commitments"]} component={ChallengeOverview} />
-              <Route exact path="/challenge/statistics" component={Statistics}/>
-              <Route exact path="/challenge/final-statistics" component={FinalStatistics}/>
+              <Route exact path={['/challenge', '/challenge/commitments']} component={ChallengeOverview} />
+              <Route exact path="/challenge/statistics" component={Statistics} />
+              <Route exact path="/challenge/final-statistics" component={FinalStatistics} />
             </Switch>
           </div>
         </div>
-        
-        < MessageBoard />
+
+        <MessageBoard />
       </main>
     </div>
   );

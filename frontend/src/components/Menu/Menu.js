@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  useSelector, 
-  useDispatch 
+import {
+  useSelector,
+  useDispatch,
 } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './Menu.css';
@@ -17,7 +17,7 @@ function Menu() {
   }
 
   return (
-    <div class="menu">
+    <div className="menu">
       <img src={logo} alt="accepted logo" className="logo" />
 
       <div className="nav-btns">
@@ -31,21 +31,23 @@ function Menu() {
         <div className="final-statistics-btn btn">
           <NavLink to="/challenge/final-statistics">All Statistics</NavLink>
         </div>
-        
-        { 
-        isAdmin ?
-        (<div className="setting-btn btn">
-          <NavLink to="/admin">Settings</NavLink>
-        </div>) : 
-        null
+
+        {
+        isAdmin
+          ? (
+            <div className="setting-btn btn">
+              <NavLink to="/admin">Settings</NavLink>
+            </div>
+          )
+          : null
         }
       </div>
 
       <div className="logout-btn btn">
-        <a href="/" onClick={() => logOut()} >Logout</a>
+        <a href="/" onClick={() => logOut()}>Logout</a>
       </div>
     </div>
-  )
+  );
 }
 
 export default Menu;

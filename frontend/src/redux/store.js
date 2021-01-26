@@ -15,10 +15,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export const store = createStore(
-  rootReducer, 
+  rootReducer,
   composeEnhancers(
-  applyMiddleware(...middlewares),
-  )
+    applyMiddleware(...middlewares),
+  ),
 );
 
 export const persistor = persistStore(store);

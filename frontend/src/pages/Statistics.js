@@ -4,11 +4,13 @@ import '../styles/Statistics.css';
 
 function Statistics() {
   return (
-    <div className='statistics-main-container'>
-      <h1 className='statistics-title'>
-        <span>Challenge</span> Statistics
+    <div className="statistics-main-container">
+      <h1 className="statistics-title">
+        <span>Challenge</span>
+        {' '}
+        Statistics
       </h1>
-      <div className='statistics-container'>
+      <div className="statistics-container">
         <Charts />
       </div>
     </div>

@@ -1,0 +1,65 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.js"
+      ],
+      "env": {
+        "jest": true
+      },
+      "plugins": [
+        "jest"
+      ]
+    }
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/no-array-index-key": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-nointeractive-element-interactions": "off",
+    "react/prop-types": "warn", //todo: remove next week
+    "no-plusplus": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "warn",
+      {
+        "labelComponents": [],
+        "labelAttributes": [],
+        "controlComponents": [],
+        "assert": "either",
+        "depth": 25
+      }
+    ],
+    "jsx-a11y/control-has-associated-label": "off",
+    "no-param-reassign": "off",
+    "no-nested-ternary": "off",
+    "import/prefer-default-export": "off"
+  },
+  "ignorePatterns": "src/serviceWorker.js"
+}

@@ -3,8 +3,8 @@ import challengeActionTypes from './challenge.types';
 const INITIAL_STATE = {
   challengeLoad: false,
   error: '',
-  challenge: {}
-}
+  challenge: {},
+};
 
 const challengeReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -18,17 +18,17 @@ const challengeReducer = (state = INITIAL_STATE, action) => {
         ...state,
         challengeLoad: false,
         challenge: action.payload,
-      }
+      };
     case challengeActionTypes.CHALLENGE_LOAD_FAILED:
       return {
         ...state,
         challengeLoad: false,
         error: action.message,
-        challenge: {}
-      }
+        challenge: {},
+      };
     default:
       return state;
   }
-}
+};
 
 export default challengeReducer;

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Bar } from 'react-chartjs-2';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
 import generalDataFetch from '../../utilities/generalFetch';
-import { Bar } from 'react-chartjs-2';
 
 function FinalCharts() {
   const dispatch = useDispatch();
   const commitments = useSelector((state) => state.commitments.commitments);
   const challenge = useSelector((state) => state.challenge.challenge);
   const [users, setUsers] = useState([]);
-  
 
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
@@ -21,8 +20,8 @@ function FinalCharts() {
       const endpoint = '/users';
 
       try {
-        const users = await generalDataFetch(endpoint, method);
-        setUsers(users.jsonData);
+        const usersData = await generalDataFetch(endpoint, method);
+        setUsers(usersData.jsonData);
       } catch (error) {
         console.log(error);
       }
@@ -33,7 +32,7 @@ function FinalCharts() {
   const usersDoneCommitments = commitments
     .filter((comm) => comm.isDone === true)
     .map((comm) => comm.userId)
-    .reduce(function (prev, cur) {
+    .reduce((prev, cur) => {
       prev[cur] = (prev[cur] || 0) + 1;
       return prev;
     }, {});
@@ -44,7 +43,7 @@ function FinalCharts() {
 
   const usersTotalCommitments = commitments
     .map((comm) => comm.userId)
-    .reduce(function (prev, cur) {
+    .reduce((prev, cur) => {
       prev[cur] = (prev[cur] || 0) + 1;
       return prev;
     }, {});
@@ -64,9 +63,9 @@ function FinalCharts() {
     .map((e) => e[0]);
 
   return (
-    <div className='charts-main-container'>
-      <div className='final-charts-container'>
-        <div className='line-chart-container'>
+    <div className="charts-main-container">
+      <div className="final-charts-container">
+        <div className="line-chart-container">
           <Bar
             data={{
               labels: resultNames,
