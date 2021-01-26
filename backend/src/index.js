@@ -3,11 +3,6 @@ import logger from './logger';
 import app from './app';
 
 const PORT = process.env.PORT || 3000;
-const socketPort = process.env.SOCKET_PORT || 3001;
-
-app.listen(PORT, () => {
-  logger.info(`App is listening on ${PORT}`);
-});
 
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
@@ -22,4 +17,4 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(socketPort, () => logger.info(`Socket is listening on ${socketPort}`));
+server.listen(PORT, () => logger.info(`Server is listening on ${PORT}`));
