@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { createDateArray } from '../../utilities/date.utils';
 import Commitment from '../commitment/commitment.component';
 
-import { updateCommitmentAsync } from '../../redux/commitments/commitments.actions';
+import { updateCommitmentAsync, addCommitmentAsync } from '../../redux/commitments/commitments.actions';
 
 import './commitment-group.styles.css';
 
@@ -18,53 +18,59 @@ function CommitmentGroup(props) {
     challengeStartDate,
     commitments,
     challengeEndDate,
-    handleClick,
   } = props;
-  const blockArray = createDateArray(challengeStartDate, challengeNumOfDays);
+  const numOfDays = dayjs(commitments[0].endDate).diff(commitments[0].startDate, 'd');
+  const commitmentsObj = commitments.reduce((acc, commitment) => {
+    acc[commitment.startDate] = commitment;
+    return acc;
+  }, {});
+  const dateArray = createDateArray(challengeStartDate, challengeNumOfDays);
+
+  const blockedDatesObj = commitments.reduce((dateObj, commitment) => {
+    for (let i = 0; i < numOfDays; i++) {
+      const dateCheck = dayjs(commitment.startDate).add(i, 'd').format('YYYY-MM-DD');
+      dateObj[dateCheck] = commitment.id;
+    }
+    return dateObj;
+  }, {});
   const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
   };
 
+  const isSlotFree = (targetDate, blockedHelper, id) => {
+    for (let i = 0; i < numOfDays; i++) {
+      const dateCheck = dayjs(targetDate).add(i, 'd').format('YYYY-MM-DD');
+      if (blockedHelper[dateCheck] && blockedHelper[dateCheck] !== id) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const isBeforeEndDate = (commitStartDate) => dayjs(challengeEndDate).diff(dayjs(commitStartDate).add(numOfDays, 'd'), 'd') >= 0;
+  const isAfterCurrentDate = (commitStartDate) => dayjs(commitStartDate).add(numOfDays, 'd').diff(currentDate, 'd') >= 0;
+
   function allowDrop(ev) {
     ev.preventDefault();
   }
 
   const drop = (ev) => {
+    console.time();
     ev.preventDefault();
     const commitmentId = Number(ev.dataTransfer.getData('commitmentId'));
     const commitName = ev.dataTransfer.getData('name');
-    const commitDays = ev.dataTransfer.getData('numofdays');
     const containerName = ev.target.getAttribute('container-name');
     const targetStartDate = ev.target.getAttribute('date');
-    const isBeforeEndDate = dayjs(challengeEndDate).diff(dayjs(targetStartDate).add(commitDays, 'd'), 'd') >= 0;
-    const isAfterCurrentDate = dayjs(targetStartDate).add(Number(commitDays), 'd').diff(currentDate, 'd') >= 0;
-    const targetEndDate = dayjs(targetStartDate).add(commitDays, 'd').format('YYYY-MM-DD');
-
-    const isSlotFree = (commitment, allCommitments) => {
-      const { startDate, endDate, id } = commitment;
-      const otherCommitments = allCommitments.filter((otherCommitment) => (
-        otherCommitment.id !== id));
-      for (let i = 0; i < otherCommitments.length; i++) {
-        if (dayjs(startDate).diff(otherCommitments[i].startDate, 'd') >= 0
-          && dayjs(startDate).diff(otherCommitments[i].endDate, 'd') < 0) {
-          return false;
-        }
-        if (dayjs(endDate).diff(otherCommitments[i].startDate, 'd') > 0
-          && dayjs(endDate).diff(otherCommitments[i].endDate, 'd') <= 0) {
-          return false;
-        }
-      }
-      return true;
-    };
+    const targetEndDate = dayjs(targetStartDate).add(numOfDays, 'd').format('YYYY-MM-DD');
 
     if (commitName === containerName) {
-      if (isBeforeEndDate && isAfterCurrentDate && isSlotFree({
-        id: commitmentId,
-        endDate: targetEndDate,
-        startDate: targetStartDate,
-      }, commitments)) {
+      if (isBeforeEndDate(targetStartDate) && isAfterCurrentDate(targetStartDate) && isSlotFree(
+        targetStartDate,
+        blockedDatesObj,
+        commitmentId,
+      )) {
         ev.target.appendChild(document.getElementById(commitmentId));
         const commitment = commitments.find((commit) => commit.id === Number(commitmentId));
         commitment.startDate = targetStartDate;
@@ -72,18 +78,33 @@ function CommitmentGroup(props) {
         dispatch(updateCommitmentAsync(commitment));
       }
     }
+    console.timeEnd();
+  };
+
+  const quickAdd = () => {
+    for (let i = 0; i < dateArray.length; i++) {
+      if (isSlotFree(dateArray[i], blockedDatesObj)
+      && isBeforeEndDate(dateArray[i]) && isAfterCurrentDate(dateArray[i])) {
+        dispatch(addCommitmentAsync({
+          startDate: dateArray[i],
+          endDate: dayjs(dateArray[i]).add(numOfDays, 'd').format('YYYY-MM-DD'),
+          name,
+        }));
+        return null;
+      }
+    }
+    return null;
   };
 
   return (
     <div className="commitment-group-container" style={containerStyle}>
       <div className="table-header" date={new Date()}>
         <h4 className="group-title">{name}</h4>
-        <i role="button" tabIndex="0" name={name} onClick={handleClick} className="fas fa-plus" />
+        <i role="button" tabIndex="0" name={name} onClick={quickAdd} className="fas fa-plus" />
       </div>
       {
-        blockArray.map((date, index) => {
-          const commitment = commitments.filter((commit) => (
-            dayjs(commit.startDate).diff(date, 'd') === 0))[0];
+        dateArray.map((date, index) => {
+          const commitment = commitmentsObj[date];
           return (
             <div
               key={`${name}-${index}`}
@@ -120,7 +141,6 @@ CommitmentGroup.propTypes = {
     }).isRequired,
   ).isRequired,
   challengeEndDate: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
 };
 
 export default CommitmentGroup;

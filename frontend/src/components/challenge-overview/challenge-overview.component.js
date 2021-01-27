@@ -14,11 +14,9 @@ export default function ChallengeOverview() {
   const createFormOpenStatus = useSelector((state) => state.commitmentForm.createCommitmentForm);
   const { challenge } = useSelector((state) => state.challenge);
   const { userId } = useSelector((state) => state.user);
-  const userCommitments = useSelector((state) => {
-    const filteredCommitments = state.commitments.commitments.filter((commitment) => (
-      commitment.userId === userId));
-    return filteredCommitments;
-  });
+  const allCommitments = useSelector((state) => state.commitments.commitments);
+  const userCommitments = allCommitments.filter((commitment) => (
+    commitment.userId === userId));
   const numOfDays = dayjs(challenge.endDate).diff(challenge.startDate, 'd');
   const commitmentGroups = userCommitments.reduce((acc, commitment) => {
     if (!acc.includes(commitment.name)) {
@@ -32,11 +30,6 @@ export default function ChallengeOverview() {
   };
 
   const dateArray = createDateArray(challenge.startDate, numOfDays);
-
-  const handleClick = (e) => {
-    setTargetGroup(e.target.getAttribute('name'));
-    dispatch(toggleCreateCommitmentForm());
-  };
 
   return (
     <div className="challenge-overview">
@@ -81,7 +74,6 @@ export default function ChallengeOverview() {
           return (
             <CommitmentGroup
               key={group}
-              handleClick={handleClick}
               name={group}
               challengeStartDate={challenge.startDate}
               challengeEndDate={challenge.endDate}

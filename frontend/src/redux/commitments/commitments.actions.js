@@ -43,17 +43,36 @@ export const removeCommitmentAsync = (commitmentId) => async (dispatch) => {
 
 export const addCommitment = (commitment) => ({
   type: CommitmentActionTypes.ADD_COMMITMENT,
-  payload: commitment,
+  payload: [commitment],
+});
+
+export const addMultipleCommitments = (commitmentArray) => ({
+  type: CommitmentActionTypes.ADD_MULTIPLE_COMMITMENTS,
+  payload: commitmentArray,
 });
 
 export const addCommitmentAsync = (commitment) => async (dispatch) => {
   const endpoint = '/commitments';
   const method = 'POST';
-  const results = await generalDataFetch(endpoint, method, commitment);
-  if (results.status !== 200) {
-    return dispatch(commitmentsError(results.jsonData.message));
+  if (commitment.length) {
+    try {
+      const results = await Promise.all(
+        commitment.map(async (commit) => {
+          const result = await generalDataFetch(endpoint, method, commit);
+          return result.jsonData;
+        }),
+      );
+      return dispatch(addCommitment(results));
+    } catch (error) {
+      return dispatch(commitmentsError(error.message));
+    }
+  } else {
+    const results = await generalDataFetch(endpoint, method, commitment);
+    if (results.status !== 200) {
+      return dispatch(commitmentsError(results.jsonData.message));
+    }
+    return dispatch(addCommitment(results.jsonData));
   }
-  return dispatch(addCommitment(results.jsonData));
 };
 
 export const commitmentsLoading = () => ({ type: CommitmentActionTypes.COMMITMENTS_LOADING });

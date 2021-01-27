@@ -13,11 +13,11 @@ function AddCommitment(props) {
     startDate, endDate, commitments, targetGroup,
   } = props;
   const [commitmentName, setCommitmentName] = useState(targetGroup);
-  const [commitmentStartDate, setCommitmentStartDate] = useState('');
-  const [commitmentEndDate, setCommitmentEndDate] = useState('');
+  const [commitmentLength, setCommitmentLength] = useState(1);
+  const [commitmentStartDate, setCommitmentStartDate] = useState(startDate);
+  const [commitmentRepeat, setCommitmentRepeat] = useState('single');
   const [errorMessage, setErrorMessage] = useState('');
   const minStartDate = dayjs(startDate).diff(dayjs(currentDate).format('YYYY-MM-DD'), 'd') > 0 ? startDate : currentDate;
-  const minEndDate = dayjs(minStartDate).add(1, 'd');
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -27,8 +27,11 @@ function AddCommitment(props) {
     if (name === 'start-date') {
       setCommitmentStartDate(dayjs(value).format('YYYY-MM-DD'));
     }
-    if (name === 'end-date') {
-      setCommitmentEndDate(dayjs(value).format('YYYY-MM-DD'));
+    if (name === 'commitment-length') {
+      setCommitmentLength(Number(value));
+    }
+    if (name === 'commitment-repeat') {
+      setCommitmentRepeat(value);
     }
   };
 
@@ -42,36 +45,39 @@ function AddCommitment(props) {
       setErrorMessage('Start Date required');
       return;
     }
-    if (!commitmentEndDate) {
-      setErrorMessage('End Date required');
-      return;
-    }
 
     const commitmentsByName = commitments.filter((commitment) => (
       commitment.name === commitmentName));
 
     if (commitmentsByName.length !== 0) {
-      for (let i = 0; i < commitmentsByName.length; i++) {
-        if (dayjs(commitmentStartDate).diff(commitmentsByName[i].startDate, 'd') >= 0
-          && dayjs(commitmentStartDate).diff(commitmentsByName[i].endDate, 'd') < 0) {
-          setErrorMessage('Existing commitment in selected timeslot');
-          return;
-        }
-        if (dayjs(commitmentEndDate).diff(commitmentsByName[i].startDate, 'd') > 0
-          && dayjs(commitmentEndDate).diff(commitmentsByName[i].endDate, 'd') <= 0) {
-          setErrorMessage('Existing commitment in selected timeslot');
-          return;
-        }
-      }
+      setErrorMessage('Commitment group already exists');
+      return;
     }
+    if (commitmentRepeat === 'single') {
+      dispatch(addCommitmentAsync({
+        name: commitmentName,
+        startDate: commitmentStartDate,
+        endDate: dayjs(commitmentStartDate).add(commitmentLength, 'd').format('YYYY-MM-DD'),
+      }));
+      dispatch(toggleCreateCommitmentForm());
+      setErrorMessage('');
+    }
+    if (commitmentRepeat === 'repeat') {
+      const commitmentsArray = [];
+      let counter = 0;
 
-    dispatch(addCommitmentAsync({
-      name: commitmentName,
-      startDate: commitmentStartDate,
-      endDate: commitmentEndDate,
-    }));
-    dispatch(toggleCreateCommitmentForm());
-    setErrorMessage('');
+      while (dayjs(commitmentStartDate).add(counter + commitmentLength, 'd').diff(endDate, 'd') <= 0) {
+        commitmentsArray.push({
+          name: commitmentName,
+          startDate: dayjs(commitmentStartDate).add(counter, 'd').format('YYYY-MM-DD'),
+          endDate: dayjs(commitmentStartDate).add(counter + commitmentLength, 'd').format('YYYY-MM-DD'),
+        });
+        counter += commitmentLength;
+      }
+      dispatch(addCommitmentAsync(commitmentsArray));
+      dispatch(toggleCreateCommitmentForm());
+      setErrorMessage('');
+    }
   };
 
   const exitForm = () => {
@@ -99,15 +105,26 @@ function AddCommitment(props) {
           max={`${dayjs(endDate).format('YYYY-MM-DD')}`}
           min={`${dayjs(minStartDate).format('YYYY-MM-DD')}`}
         />
-        <label htmlFor="end-date">End Date</label>
+        <label htmlFor="commitment-length">Commitment length (days)</label>
         <input
-          name="end-date"
-          type="date"
+          name="commitment-length"
+          type="number"
           onChange={handleChange}
-          value={commitmentEndDate && commitmentEndDate}
-          max={`${dayjs(endDate).format('YYYY-MM-DD')}`}
-          min={`${dayjs(minEndDate).format('YYYY-MM-DD')}`}
+          value={commitmentLength}
+          min={1}
+          max={7}
         />
+        <p>Commitment repeat</p>
+        <div className="commitment-repeat-box">
+          <div className="radio-group">
+            <label htmlFor="single-commitment-radio">Single</label>
+            <input type="radio" id="single-commitment-radio" onChange={handleChange} checked name="commitment-repeat" value="single" />
+          </div>
+          <div className="radio-group">
+            <label htmlFor="repeat-commitment-radio">Repeat</label>
+            <input type="radio" id="repeat-commitment-radio" onChange={handleChange} name="commitment-repeat" value="repeat" />
+          </div>
+        </div>
         {
           errorMessage ? <p>{errorMessage}</p> : null
         }

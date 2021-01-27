@@ -51,7 +51,14 @@ function Commitment({ commitment }) {
       ev.target.parentNode.style.display = 'block';
     }, 0);
   }
-
+  function removeItem() {
+    const container = document.querySelector(`[date="${startDate}"][container-name="${name}"]`);
+    const children = Array.from(container.children);
+    children.forEach((child) => {
+      child.style.display = 'none';
+    });
+    dispatch(removeCommitmentAsync(id));
+  }
   const showRemove = () => {
     setIsRemoveHidden(false);
   };
@@ -82,7 +89,7 @@ function Commitment({ commitment }) {
         onDragEnd={dragEnd}
       >
         {
-         isCommitmentActive ? !isRemoveHidden ? <i role="button" tabIndex="0" onClick={() => dispatch(removeCommitmentAsync(id))} className="fas fa-times remove-commitment" /> : null : null
+         isCommitmentActive ? !isRemoveHidden ? <i role="button" tabIndex="0" onClick={removeItem} className="fas fa-times remove-commitment" /> : null : null
         }
         {name}
         {
