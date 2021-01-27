@@ -17,11 +17,11 @@ function Landing() {
         <a href="/login">ADMIN LOGIN</a>
       </div>
 
-      <div className="landing-main-text">
+      <section className="landing-main-content">
 
         <h1>
           ARE YOU READY FOR A
-          <br />
+          {' '}
           <span>CHALLENGE?!</span>
         </h1>
 
@@ -29,7 +29,7 @@ function Landing() {
         currentTimestamp < challengeEndTimestamp
           ? (
             <div>
-              <div className="landing-details">
+              <div>
                 <h2>{challenge.title}</h2>
                 <p>{challenge.description}</p>
               </div>
@@ -52,14 +52,12 @@ function Landing() {
           : (
             <h3>
               Sorry! There is no new challenge at the moment.
-              <br />
-              {' '}
               Please, come back later!
             </h3>
           )
-}
+        }
 
-      </div>
+      </section>
 
     </div>
   );

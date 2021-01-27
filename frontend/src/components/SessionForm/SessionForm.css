@@ -1,34 +1,17 @@
-.session-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 400px;
-  margin: 0 auto;
-}
+/* Error: Undefined mixin.
+ *    ,
+ * 13 |     @include green-buttons;
+ *    |     ^^^^^^^^^^^^^^^^^^^^^^
+ *    '
+ *   SessionForm.scss 13:5  root stylesheet */
 
-.session-form button {
-  width: 200px;
-  height: 40px;
-  border-radius: 20px;
-  border: none;
-  background-color: #86c232;
-  outline: none;
-  text-align: center;
-  font-size: 17px;
-  color: white;
-  font-weight: 600;
-  transition: font-size .5s;
-}
-
-.session-form button:hover {
-  background-color: #61892f;
-  font-size: 20px;
-}
-
-.error-message {
-  height: 1.5em;
-  color: red;
-  font-weight: 800;
-  font-size: 1em;
-  letter-spacing: 2px;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined mixin.\a    \2577 \a 13 \2502      @include green-buttons;\a    \2502      ^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   SessionForm.scss 13:5  root stylesheet";
 }

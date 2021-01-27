@@ -71,6 +71,11 @@ function SessionForm({ formType }) {
 
     try {
       const loginResponse = await generalDataFetch(endpoint, method, loginData);
+
+      if (loginResponse.status !== 200) {
+        return dispatch(sessionFailed(loginResponse.jsonData.message));
+      }
+
       const {
         token,
         userId,
@@ -86,10 +91,6 @@ function SessionForm({ formType }) {
           </div>,
         );
         throw Error('User is not verified');
-      }
-
-      if (loginResponse.status !== 200) {
-        return dispatch(sessionFailed(loginResponse.jsonData.message));
       }
 
       setPassword('');

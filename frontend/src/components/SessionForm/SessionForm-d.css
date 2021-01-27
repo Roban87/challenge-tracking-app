@@ -1,0 +1,33 @@
+.session-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.session-form button {
+  width: 200px;
+  height: 40px;
+  border: none;
+  background-color: #86c232;
+  outline: none;
+  text-align: center;
+  font-size: 17px;
+  color: white;
+  font-weight: 600;
+  transition: font-size .5s;
+}
+
+.session-form button:hover {
+  background-color: #61892f;
+  font-size: 20px;
+}
+
+.error-message {
+  height: 1.5em;
+  color: red;
+  font-weight: 800;
+  font-size: 1em;
+  letter-spacing: 2px;
+}
