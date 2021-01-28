@@ -14,6 +14,7 @@ function Charts() {
   const [datesLabel, setDatesLabel] = useState([]);
   const { users } = useSelector((state) => state.users);
   const [selectedUserId, setSelectedUserId] = useState(userId);
+  const [selectedUserIds, setSelectedUserIds] = useState([userId]);
   const machineDate = useSelector((state) => state.currentDate.currentDate);
 
   useEffect(() => {
@@ -70,16 +71,23 @@ function Charts() {
   const handelUserSelection = (event) => {
     const { id } = users.filter((user) => user.username === event.target.value)[0];
     setSelectedUserId(id);
+    if (selectedUserIds.includes(id)) {
+      setSelectedUserIds(selectedUserIds.filter((userid) => userid !== id));
+    } else {
+      setSelectedUserIds([...selectedUserIds, id]);
+    }
   };
+  console.log(selectedUserIds);
 
   const userSelectButtons = users.map((user) => (
     <div className="user" key={user.username}>
       <input
-        type="radio"
+        type="checkbox"
         id={user.username}
-        name="contact"
+        name="user"
         value={user.username}
-        onClick={handelUserSelection}
+        onChange={handelUserSelection}
+        defaultChecked={user.id === userId}
       />
       <label htmlFor={user.username}>{user.username}</label>
     </div>
@@ -99,12 +107,14 @@ function Charts() {
                 {
                   label: 'User Completition percentage',
                   data: completedPerDay,
-                  backgroundColor: '#86c2327b',
+                  borderColor: '#86c232',
+                  fill: false,
                 },
                 {
                   label: 'Total Completition percentage',
                   data: totalCompletedPerDay,
-                  backgroundColor: 'rgba(191, 188, 8, 0.2)',
+                  borderColor: 'rgba(191, 188, 8)',
+                  fill: false,
                 },
               ],
             }}
