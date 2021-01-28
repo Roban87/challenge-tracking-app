@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAlert } from 'react-alert';
-import generalDataFetch from '../../utilities/generalFetch';
+import generalDataFetch from '../../utilities/generalDataFetch';
 import {
   sessionLoading,
   sessionSuccess,

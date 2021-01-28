@@ -1,4 +1,4 @@
-import generalDataFetch from '../../utilities/generalFetch';
+import generalDataFetch from '../../utilities/generalDataFetch';
 import challengeActionTypes from './challenge.types';
 
 export const getChallenge = (challengeData) => ({

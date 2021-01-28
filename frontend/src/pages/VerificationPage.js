@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Backdrop, CircularProgress, makeStyles } from '@material-ui/core';
 import GetEmail from '../components/GetEmail/GetEmail';
-import generalFetch from '../utilities/generalDataFetch';
+import generalDataFetch from '../utilities/generalDataFetch';
 // import './VerificationPage.css';
 
 const useStyle = makeStyles((theme) => ({
@@ -86,7 +86,7 @@ function VerificationPage() {
 
   const sendNewVerificationEmail = async (email) => {
     try {
-      const response = await generalFetch(`verification/${email}`, 'GET');
+      const response = await generalDataFetch(`verification/${email}`, 'GET');
       if (response.status === 200) {
         setVerificationStatus(response.message);
       } else {

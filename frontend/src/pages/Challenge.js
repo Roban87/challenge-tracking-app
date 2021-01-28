@@ -19,24 +19,21 @@ function Challenge() {
 
   return (
     <div className="challenge-container">
-      <nav>
-        <Menu />
-      </nav>
+      <Menu />
 
       <main>
-        <div className="middle-content">
-          <Counter />
-          <div className="content-container">
-            <Switch>
-              <Route exact path={['/challenge', '/challenge/commitments']} component={ChallengeOverview} />
-              <Route exact path="/challenge/statistics" component={Statistics} />
-              <Route exact path="/challenge/final-statistics" component={FinalStatistics} />
-            </Switch>
-          </div>
-        </div>
-
-        <MessageBoard />
+        <Counter />
+        <section className="content-container">
+          <Switch>
+            <Route exact path={['/challenge', '/challenge/commitments']} component={ChallengeOverview} />
+            <Route exact path="/challenge/statistics" component={Statistics} />
+            <Route exact path="/challenge/final-statistics" component={FinalStatistics} />
+          </Switch>
+        </section>
       </main>
+
+      <MessageBoard />
+
     </div>
   );
 }

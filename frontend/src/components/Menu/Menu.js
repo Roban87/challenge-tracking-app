@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  useSelector,
-  useDispatch,
-} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './Menu.css';
 import logo from '../../assets/accepted-logo.svg';
@@ -17,7 +14,7 @@ function Menu() {
   }
 
   return (
-    <div className="menu">
+    <nav className="menu">
       <img src={logo} alt="accepted logo" className="logo" />
 
       <div className="nav-btns">
@@ -46,7 +43,7 @@ function Menu() {
       <div className="logout-btn btn">
         <a href="/" onClick={() => logOut()}>Logout</a>
       </div>
-    </div>
+    </nav>
   );
 }
 
