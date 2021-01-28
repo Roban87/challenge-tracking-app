@@ -14,15 +14,21 @@
   margin-top: 11vh;
   width: 90vw;
 }
+@media (max-width: 700px) {
+  .landing-main-content {
+    margin-top: 8vh;
+  }
+}
 .landing-main-content h1 {
   color: #fff;
   font-weight: 300;
   font-size: 4em;
   margin-bottom: 2rem;
+  line-height: 1em;
 }
 @media (max-width: 700px) {
   .landing-main-content h1 {
-    font-size: 2.5em;
+    font-size: 2.2em;
   }
 }
 .landing-main-content h2, .landing-main-content h3 {
@@ -30,6 +36,12 @@
 }
 .landing-main-content h3 {
   color: #6b6e70;
+  font-size: 1.8em;
+}
+@media (max-width: 700px) {
+  .landing-main-content h3 {
+    font-size: 1.2em;
+  }
 }
 .landing-main-content p {
   margin-bottom: 2.5rem;

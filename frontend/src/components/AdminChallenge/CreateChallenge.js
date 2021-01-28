@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { useAlert } from 'react-alert';
-import 'react-datepicker/dist/react-datepicker.css';
 import dayjs from 'dayjs';
 import { useHistory } from 'react-router-dom';
 import { getChallenge, setChallengeError } from '../../redux/challenge/challenge.action';
 import generalDataFetch from '../../utilities/generalFetch';
+import 'react-datepicker/dist/react-datepicker.css';
+import './ChallengeForm.css';
 
 function CreateChallenge() {
   const dispatch = useDispatch();
@@ -61,41 +62,44 @@ function CreateChallenge() {
   };
 
   return (
-    <div className="create-challenge-main-container">
+    <div className="create-challenge-container">
       <h1 className="create-challenge-title">
         <span>Challenge</span>
         {' '}
         Creator Page
       </h1>
-      <div className="create-challenge-container">
-        <div className="challenge-form">
-          <div className="title-number">
-            <div className="title">
-              <label htmlFor="form-input" className="form-label">
-                <span>Challenge</span>
-                {' '}
-                title
-              </label>
-              <input
-                type="text"
-                className="form-input title"
-                placeholder="My Life-Changing Challenge"
-                onChange={(event) => setChallengeName(event.target.value)}
-              />
-            </div>
-            <div className="commit-number">
-              <label htmlFor="form-input" className="form-label">
-                Min. Commitments
-              </label>
-              <input
-                type="text"
-                className="form-input title"
-                placeholder="100"
-                onChange={(event) => setMinCommit(event.target.value)}
-              />
-            </div>
-          </div>
-          <label htmlFor="form-input" className="form-label">
+      <form className="create-challenge-form">
+
+        <div>
+          <label htmlFor="challenge-input" className="form-label">
+            <span>Challenge</span>
+            {' '}
+            title
+          </label>
+          <input
+            type="text"
+            className="form-input title"
+            id="challenge-title"
+            placeholder="My Life-Changing Challenge"
+            onChange={(event) => setChallengeName(event.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="challenge-commitments" className="form-label">
+            Min. Commitments
+          </label>
+          <input
+            type="number"
+            className="form-input title"
+            id="challenge-commitments"
+            placeholder="100"
+            onChange={(event) => setMinCommit(event.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="challenge-description" className="form-label">
             <span>Challenge</span>
             {' '}
             description
@@ -103,10 +107,12 @@ function CreateChallenge() {
           <textarea
             type="text"
             className="form-input description"
+            id="challenge-description"
             placeholder="In this challenge I will do the following awesome things..."
             onChange={(event) => setChallengeDescription(event.target.value)}
           />
         </div>
+
         <div className="challenge-date">
           <label htmlFor="date-picker" className="form-label">
             <span>Challenge</span>
@@ -123,12 +129,14 @@ function CreateChallenge() {
             inline
           />
         </div>
+
         <div className="create-challenge-submit">
           <button type="button" className="submit-challenge" onClick={submitChallenge}>
             Start Challenge
           </button>
         </div>
-      </div>
+
+      </form>
     </div>
   );
 }

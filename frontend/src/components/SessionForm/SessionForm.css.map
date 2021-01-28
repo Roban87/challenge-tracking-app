@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["SessionForm.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA","file":"SessionForm.css"}
+{"version":3,"sourceRoot":"","sources":["SessionForm.scss","../../styles/_config.scss"],"names":[],"mappings":"AAEA;EACE;EACA;EACA;EACA;EACA;EACA;;ACKA;EDXF;IASI;;;AAGF;EACE;EACA;ECYF,kBA5Bc;EA6Bd;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE,kBApCc;EAqCd;;;ADjBJ;EACE;EACA;EACA;EACA;EACA","file":"SessionForm.css"}

@@ -25,8 +25,8 @@ $text-color: #fff;
   background-position: left -12% bottom 0;
 }
 
-@mixin green-buttons {
-  background-color: $primary-green;
+@mixin buttons {
+  height: 40px;
   border: none;
   outline: none;
   text-align: center;
@@ -35,7 +35,24 @@ $text-color: #fff;
   transition: font-size .5s, background-color .5s;
 
   &:hover {
+    font-size: 1.2em;
+  }
+}
+
+@mixin green-buttons {
+  @include buttons;
+  background-color: $primary-green;
+
+  &:hover {
     background-color: $secondary-green;
-    font-size: 20px;
+  }
+}
+
+@mixin red-buttons {
+  @include buttons;
+  background-color: #c43131;
+
+  &:hover {
+    background-color:  #af2828;
   }
 }

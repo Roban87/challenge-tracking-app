@@ -13,35 +13,31 @@ body {
   background-color: #222629;
 }
 
-body * {
-  color: #fff;
-}
-
 a {
   text-decoration: none;
 }
 
 .btn {
   padding: 8px 12px;
-  margin: 10px 10px;
+  margin: 8px;
   border-radius: 20px;
 }
 
-input {
-  width: 250px;
-  height: 40px;
+input, textarea {
+  min-height: 35px;
   margin-bottom: 10px;
   border-radius: 10px;
-  border: 5px solid #86c232;
+  border: 4px solid #86c232;
   outline: none;
   text-align: center;
-  font-size: 15px;
+  font-size: 1em;
   color: #474b4f;
+  padding: 5px 8px;
 }
 
 button {
   padding: 8px 12px;
-  margin: 10px 10px;
+  margin: 5px;
   border-radius: 20px;
 }
 

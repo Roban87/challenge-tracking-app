@@ -1,0 +1,21 @@
+@use 'config';
+
+.admin-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.to-challenge-admin-btn {
+  margin: 30px 40px;
+  align-self: flex-end;
+  background-color: config.$dark-grey;
+
+  a {
+    color: config.$light-grey;
+  }
+
+  &:hover * {
+    color: config.$text-color;
+  }
+}

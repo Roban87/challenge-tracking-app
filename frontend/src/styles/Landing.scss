@@ -1,25 +1,29 @@
 @use 'config';
 
 .landing-container {
-  
   display: flex;
   flex-direction: column;
   align-items: center;
-  @include background-logo;
+  @include config.background-logo;
 }
 
 .landing-main-content {
   margin-top: 11vh;
   width: 90vw;
 
+  @include config.mobile {
+    margin-top: 8vh;
+  }
+
   h1 {
-    color: $text-color;
+    color: config.$text-color;
     font-weight: 300;
     font-size: 4em;
     margin-bottom: 2rem;
+    line-height: 1em;
 
-    @include mobile {
-      font-size: 2.5em;
+    @include config.mobile {
+      font-size: 2.2em;
     }
   }
 
@@ -28,7 +32,11 @@
   }
 
   h3 {
-    color: $light-grey;
+    color: config.$light-grey;
+    font-size: 1.8em;
+    @include config.mobile {
+      font-size: 1.2em;
+    }
   }
 
   p {
@@ -41,24 +49,24 @@
   }
 
   .login-btn {
-    background-color: $primary-green;
+    background-color: config.$primary-green;
   }
 
   .register-btn {
-    background-color: $secondary-green;
+    background-color: config.$secondary-green;
   }
 }
 
 .landing-admin-btn {
   margin: 30px 40px;
   align-self: flex-end;
-  background-color: $dark-grey;
+  background-color: config.$dark-grey;
 
   a {
-    color: $light-grey;
+    color: config.$light-grey;
   }
 
   &:hover * {
-    color: $text-color;
+    color: config.$text-color;
   }
 }

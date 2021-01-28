@@ -2,17 +2,17 @@
 
 .form-container {
   padding-top: 6rem;
-  @include background-logo;
+  @include config.background-logo;
 
   h1 {
     width: 95vw;
     margin: 0 auto;
-    color: $text-color;
+    color: config.$text-color;
     font-weight: 300;
     font-size: 4em;
     margin-bottom: 2rem;
-    @include mobile {
-      font-size: 2.5em;
+    @include config.mobile {
+      font-size: 2.2em;
     }
   }
 }
