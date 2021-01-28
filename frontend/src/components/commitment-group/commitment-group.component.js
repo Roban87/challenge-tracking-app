@@ -57,7 +57,6 @@ function CommitmentGroup(props) {
   }
 
   const drop = (ev) => {
-    console.time();
     ev.preventDefault();
     const commitmentId = Number(ev.dataTransfer.getData('commitmentId'));
     const commitName = ev.dataTransfer.getData('name');
@@ -78,7 +77,6 @@ function CommitmentGroup(props) {
         dispatch(updateCommitmentAsync(commitment));
       }
     }
-    console.timeEnd();
   };
 
   const quickAdd = () => {
