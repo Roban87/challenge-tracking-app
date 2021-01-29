@@ -14,7 +14,9 @@ function Charts() {
   const [datesLabel, setDatesLabel] = useState([]);
   const { users } = useSelector((state) => state.users);
   const [selectedUserId, setSelectedUserId] = useState(userId);
+  // have to change naming below
   const [selectedUserIds, setSelectedUserIds] = useState([userId]);
+  const [chartDataset, setChartDataset] = useState([]);
   const machineDate = useSelector((state) => state.currentDate.currentDate);
 
   useEffect(() => {
@@ -77,7 +79,6 @@ function Charts() {
       setSelectedUserIds([...selectedUserIds, id]);
     }
   };
-  console.log(selectedUserIds);
 
   const userSelectButtons = users.map((user) => (
     <div className="user" key={user.username}>
