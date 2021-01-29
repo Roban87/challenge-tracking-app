@@ -7,3 +7,4 @@ yarn-error.log
 dist
 coverage
 .eslintcache
+deploy_env
