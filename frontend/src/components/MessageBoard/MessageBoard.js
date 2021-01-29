@@ -5,6 +5,7 @@ import React,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import socketIOClient from 'socket.io-client';
 import { setMessage } from '../../redux/message/message.action';
 import MessageBox from '../MessageBox/MessageBox';
@@ -17,7 +18,7 @@ function MessageBoard() {
   const [text, setText] = useState('');
 
   const socket = socketIOClient(process.env.REACT_APP_SOCKET);
-
+  dayjs.extend(localizedFormat);
   useEffect(() => {
     socket.on('message', (message) => {
       dispatch(setMessage(message));
@@ -38,7 +39,7 @@ function MessageBoard() {
     socket.emit('send-message', {
       message,
       senderName: user,
-      id: Date.now(),
+      id: dayjs().format('LT'),
     });
 
     // setText(''); -> TODO debugolni
@@ -49,7 +50,12 @@ function MessageBoard() {
       <div className="message-container" id="box">
         <div className="messages">
           {messages.map((message) => (
-            <MessageBox key={message.id} message={message.message} sender={message.senderName} time={`${dayjs(message.id).format('LT')}`} />
+            <MessageBox
+              key={message.id}
+              message={message.message}
+              sender={message.senderName}
+              time={message.id}
+            />
           ))}
         </div>
       </div>

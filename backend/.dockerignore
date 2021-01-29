@@ -1,10 +1,9 @@
 node_modules/
-output/
 logs/
 .env
 .env.test
+.env.example
 yarn-error.log
 dist
 coverage
 .eslintcache
-deploy_env
