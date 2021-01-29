@@ -19,6 +19,10 @@
   padding-top: 5px;
 }
 
+.message-area {
+  text-align: left;
+}
+
 .message-form * {
   color: #474b4f;
   font-size: 1.2em;

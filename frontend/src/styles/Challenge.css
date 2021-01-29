@@ -3,37 +3,56 @@
   justify-content: space-between;
   align-items: center;
   height: 100vh;
-  min-width: 1440px;
+  width: 100vw;
 }
-
+@media (max-width: 1024px) {
+  .challenge-container {
+    flex-direction: column;
+  }
+}
+.challenge-container nav {
+  width: 15vw;
+  margin-right: 15px;
+}
+@media (max-width: 1024px) {
+  .challenge-container nav {
+    width: 100vw;
+    margin: 0;
+  }
+}
+.challenge-container .message-board {
+  background-color: #6b6e70;
+  width: 20vw;
+  min-width: 180px;
+  max-width: 300px;
+  margin: 15px;
+  height: calc(100vh - 30px);
+}
+@media (max-width: 1024px) {
+  .challenge-container .message-board {
+    height: 70vh;
+  }
+}
 .challenge-container main {
-  margin: 20px;
-  min-width: 1270px;
+  background-color: #6b6e70;
   display: flex;
-  margin: 0 auto;
-}
-
-nav {
-  width: 160px;
-  height: 100vh;
-  margin-right: 20px;
-}
-
-.middle-content {
-  height: 100%;
+  flex-direction: column;
+  max-width: 1000px;
   width: 100%;
+  height: calc(100vh - 30px);
+  margin: 15px auto;
 }
-
-
-.content-container {
+.challenge-container main .content-container {
+  margin-top: 15px;
   width: 100%;
   height: calc(100vh - 135px);
   border-radius: 6px;
   overflow: hidden;
 }
-
-.message-board {
-  width: 300px;
-  height: calc(100vh - 40px);
-  margin-left: 20px;
+@media (max-width: 1024px) {
+  .challenge-container main {
+    margin: 0;
+  }
 }
+
+/*# sourceMappingURL=Challenge.css.map */

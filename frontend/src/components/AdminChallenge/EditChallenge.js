@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import { useAlert } from 'react-alert';
 import dayjs from 'dayjs';
-import generalDataFetch from '../../utilities/generalFetch';
+import generalDataFetch from '../../utilities/generalDataFetch';
 import { getChallengeAsync, getChallenge, setChallengeError } from '../../redux/challenge/challenge.action';
 import 'react-datepicker/dist/react-datepicker.css';
 import './ChallengeForm.css';

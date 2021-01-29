@@ -13,20 +13,35 @@ function Menu() {
     dispatch(sessionLogout());
   }
 
+  function setActive() {
+    const navigation = document.querySelector('.nav-btns');
+    navigation.classList.toggle('active');
+  }
+  function setNotActive() {
+    const navigation = document.querySelector('.nav-btns');
+    navigation.classList.remove('active');
+  }
+
   return (
-    <nav className="menu">
-      <img src={logo} alt="accepted logo" className="logo" />
+    <nav>
+      <img src={logo} alt="accepted logo" />
+
+      <button type="button" className="dropdown" onClick={setActive}>
+        <span />
+        <span />
+        <span />
+      </button>
 
       <div className="nav-btns">
         <div className="commitments-btn btn">
-          <NavLink to="/challenge/commitments">Commitments</NavLink>
+          <NavLink to="/challenge/commitments" onClick={setNotActive}>Commitments</NavLink>
         </div>
 
         <div className="statistics-btn btn">
-          <NavLink to="/challenge/statistics">Statistics</NavLink>
+          <NavLink to="/challenge/statistics" onClick={setNotActive}>Statistics</NavLink>
         </div>
         <div className="final-statistics-btn btn">
-          <NavLink to="/challenge/final-statistics">All Statistics</NavLink>
+          <NavLink to="/challenge/final-statistics" onClick={setNotActive}>All Statistics</NavLink>
         </div>
 
         {
@@ -38,11 +53,11 @@ function Menu() {
           )
           : null
         }
+        <div className="logout-btn btn">
+          <a href="/" onClick={() => logOut()}>Logout</a>
+        </div>
       </div>
 
-      <div className="logout-btn btn">
-        <a href="/" onClick={() => logOut()}>Logout</a>
-      </div>
     </nav>
   );
 }
