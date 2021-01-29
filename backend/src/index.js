@@ -2,7 +2,7 @@ import http from 'http';
 import logger from './logger';
 import app from './app';
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 const server = http.createServer(app);
 const io = require('socket.io')(server, {

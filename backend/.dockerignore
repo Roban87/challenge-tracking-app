@@ -1,0 +1,9 @@
+node_modules/
+logs/
+.env
+.env.test
+.env.example
+yarn-error.log
+dist
+coverage
+.eslintcache
