@@ -6,19 +6,23 @@ import React,
 import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { Picker } from 'emoji-mart';
+import { Smile } from 'react-feather';
 import socketIOClient from 'socket.io-client';
 import { setMessage } from '../../redux/message/message.action';
 import MessageBox from '../MessageBox/MessageBox';
 import './MessageBoard.css';
+import 'emoji-mart/css/emoji-mart.css';
 
 function MessageBoard() {
   const user = useSelector((state) => state.user.username);
   const messages = useSelector((state) => state.messages.messages);
   const dispatch = useDispatch();
   const [text, setText] = useState('');
-
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const socket = socketIOClient(process.env.REACT_APP_SOCKET);
   dayjs.extend(localizedFormat);
+
   useEffect(() => {
     socket.on('message', (message) => {
       dispatch(setMessage(message));
@@ -30,20 +34,27 @@ function MessageBoard() {
     return () => socket.disconnect();
   }, [socket, dispatch]);
 
+  const sendMessage = (message) => socket.emit('send-message', {
+    message,
+    senderName: user,
+    id: dayjs().format('LT'),
+  });
+
   const handleSendMessage = (event, message) => {
     event.preventDefault();
-
-    if (message === '') {
-      return;
+    const trimmedMessage = message.trim();
+    if (trimmedMessage !== '') {
+      sendMessage(trimmedMessage);
     }
-    socket.emit('send-message', {
-      message,
-      senderName: user,
-      id: dayjs().format('LT'),
-    });
-
-    // setText(''); -> TODO debugolni
   };
+
+  function toggleEmojiPicker() {
+    setShowEmojiPicker(!showEmojiPicker);
+  }
+
+  function addEmoji(emoji) {
+    setText(`${text}${emoji.native}`);
+  }
 
   return (
     <div className="message-board">
@@ -59,6 +70,20 @@ function MessageBoard() {
           ))}
         </div>
       </div>
+
+      {showEmojiPicker
+        ? (
+          <Picker
+            onSelect={addEmoji}
+            set="facebook"
+            sheetSize={64}
+            style={{
+              width: 'inherit',
+            }}
+          />
+        )
+        : null}
+
       <form className="message-form" onSubmit={(event) => handleSendMessage(event, text)}>
         <textarea
           type="text"
@@ -67,6 +92,15 @@ function MessageBoard() {
           value={text}
           onChange={(event) => setText(event.target.value)}
         />
+
+        <button
+          type="button"
+          className="toggle-emoji btn"
+          onClick={toggleEmojiPicker}
+        >
+          <Smile />
+        </button>
+
         <input type="submit" className="btn send-btn" value="SEND" />
       </form>
     </div>
