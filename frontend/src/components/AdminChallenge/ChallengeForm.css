@@ -1,0 +1,87 @@
+.create-challenge-container {
+  width: 90%;
+}
+.create-challenge-container h1 {
+  color: #fff;
+  font-weight: 300;
+  font-size: 3em;
+  margin-bottom: 0.6rem;
+}
+@media (max-width: 700px) {
+  .create-challenge-container h1 {
+    font-size: 2.2em;
+  }
+}
+.create-challenge-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.create-challenge-container form > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.create-challenge-container form > div label {
+  margin-bottom: 8px;
+  font-size: 1.2em;
+}
+.create-challenge-container form > div label span {
+  color: #86c232;
+}
+.create-challenge-container form > div input, .create-challenge-container form > div textarea {
+  width: 300px;
+}
+.create-challenge-container form > div textarea {
+  text-align: left;
+  height: 80px;
+  font-size: 1.1em;
+}
+.create-challenge-container form > div .date-pickers {
+  display: flex;
+  flex-direction: column;
+}
+.create-challenge-container form .updating-buttons {
+  width: 300px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.create-challenge-container form .submit-challenge {
+  width: 200px;
+  height: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+  transition: font-size 0.5s, background-color 0.5s;
+  background-color: #86c232;
+}
+.create-challenge-container form .submit-challenge:hover {
+  font-size: 1.2em;
+}
+.create-challenge-container form .submit-challenge:hover {
+  background-color: #61892f;
+}
+.create-challenge-container form .cancel-update {
+  width: 90px;
+  height: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+  transition: font-size 0.5s, background-color 0.5s;
+  background-color: #c43131;
+}
+.create-challenge-container form .cancel-update:hover {
+  font-size: 1.2em;
+}
+.create-challenge-container form .cancel-update:hover {
+  background-color: #af2828;
+}
+.create-challenge-container form .react-datepicker__input-container {
+  width: inherit;
+}
+
+/*# sourceMappingURL=ChallengeForm.css.map */

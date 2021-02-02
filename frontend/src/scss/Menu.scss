@@ -1,0 +1,127 @@
+@use 'config';
+
+nav {
+  height: 100vh;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include config.tablet {
+    height: 80px;
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  @include config.mobile {
+    height: 40vh;
+    flex-direction: column;
+    transition: top 1s;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+
+    @include config.mobile {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+    }
+  }
+
+  .nav-btns {
+    width:100%;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+    @include config.tablet {
+      flex-direction: row;
+      width: 75%;
+      height: 100%;
+      align-items: center;
+    }
+
+    @include config.mobile {
+      flex-direction: column;
+      align-items: flex-end;
+      height: 0;
+      display: none;
+      transition: height .5s ease 0s;
+
+      &.active {
+        height: 25vh;
+        display: flex;
+      }
+    }
+
+    div {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: config.$secondary-green;
+      font-size: 1.1em;
+      font-weight: 700;
+      letter-spacing: 1px;
+
+      &:hover {
+        color: config.$primary-green;
+      }
+    }
+  }
+
+  .logout-btn {
+    a {
+      color: config.$dark-grey;
+      font-weight: 500;
+      letter-spacing: 1px;
+
+      &:hover {
+        color: config.$text-color;
+      }
+    }
+  }
+
+  .dropdown {
+    display: none;
+
+    @include config.mobile {
+      margin: 0;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      background-color: transparent;
+      border-radius: 25px;
+      border: 3px solid config.$secondary-green;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+
+      span {
+        background-color: config.$secondary-green;
+        width: 25px;
+        height: 3px;
+        border-radius: 2px;
+        margin: 3px 0;
+      }
+
+      &:active {
+        border-color: config.$primary-green;
+
+        span {
+          background-color: config.$primary-green;
+        }
+      }
+    }
+  }
+}
+

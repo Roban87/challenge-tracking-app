@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { addCommitmentAsync } from '../../redux/commitments/commitments.actions';
 import { toggleCreateCommitmentForm } from '../../redux/commitment-form/commitment-form.actions';
-import './add-commitment.styles.css';
+import './AddCommitment.css';
 
 function AddCommitment(props) {
   const dispatch = useDispatch();
@@ -88,17 +88,19 @@ function AddCommitment(props) {
     <div className="create-commitment-container">
       <i role="button" tabIndex="0" className="fas fa-times exit-form" onClick={exitForm} />
       <h2>Add new commitment</h2>
-      <form className="create-commitment-form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="commitment-name">Commitment name</label>
         <input
           type="text"
           value={commitmentName}
           name="commitment-name"
+          id="commitment-name"
           onChange={handleChange}
         />
         <label htmlFor="start-date">Start Date</label>
         <input
           name="start-date"
+          id="start-date"
           type="date"
           onChange={handleChange}
           value={commitmentStartDate && commitmentStartDate}
@@ -108,6 +110,7 @@ function AddCommitment(props) {
         <label htmlFor="commitment-length">Commitment length (days)</label>
         <input
           name="commitment-length"
+          id="commitment-length"
           type="number"
           onChange={handleChange}
           value={commitmentLength}
@@ -125,9 +128,7 @@ function AddCommitment(props) {
             <input type="radio" id="repeat-commitment-radio" onChange={handleChange} name="commitment-repeat" value="repeat" />
           </div>
         </div>
-        {
-          errorMessage ? <p>{errorMessage}</p> : null
-        }
+        <p className="error-message">{errorMessage || null}</p>
         <button className="create-commitment-button" type="submit">Add commitment</button>
       </form>
     </div>

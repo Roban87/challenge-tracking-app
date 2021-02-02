@@ -4,6 +4,7 @@ import { Line, Pie } from 'react-chartjs-2';
 import dayjs from 'dayjs';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
 import { getUsersAsync } from '../../redux/users/users.actions';
+import './Charts.css';
 
 function Charts() {
   const dispatch = useDispatch();
@@ -85,12 +86,12 @@ function Charts() {
   ));
 
   return (
-    <div className="charts-main-container">
-      <div className="user-select-container">
+    <section className="charts-main-container">
+      <div className="form-wrapper">
         <form className="user-select-form">{userSelectButtons}</form>
       </div>
-      <div className="charts-container">
-        <div className="line-chart-container">
+      <div className="charts-wrapper">
+        <div className="charts-container">
           <Line
             data={{
               labels: datesLabel,
@@ -121,6 +122,8 @@ function Charts() {
               },
             }}
           />
+        </div>
+        <div className="charts-container">
           <Pie
             data={{
               datasets: [
@@ -140,7 +143,7 @@ function Charts() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

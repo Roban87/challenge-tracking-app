@@ -1,0 +1,58 @@
+$primary-green: #86c232;
+$secondary-green: #61892f;
+$light-grey: #6b6e70;
+$dark-grey: #474b4f;
+$text-color: #fff;
+
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin background-logo {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../assets/accepted-logo-grey.svg);
+  background-repeat: no-repeat;
+  background-size: 75%;
+  background-position: left -12% bottom 0;
+}
+
+@mixin buttons {
+  height: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+  transition: font-size .5s, background-color .5s;
+
+  &:hover {
+    font-size: 1.2em;
+  }
+}
+
+@mixin green-buttons {
+  @include buttons;
+  background-color: $primary-green;
+
+  &:hover {
+    background-color: $secondary-green;
+  }
+}
+
+@mixin red-buttons {
+  @include buttons;
+  background-color: #c43131;
+
+  &:hover {
+    background-color:  #af2828;
+  }
+}

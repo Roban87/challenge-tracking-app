@@ -1,0 +1,21 @@
+@use 'config';
+@use 'sass:color';
+
+.commitment-group-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 170px;
+
+  .calendar-block {
+    max-height: 35px;
+    min-height: 35px; 
+    margin: 0px;
+    overflow-y: visible;
+    position: relative;
+
+    &:nth-child(odd) {
+      background-color: color.scale(config.$text-color, $alpha: -90%);
+    }
+  }
+}

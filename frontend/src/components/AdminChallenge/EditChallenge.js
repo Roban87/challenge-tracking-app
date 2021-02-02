@@ -4,9 +4,10 @@ import { useHistory } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import { useAlert } from 'react-alert';
 import dayjs from 'dayjs';
-import generalDataFetch from '../../utilities/generalFetch';
+import generalDataFetch from '../../utilities/generalDataFetch';
 import { getChallengeAsync, getChallenge, setChallengeError } from '../../redux/challenge/challenge.action';
 import 'react-datepicker/dist/react-datepicker.css';
+import './ChallengeForm.css';
 
 function EditChallenge() {
   const challenge = useSelector((state) => state.challenge.challenge);
@@ -79,45 +80,48 @@ function EditChallenge() {
   };
 
   return (
-    <div className="create-challenge-main-container">
+    <div className="create-challenge-container">
       <h1 className="create-challenge-title">
         <span>Challenge</span>
         {' '}
         Editor Page
       </h1>
-      <div className="create-challenge-container">
-        <div className="challenge-form">
-          <div className="title-number">
-            <div className="title">
-              <label htmlFor="form-input" className="form-label">
-                <span>Challenge</span>
-                {' '}
-                Title
-              </label>
-              <textarea
-                type="text"
-                className="edit-form-input title"
-                placeholder={challenge.title}
-                onChange={(event) => setChallengeName(event.target.value)}
-                disabled={!isUpdating}
-                value={challengeName}
-              />
-            </div>
-            <div className="commit-number">
-              <label htmlFor="form-input" className="form-label">
-                Min. Commitments
-              </label>
-              <textarea
-                type="text"
-                className="edit-form-input title"
-                placeholder={challenge.minCommit}
-                onChange={(event) => setMinCommit(event.target.value)}
-                disabled={!isUpdating}
-                value={minCommit}
-              />
-            </div>
-          </div>
-          <label htmlFor="form-input" className="form-label">
+      <form className="create-challenge-form">
+
+        <div>
+          <label htmlFor="challenge-title" className="form-label">
+            <span>Challenge</span>
+            {' '}
+            Title
+          </label>
+          <input
+            type="text"
+            className="edit-form-input"
+            id="challenge-title"
+            placeholder={challenge.title}
+            onChange={(event) => setChallengeName(event.target.value)}
+            disabled={!isUpdating}
+            value={challengeName}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="challenge-commitments" className="form-label">
+            Min. Commitments
+          </label>
+          <input
+            type="number"
+            className="edit-form-input"
+            id="challenge-commitments"
+            placeholder={challenge.minCommit}
+            onChange={(event) => setMinCommit(event.target.value)}
+            disabled={!isUpdating}
+            value={minCommit}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="challenge-description" className="form-label">
             <span>Challenge</span>
             {' '}
             Decription
@@ -126,17 +130,20 @@ function EditChallenge() {
             disabled={!isUpdating}
             type="text"
             className="edit-form-input description"
+            id="challenge-description"
+            placeholder={challenge.challengeDescription}
             onChange={(event) => setChallengeDescription(event.target.value)}
             value={challengeDescription}
           />
         </div>
+
         <div className="challenge-date">
-          <label htmlFor="date-picker" className="form-label">
+          <label htmlFor="challenge-date-picker" className="form-label">
             <span>Challenge</span>
             {' '}
             Interval
           </label>
-          <div className="date-pickers">
+          <div className="date-pickers" id="challenge-date-pickers">
             <DatePicker
               className="start-date simple-date-picker"
               minDate={new Date()}
@@ -153,6 +160,7 @@ function EditChallenge() {
             />
           </div>
         </div>
+
         <div className="create-challenge-submit">
           {!isUpdating ? (
             <button
@@ -183,7 +191,7 @@ function EditChallenge() {
             </div>
           )}
         </div>
-      </div>
+      </form>
     </div>
   );
 }

@@ -1,0 +1,72 @@
+@use 'config';
+
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include config.background-logo;
+}
+
+.landing-main-content {
+  margin-top: 11vh;
+  width: 90vw;
+
+  @include config.mobile {
+    margin-top: 8vh;
+  }
+
+  h1 {
+    color: config.$text-color;
+    font-weight: 300;
+    font-size: 4em;
+    margin-bottom: 2rem;
+    line-height: 1em;
+
+    @include config.mobile {
+      font-size: 2.2em;
+    }
+  }
+
+  h2, h3 {
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    color: config.$light-grey;
+    font-size: 1.8em;
+    @include config.mobile {
+      font-size: 1.2em;
+    }
+  }
+
+  p {
+    margin-bottom: 2.5rem;
+  }
+
+  .landing-user-btns {
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-btn {
+    background-color: config.$primary-green;
+  }
+
+  .register-btn {
+    background-color: config.$secondary-green;
+  }
+}
+
+.landing-admin-btn {
+  margin: 30px 40px;
+  align-self: flex-end;
+  background-color: config.$dark-grey;
+
+  a {
+    color: config.$light-grey;
+  }
+
+  &:hover * {
+    color: config.$text-color;
+  }
+}

@@ -1,0 +1,92 @@
+@use 'config';
+
+.charts-main-container {
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  @include config.mobile {
+    flex-direction: column;
+  }
+
+  .form-wrapper {
+    width: 20%;
+    height: 100%;
+    overflow-y: auto;
+
+    @include config.mobile {
+      width: 100%;
+      height: max-content;
+      padding-bottom: 8px;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      @include config.mobile {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+  
+      div {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        @include config.mobile {
+          width: 50%;
+        }
+  
+        input {
+          margin: 0 5px;
+        }
+      }
+    }
+  }
+
+  .charts-wrapper {
+    width: max-content;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+
+    @include config.tablet {
+      width: 80%;
+    }
+
+    @include config.mobile {
+      width: 100%;
+    }
+
+      
+    .charts-container {
+      position: relative;
+      width: 37vw;
+      height: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include config.tablet {
+        width: 100%;
+      }
+
+      canvas {
+        padding: 5px;
+      }
+    }
+  }
+}

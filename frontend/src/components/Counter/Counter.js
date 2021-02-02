@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import TimeMachine from '../time-machine/time-machine.component';
+// import TimeMachine from '../time-machine/time-machine.component';
 import './Counter.css';
 
 function Counter() {
@@ -46,8 +46,8 @@ function Counter() {
   }, [currentTimestamp, challengeStartTimestamp, challengeEndTimestamp]);
 
   return (
-    <div className="counter-container">
-      <TimeMachine />
+    <section className="counter-container">
+      {/* <TimeMachine /> */}
       {currentTimestamp < challengeStartTimestamp
         ? (
           <h1>
@@ -81,7 +81,7 @@ function Counter() {
             </h1>
           )
         )}
-    </div>
+    </section>
   );
 }
 

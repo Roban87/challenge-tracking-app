@@ -1,0 +1,28 @@
+@use "config";
+
+.session-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  min-width: 250px;
+  margin: 0 auto;
+
+  @include config.mobile {
+    width: 60%;
+  }
+
+  button {
+    width: 150px;
+    height: 40px;
+    @include config.green-buttons;
+  }
+}
+
+.error-message {
+  height: 1.5em;
+  color: red;
+  font-weight: 800;
+  font-size: 1em;
+  letter-spacing: 2px;
+}

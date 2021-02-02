@@ -11,11 +11,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Challenge from './pages/Challenge';
 import AdminPage from './pages/AdminPage';
-import Statistics from './pages/Statistics';
 import VerificationPage from './pages/VerificationPage';
 import './App.css';
 import { getChallengeAsync } from './redux/challenge/challenge.action';
-import FinalStatistics from './pages/FinalStatistics';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +31,6 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route path="/challenge" component={Challenge} />
           <Route exact path="/admin" component={AdminPage} />
-          <Route exact path="/stats" component={Statistics} />
-          <Route exact path="/finalstats" component={FinalStatistics} />
           <Route exact path="/verification/:userId/:verificationToken" component={VerificationPage} />
         </Switch>
       </div>

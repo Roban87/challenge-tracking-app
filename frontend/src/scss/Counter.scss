@@ -1,0 +1,27 @@
+@use 'config';
+
+.counter-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.5em;
+  width: 100%;
+  margin-bottom: 15px;
+
+  @include config.mobile {
+    height: 4em;
+  }
+
+  h1 {
+    font-size: 1.7em;
+
+    @include config.mobile {
+      font-size: 1.4em;
+
+      span::before {
+        content: "\A";
+        white-space: pre;
+      }
+    }
+  }
+}

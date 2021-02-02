@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAlert } from 'react-alert';
-import generalDataFetch from '../../utilities/generalFetch';
+import generalDataFetch from '../../utilities/generalDataFetch';
 import {
   sessionLoading,
   sessionSuccess,
@@ -71,6 +71,11 @@ function SessionForm({ formType }) {
 
     try {
       const loginResponse = await generalDataFetch(endpoint, method, loginData);
+
+      if (loginResponse.status !== 200) {
+        return dispatch(sessionFailed(loginResponse.jsonData.message));
+      }
+
       const {
         token,
         userId,
@@ -86,10 +91,6 @@ function SessionForm({ formType }) {
           </div>,
         );
         throw Error('User is not verified');
-      }
-
-      if (loginResponse.status !== 200) {
-        return dispatch(sessionFailed(loginResponse.jsonData.message));
       }
 
       setPassword('');

@@ -1,0 +1,94 @@
+@use 'config';
+
+.message-container {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .messages {
+    height: 100%;
+  }
+}
+
+.emoji-mart {
+  z-index: 200;
+  display: none;
+  width: 95%;
+  position: absolute;
+  right: 0;
+  bottom: 20%;
+
+  * {
+    color: config.$dark-grey;
+  }
+
+  div:nth-of-type(3) {
+    display: none;
+  }
+}
+
+.emoji-mart-anchors {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  
+  svg *, img * {
+    fill: config.$dark-grey;
+  }
+}
+
+.emoji-mart-emoji {
+  outline: none;
+}
+
+.message-form {
+  height: 15%;
+  padding-top: 5px;
+
+  textarea {
+    text-align: left;
+    color: config.$dark-grey;
+    font-size: 1.2em;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border-radius: 6px 6px 0 0;
+    padding: 8px 10px;
+    margin-bottom: 4px;
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 20%;
+
+    .send-btn {
+      margin: 0;
+      @include config.buttons;
+      height: 36px;
+      width: 80%;
+      background-color: config.$primary-green;
+      color: config.$text-color;
+      border-radius: 0 0 6px 0;
+    }
+
+    .toggle-emoji {
+      margin: 0;
+      width: 20%;
+      @include config.buttons;
+      height: 36px;
+      background-color: config.$primary-green;
+      color: config.$text-color;
+      border-radius: 0 0 0 6px;
+    }
+  }
+}

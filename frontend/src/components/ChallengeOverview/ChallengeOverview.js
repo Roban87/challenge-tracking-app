@@ -4,9 +4,8 @@ import dayjs from 'dayjs';
 import { getMonthAndDayString, createDateArray } from '../../utilities/date.utils';
 import CommitmentGroup from '../commitment-group/commitment-group.component';
 import AddCommitment from '../add-commitment/add-commitment.component';
-
 import { toggleCreateCommitmentForm } from '../../redux/commitment-form/commitment-form.actions';
-import './challenge-overview.styles.css';
+import './ChallengeOverview.css';
 
 export default function ChallengeOverview() {
   const dispatch = useDispatch();
@@ -24,15 +23,11 @@ export default function ChallengeOverview() {
     }
     return acc;
   }, []);
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-  };
 
   const dateArray = createDateArray(challenge.startDate, numOfDays);
 
   return (
-    <div className="challenge-overview">
+    <section className="challenge-overview">
       {
         createFormOpenStatus ? (
           <AddCommitment
@@ -43,7 +38,7 @@ export default function ChallengeOverview() {
           />
         ) : null
       }
-      <div style={containerStyle} className="challenge-days">
+      <div className="challenge-days">
         <div className="table-header">
           <button
             className="toggle-create-form-button"
@@ -56,34 +51,34 @@ export default function ChallengeOverview() {
             {' '}
             &#43; Commitment
           </button>
-          <h4 className="table-date-head">Date</h4>
+          <h1>Date</h1>
         </div>
         {
           dateArray.map((date, index) => (
             <div key={`day-${index}`} className="table-date">
-              { getMonthAndDayString(date) }
+              <p>{ getMonthAndDayString(date) }</p>
             </div>
           ))
         }
       </div>
-      <div className="commitments-container">
 
+      <div className="commitments-container">
         {
-        commitmentGroups.map((group) => {
-          const commitments = userCommitments.filter((commitment) => commitment.name === group);
-          return (
-            <CommitmentGroup
-              key={group}
-              name={group}
-              challengeStartDate={challenge.startDate}
-              challengeEndDate={challenge.endDate}
-              challengeNumOfDays={numOfDays}
-              commitments={commitments}
-            />
-          );
-        })
-      }
+          commitmentGroups.map((group) => {
+            const commitments = userCommitments.filter((commitment) => commitment.name === group);
+            return (
+              <CommitmentGroup
+                key={group}
+                name={group}
+                challengeStartDate={challenge.startDate}
+                challengeEndDate={challenge.endDate}
+                challengeNumOfDays={numOfDays}
+                commitments={commitments}
+              />
+            );
+          })
+        }
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,47 +1,60 @@
 .landing-container {
-  width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
   background-image: url(../assets/accepted-logo-grey.svg);
   background-repeat: no-repeat;
-  background-size: 80%;
-  background-position: left -40px bottom -15px;
+  background-size: 75%;
+  background-position: left -12% bottom 0;
 }
 
-.landing-main-text {
-  margin-top: 100px;
+.landing-main-content {
+  margin-top: 11vh;
+  width: 90vw;
 }
-
-.landing-main-text h1 {
-  font-size: 5em;
+@media (max-width: 700px) {
+  .landing-main-content {
+    margin-top: 8vh;
+  }
+}
+.landing-main-content h1 {
+  color: #fff;
   font-weight: 300;
-  color: white;
-  margin-bottom: 50px;
+  font-size: 4em;
+  margin-bottom: 2rem;
+  line-height: 1em;
 }
-
-.landing-main-text h1 span {
-  font-weight: 800;
-  color: #86c232;
+@media (max-width: 700px) {
+  .landing-main-content h1 {
+    font-size: 2.2em;
+  }
 }
-
-.landing-main-text h3 {
+.landing-main-content h2, .landing-main-content h3 {
+  margin-bottom: 1rem;
+}
+.landing-main-content h3 {
   color: #6b6e70;
-  margin: 40px auto;
+  font-size: 1.8em;
 }
-
-.landing-details {
-  margin-bottom: 80px;
+@media (max-width: 700px) {
+  .landing-main-content h3 {
+    font-size: 1.2em;
+  }
 }
-
-.landing-details h2 {
-  color:white;
-  line-height: 2em;
+.landing-main-content p {
+  margin-bottom: 2.5rem;
 }
-
-.landing-details p {
-  color:white;
+.landing-main-content .landing-user-btns {
+  display: flex;
+  justify-content: center;
+}
+.landing-main-content .login-btn {
+  background-color: #86c232;
+}
+.landing-main-content .register-btn {
+  background-color: #61892f;
 }
 
 .landing-admin-btn {
@@ -49,24 +62,11 @@
   align-self: flex-end;
   background-color: #474b4f;
 }
-
-.landing-admin-btn:hover * {
-  color: white;
-}
-
 .landing-admin-btn a {
   color: #6b6e70;
 }
-
-.landing-user-btns {
-  display: flex;
-  justify-content: center;
+.landing-admin-btn:hover * {
+  color: #fff;
 }
 
-.login-btn {
-  background-color: #86c232;
-}
-
-.register-btn {
-  background-color: #61892f;
-}
+/*# sourceMappingURL=Landing.css.map */

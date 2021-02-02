@@ -1,0 +1,24 @@
+.form-container {
+  padding-top: 6rem;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../assets/accepted-logo-grey.svg);
+  background-repeat: no-repeat;
+  background-size: 75%;
+  background-position: left -12% bottom 0;
+}
+.form-container h1 {
+  width: 95vw;
+  margin: 0 auto;
+  color: #fff;
+  font-weight: 300;
+  font-size: 4em;
+  margin-bottom: 2rem;
+}
+@media (max-width: 700px) {
+  .form-container h1 {
+    font-size: 2.2em;
+  }
+}
+
+/*# sourceMappingURL=Session.css.map */

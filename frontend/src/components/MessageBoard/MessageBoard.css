@@ -5,68 +5,99 @@
   justify-content: flex-end;
   overflow-y: auto;
 }
-
 .message-container::-webkit-scrollbar {
   display: none;
 }
-
-.messages {
+.message-container .messages {
   height: 100%;
 }
 
-.message-form {
-  height: 15%;
-  padding-top: 5px;
-}
-
-.message-form * {
-  color: #474b4f;
-  font-size: 1.2em;
-}
-
-.message-form textarea {
-  resize: none;
-  width: 300px;
-  height: 80%;
-  outline: none;
-  border-radius: 6px;
-  padding: 8px 10px;
-}
-
-.send-btn {
-  width: 120px;
-  height: 40px;
-  border: none;
-  background-color: #86c232;
-  color: white;
-  font-size: 17px;
-  font-weight: 600;
-  transition: font-size .5s;
-}
-
-.send-btn:hover {
-  background-color: #61892f;
-  font-size: 20px;
-}
-
 .emoji-mart {
-  z-index: 4;
+  z-index: 200;
+  display: none;
+  width: 95%;
+  position: absolute;
+  right: 0;
+  bottom: 20%;
+}
+.emoji-mart * {
+  color: #474b4f;
+}
+.emoji-mart div:nth-of-type(3) {
   display: none;
 }
 
 .emoji-mart-anchors {
   height: 100%;
-  width: 100%;
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.emoji-mart-anchors svg *, .emoji-mart-anchors img * {
+  fill: #474b4f;
 }
 
 .emoji-mart-emoji {
   outline: none;
 }
 
-.emoji-mart-anchors svg *, .emoji-mart-anchors img * {
-  fill: #474b4f;
+.message-form {
+  height: 15%;
+  padding-top: 5px;
+}
+.message-form textarea {
+  text-align: left;
+  color: #474b4f;
+  font-size: 1.2em;
+  resize: none;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border-radius: 6px 6px 0 0;
+  padding: 8px 10px;
+  margin-bottom: 4px;
+}
+.message-form .button-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 20%;
+}
+.message-form .button-wrapper .send-btn {
+  margin: 0;
+  height: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+  transition: font-size 0.5s, background-color 0.5s;
+  height: 36px;
+  width: 80%;
+  background-color: #86c232;
+  color: #fff;
+  border-radius: 0 0 6px 0;
+}
+.message-form .button-wrapper .send-btn:hover {
+  font-size: 1.2em;
+}
+.message-form .button-wrapper .toggle-emoji {
+  margin: 0;
+  width: 20%;
+  height: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+  transition: font-size 0.5s, background-color 0.5s;
+  height: 36px;
+  background-color: #86c232;
+  color: #fff;
+  border-radius: 0 0 0 6px;
+}
+.message-form .button-wrapper .toggle-emoji:hover {
+  font-size: 1.2em;
 }
 
-.emoji-mart div:nth-of-type(3) {
-  display: none;
-}
+/*# sourceMappingURL=MessageBoard.css.map */

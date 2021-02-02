@@ -1,0 +1,71 @@
+@use 'config';
+
+.create-commitment-container {
+  position: absolute;
+  width: 280px;
+  padding: 15px;
+  background-color: config.$dark-grey;
+  top: 20%;
+  left: 20%;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include config.tablet {
+    top: 20vh;
+    left: 15%;
+  }
+
+  @include config.mobile {
+    top: 35vh;
+    left: 15px;
+  }
+
+  i {
+    align-self: flex-end;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    label {
+      margin-bottom: 3px;
+    }
+
+    button {
+      @include config.green-buttons;
+      width: 190px;
+    }
+
+    .commitment-repeat-box {
+      width: 250px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+
+      .radio-group {
+        display: flex;
+        align-items: center;
+
+        input {
+          margin: 0;
+        }
+      }
+    }
+
+    .error-message {
+      width: 100%;
+      height: 1.3em;
+      color:red;
+      font-weight: 400;
+      font-size: .8em;
+    }
+  }
+}

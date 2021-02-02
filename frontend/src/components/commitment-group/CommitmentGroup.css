@@ -1,0 +1,18 @@
+.commitment-group-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 170px;
+}
+.commitment-group-container .calendar-block {
+  max-height: 35px;
+  min-height: 35px;
+  margin: 0px;
+  overflow-y: visible;
+  position: relative;
+}
+.commitment-group-container .calendar-block:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/*# sourceMappingURL=CommitmentGroup.css.map */

@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  useSelector,
-  useDispatch,
-} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './Menu.css';
 import logo from '../../assets/accepted-logo.svg';
@@ -16,20 +13,35 @@ function Menu() {
     dispatch(sessionLogout());
   }
 
+  function setActive() {
+    const navigation = document.querySelector('.nav-btns');
+    navigation.classList.toggle('active');
+  }
+  function setNotActive() {
+    const navigation = document.querySelector('.nav-btns');
+    navigation.classList.remove('active');
+  }
+
   return (
-    <div className="menu">
-      <img src={logo} alt="accepted logo" className="logo" />
+    <nav className="menu-container">
+      <img src={logo} alt="accepted logo" />
+
+      <button type="button" className="dropdown" onClick={setActive}>
+        <span />
+        <span />
+        <span />
+      </button>
 
       <div className="nav-btns">
         <div className="commitments-btn btn">
-          <NavLink to="/challenge/commitments">Commitments</NavLink>
+          <NavLink to="/challenge/commitments" onClick={setNotActive}>Commitments</NavLink>
         </div>
 
         <div className="statistics-btn btn">
-          <NavLink to="/challenge/statistics">Statistics</NavLink>
+          <NavLink to="/challenge/statistics" onClick={setNotActive}>Statistics</NavLink>
         </div>
         <div className="final-statistics-btn btn">
-          <NavLink to="/challenge/final-statistics">All Statistics</NavLink>
+          <NavLink to="/challenge/final-statistics" onClick={setNotActive}>Final Results</NavLink>
         </div>
 
         {
@@ -41,12 +53,12 @@ function Menu() {
           )
           : null
         }
+        <div className="logout-btn btn">
+          <a href="/" onClick={() => logOut()}>Logout</a>
+        </div>
       </div>
 
-      <div className="logout-btn btn">
-        <a href="/" onClick={() => logOut()}>Logout</a>
-      </div>
-    </div>
+    </nav>
   );
 }
 

@@ -1,18 +1,18 @@
 import React from 'react';
 import SessionForm from '../components/SessionForm/SessionForm';
+import '../styles/Session.css';
 
 function Register() {
   return (
-    <div>
-      <h1 className="head-text">
+    <div className="form-container">
+      <h1>
         i
+        {' '}
         <span>CHALLENGE</span>
         {' '}
         you!
       </h1>
-      <div className="form-container register-from">
-        <SessionForm formType="register" />
-      </div>
+      <SessionForm formType="register" />
     </div>
   );
 }

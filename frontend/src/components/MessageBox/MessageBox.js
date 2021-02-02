@@ -5,7 +5,7 @@ import './MessageBox.css';
 function MessageBox({ message, sender, time }) {
   return (
     <div className="message-box">
-      <h3 className="message-text">{message}</h3>
+      <h1 className="message-text">{message}</h1>
       <div className="message-info">
         <p>{sender}</p>
         <p>{time}</p>

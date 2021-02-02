@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import {
   transitions,
@@ -31,19 +30,17 @@ function AdminPage() {
   }, [dispatch]);
 
   const options = {
-    // you can also just use 'bottom center'
     position: positions.BOTTOM_CENTER,
     timeout: 5000,
     offset: '30px',
-    // you can also just use 'scale'
     type: types.ERROR,
     transition: transitions.SCALE,
   };
 
   return (
     <div className="admin-main-container">
-      <div className="btn admin-btn">
-        <a href="/challenge" style={{ color: 'white' }}>TO CHALLANGE PAGE</a>
+      <div className="btn to-challenge-admin-btn">
+        <a href="/challenge">TO CHALLANGE PAGE</a>
       </div>
       <AlertProvider template={AlertTemplate} {...options}>
         {dayjs(challenge.endDate).diff(currentDate, 'd') > 0 ? <EditChallenge /> : <CreateChallenge />}

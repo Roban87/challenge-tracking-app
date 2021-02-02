@@ -1,0 +1,44 @@
+@use 'config';
+
+.verification-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  i {
+    font-size: 2em;
+  }
+
+  h1 {
+    margin: 20px;
+    font-size: 2em;
+
+    @include config.mobile {
+      font-size: 1.2em;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      align-self: center;
+  
+      input {
+        margin-top: 15px;
+      }
+    }
+
+    button {
+      @include config.green-buttons;
+      width: 120px;
+    }
+  }
+}

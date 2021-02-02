@@ -35,9 +35,14 @@ function GetEmail({ verificationStatus, sendEmail }) {
         <div className="errorMessage">
           {errorMessage}
         </div>
-        <label htmlFor="Email">
+        <label htmlFor="email">
           Email
-          <input name="Email" type="text" onChange={emailChange} />
+          <input
+            name="email"
+            type="text"
+            id="email"
+            onChange={emailChange}
+          />
         </label>
         <div className="buttons">
           <Button

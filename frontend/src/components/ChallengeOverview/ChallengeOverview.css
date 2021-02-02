@@ -1,0 +1,81 @@
+.challenge-overview {
+  display: flex;
+  height: 100%;
+  overflow: auto;
+}
+.challenge-overview::-webkit-scrollbar {
+  width: 14px;
+}
+.challenge-overview::-webkit-scrollbar:horizontal {
+  height: 14px;
+}
+.challenge-overview::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+.challenge-overview::-webkit-scrollbar-button {
+  display: none;
+}
+.challenge-overview::-webkit-scrollbar-thumb {
+  background-color: #474b4f;
+  border-radius: 7px;
+}
+@media (max-width: 1024px) {
+  .challenge-overview::-webkit-scrollbar {
+    display: none;
+  }
+}
+.challenge-overview .challenge-days {
+  width: 150px;
+}
+.challenge-overview .challenge-days .toggle-create-form-button {
+  color: #fff;
+  height: 30px;
+  width: 130px;
+  border-radius: 15px;
+  border: 0.5px solid #86c232;
+  outline: none;
+  background-color: #61892f;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+.challenge-overview .challenge-days .toggle-create-form-button:hover {
+  background-color: #86c232;
+}
+.challenge-overview .challenge-days .table-date {
+  margin: 0px;
+  max-height: 35px;
+  min-height: 35px;
+  padding-left: 30px;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+.challenge-overview .challenge-days .table-date:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.challenge-overview .challenge-days .table-date p {
+  color: #fff;
+  font-size: 1.1em;
+  text-align: left;
+}
+.challenge-overview .commitments-container {
+  width: 100%;
+  height: 100%;
+  width: inherit;
+  display: flex;
+}
+.challenge-overview .table-header {
+  background-color: #61892f;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.challenge-overview .table-header h1 {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #474b4f;
+  padding-bottom: 10px;
+}
+
+/*# sourceMappingURL=ChallengeOverview.css.map */

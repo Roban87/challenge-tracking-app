@@ -2,15 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80px;
+  height: inherit;
   width: 200px;
-  position: absolute;
-  left: 5px;
 }
 
 .time-machine input {
-  margin: 3px 3px;
-  height: 25px;
+  margin: 2px;
+  height: 20px;
   border: 2px;
   width: 150px;
 }
@@ -24,7 +22,7 @@
 .time-machine-button-container button {
   background-color:rgb(134,194,50);
   color: white;
-  margin: 2px 2px;
-  padding: 3px 2px;
+  margin: 2px;
+  padding: 2px;
   width: 100px;
 }

@@ -4,8 +4,8 @@ import '../styles/Statistics.css';
 
 function Statistics() {
   return (
-    <div className="statistics-main-container">
-      <h1 className="statistics-title">
+    <section className="statistics-main-container">
+      <h1>
         <span>Challenge</span>
         {' '}
         Statistics
@@ -13,7 +13,7 @@ function Statistics() {
       <div className="statistics-container">
         <Charts />
       </div>
-    </div>
+    </section>
   );
 }
 

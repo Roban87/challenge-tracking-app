@@ -1,24 +1,38 @@
-.menu {
-  width: 100%;
+nav {
   height: 100vh;
-  transition: width .5s;
-  padding: 30px 15px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
 }
-
-/* .menu:hover {
-  width: 180px
-} */
-
-.logo {
-  max-width: 50px;
-  height: auto;
+@media (max-width: 1024px) {
+  nav {
+    height: 80px;
+    flex-direction: row;
+    align-items: flex-end;
+  }
 }
-
-.nav-btns {
+@media (max-width: 700px) {
+  nav {
+    height: 40vh;
+    flex-direction: column;
+    transition: top 1s;
+  }
+}
+nav img {
+  width: 50px;
+  height: 50px;
+}
+@media (max-width: 700px) {
+  nav img {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+}
+nav .nav-btns {
   width: 100%;
   height: 30vh;
   display: flex;
@@ -26,44 +40,79 @@
   justify-content: space-evenly;
   align-items: flex-start;
 }
-
-.nav-btns div, .logout-btn.btn {
-  padding: 0;
-  margin: 0;
+@media (max-width: 1024px) {
+  nav .nav-btns {
+    flex-direction: row;
+    width: 75%;
+    height: 100%;
+    align-items: center;
+  }
 }
-
-.nav-btns a {
+@media (max-width: 700px) {
+  nav .nav-btns {
+    flex-direction: column;
+    align-items: flex-end;
+    height: 0;
+    display: none;
+    transition: height 0.5s ease 0s;
+  }
+  nav .nav-btns.active {
+    height: 25vh;
+    display: flex;
+  }
+}
+nav .nav-btns div {
+  margin: 0;
+  padding: 0;
+}
+nav .nav-btns a {
   color: #61892f;
   font-size: 1.1em;
   font-weight: 700;
   letter-spacing: 1px;
 }
-
-.nav-btns a:hover {
-  color: #86c232
+nav .nav-btns a:hover {
+  color: #86c232;
 }
-
-.logout-btn a {
+nav .logout-btn a {
   color: #474b4f;
   font-weight: 500;
   letter-spacing: 1px;
 }
-
-.logout-btn:hover a {
-  color:white;
+nav .logout-btn a:hover {
+  color: #fff;
+}
+nav .dropdown {
+  display: none;
+}
+@media (max-width: 700px) {
+  nav .dropdown {
+    margin: 0;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 25px;
+    border: 3px solid #61892f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+  }
+  nav .dropdown span {
+    background-color: #61892f;
+    width: 25px;
+    height: 3px;
+    border-radius: 2px;
+    margin: 3px 0;
+  }
+  nav .dropdown:active {
+    border-color: #86c232;
+  }
+  nav .dropdown:active span {
+    background-color: #86c232;
+  }
 }
 
-/* todo - testing transition with menu btns */
-/* .logout-btn {
-  width: 50px;
-  height: 50px;
-  background-image: url(../../assets/log-out-grey.svg);
-  background-repeat: no-repeat;
-  background-position: center left;
-  background-size: 50%;
-}
-
-
-.logout-btn:hover {
-  background-image: url(../../assets/log-out.svg);
-} */
+/*# sourceMappingURL=Menu.css.map */
