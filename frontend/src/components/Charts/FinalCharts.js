@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Bar } from 'react-chartjs-2';
 import { fetchCommitmentsAsync } from '../../redux/commitments/commitments.actions';
 import { getUsersAsync } from '../../redux/users/users.actions';
+import './FinalCharts.css';
 
 function FinalCharts() {
   const dispatch = useDispatch();
@@ -50,34 +51,31 @@ function FinalCharts() {
 
   return (
     <div className="charts-main-container">
-      <div className="final-charts-container">
-        <div className="line-chart-container">
-          <Bar
-            data={{
-              labels: resultNames,
-              datasets: [
+      <div className="final-chart-wrapper">
+        <Bar
+          data={{
+            labels: resultNames,
+            datasets: [
+              {
+                label: 'User Completition percentage',
+                data: sortedResults.map((user) => user[1]),
+              },
+            ],
+          }}
+          options={{
+            responsive: true,
+            scales: {
+              yAxes: [
                 {
-                  label: 'User Completition percentage',
-                  data: sortedResults.map((user) => user[1]),
-                  backgroundColor: 'rgba(67, 170, 63, 0.5)',
+                  ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                  },
                 },
               ],
-            }}
-            options={{
-              responsive: true,
-              scales: {
-                yAxes: [
-                  {
-                    ticks: {
-                      suggestedMin: 0,
-                      suggestedMax: 100,
-                    },
-                  },
-                ],
-              },
-            }}
-          />
-        </div>
+            },
+          }}
+        />
       </div>
     </div>
   );

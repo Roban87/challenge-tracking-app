@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { updateCommitmentAsync, removeCommitmentAsync } from '../../redux/commitments/commitments.actions';
-import './commitment.styles.css';
+import './Commitment.css';
 
 function Commitment({ commitment }) {
   const {

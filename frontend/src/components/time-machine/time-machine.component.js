@@ -25,15 +25,15 @@ export default function TimeMachine() {
   };
 
   return (
-    <div className="time-machine">
+    <section className="time-machine">
       <form onSubmit={handleSubmit}>
-        <h4>Time Machine</h4>
-        <input onChange={handleChange} type="date" />
+        <label htmlFor="choose-time">Time Machine</label>
+        <input onChange={handleChange} type="date" id="choose-time" />
         <div className="time-machine-button-container">
           <button onClick={handleClick} name="change-date" type="button">Change Date</button>
           <button onClick={handleClick} name="reset-date" type="button">Reset Date</button>
         </div>
       </form>
-    </div>
+    </section>
   );
 }

@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { createDateArray } from '../../utilities/date.utils';
 import Commitment from '../commitment/commitment.component';
-
 import { updateCommitmentAsync, addCommitmentAsync } from '../../redux/commitments/commitments.actions';
-
-import './commitment-group.styles.css';
+import './CommitmentGroup.css';
 
 function CommitmentGroup(props) {
   const dispatch = useDispatch();
@@ -24,6 +22,7 @@ function CommitmentGroup(props) {
     acc[commitment.startDate] = commitment;
     return acc;
   }, {});
+
   const dateArray = createDateArray(challengeStartDate, challengeNumOfDays);
 
   const blockedDatesObj = commitments.reduce((dateObj, commitment) => {
@@ -33,11 +32,6 @@ function CommitmentGroup(props) {
     }
     return dateObj;
   }, {});
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  };
 
   const isSlotFree = (targetDate, blockedHelper, id) => {
     for (let i = 0; i < numOfDays; i++) {
@@ -95,7 +89,7 @@ function CommitmentGroup(props) {
   };
 
   return (
-    <div className="commitment-group-container" style={containerStyle}>
+    <div className="commitment-group-container">
       <div className="table-header" date={new Date()}>
         <h4 className="group-title">{name}</h4>
         <i role="button" tabIndex="0" name={name} onClick={quickAdd} className="fas fa-plus" />

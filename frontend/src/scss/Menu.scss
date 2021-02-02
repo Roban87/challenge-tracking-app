@@ -1,4 +1,4 @@
-@use '../../styles/config';
+@use 'config';
 
 nav {
   height: 100vh;
@@ -51,14 +51,12 @@ nav {
       flex-direction: column;
       align-items: flex-end;
       height: 0;
+      display: none;
       transition: height .5s ease 0s;
 
       &.active {
         height: 25vh;
-
-        a {
-          font-size: 1.1em;
-        }
+        display: flex;
       }
     }
 
@@ -75,11 +73,6 @@ nav {
 
       &:hover {
         color: config.$primary-green;
-      }
-
-      @include config.mobile {
-        font-size: 0;
-        transition: font-size .5s ease .1s;
       }
     }
   }

@@ -1,19 +1,19 @@
 import React from 'react';
 import FinalCharts from '../components/Charts/FinalCharts';
-import '../styles/FinalStatistics.css';
+import '../styles/Statistics.css';
 
 function FinalStatistics() {
   return (
-    <div className="statistics-main-container">
-      <h1 className="statistics-title">
+    <section className="statistics-main-container">
+      <h1>
         <span>Challenge</span>
         {' '}
-        Results Page
+        Results
       </h1>
       <div className="statistics-container">
         <FinalCharts />
       </div>
-    </div>
+    </section>
   );
 }
 

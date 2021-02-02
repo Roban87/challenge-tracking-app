@@ -1,0 +1,33 @@
+@use 'config';
+
+.charts-main-container {
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  @include config.tablet {
+    flex-direction: column;
+    height: max-content;
+  }
+  @include config.mobile {
+    flex-direction: column;
+    height: max-content;
+  }
+
+  .final-chart-wrapper {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 30px 20px;
+    position: relative;
+    width: 100%;
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include config.mobile {
+      padding: 5px;
+    }
+  }
+}

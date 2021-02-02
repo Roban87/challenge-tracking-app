@@ -41,7 +41,7 @@ function Menu() {
           <NavLink to="/challenge/statistics" onClick={setNotActive}>Statistics</NavLink>
         </div>
         <div className="final-statistics-btn btn">
-          <NavLink to="/challenge/final-statistics" onClick={setNotActive}>All Statistics</NavLink>
+          <NavLink to="/challenge/final-statistics" onClick={setNotActive}>Final Results</NavLink>
         </div>
 
         {

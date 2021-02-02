@@ -1,0 +1,97 @@
+@use 'config';
+@use 'sass:color';
+
+.challenge-overview {
+  display: flex;
+  height: 100%;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  &::-webkit-scrollbar:horizontal {
+    height: 14px;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: config.$dark-grey;
+    border-radius: 7px;
+  }
+
+  @include config.tablet {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .challenge-days {
+    width: 150px;
+
+    .toggle-create-form-button {
+      color: config.$text-color;
+      height: 30px;
+      width: 130px;
+      border-radius: 15px;
+      border: .5px solid config.$primary-green;
+      outline: none;
+      background-color: config.$secondary-green;
+      font-size: .9em;
+      font-weight: 600;
+  
+      &:hover {
+        background-color: config.$primary-green;
+      }
+    }
+
+    .table-date {
+      margin: 0px;
+      max-height: 35px;
+      min-height: 35px;
+      padding-left: 30px;
+      border:none;
+      display: flex;
+      align-items: center;
+  
+      &:nth-child(odd) {
+        background-color: color.scale(config.$text-color, $alpha: -80%);
+      }
+
+      p {
+        color: config.$text-color;
+        font-size: 1.1em; 
+        text-align: left;
+      }
+    }
+  }
+
+  .commitments-container {
+    width: 100%;
+    height: 100%;
+    width: inherit;
+    display: flex;
+  }
+
+  .table-header {
+    background-color: config.$secondary-green;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    h1 {
+      font-size: 1.1em;
+      font-weight: 700;
+      color: config.$dark-grey;
+      padding-bottom: 10px;
+    }
+  }
+}

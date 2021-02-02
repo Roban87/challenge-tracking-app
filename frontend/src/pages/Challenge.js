@@ -7,7 +7,7 @@ import Statistics from './Statistics';
 import FinalStatistics from './FinalStatistics';
 import MessageBoard from '../components/MessageBoard/MessageBoard';
 import { fetchCommitmentsAsync } from '../redux/commitments/commitments.actions';
-import ChallengeOverview from '../components/challenge-overview/challenge-overview.component';
+import ChallengeOverview from '../components/ChallengeOverview/ChallengeOverview';
 import '../styles/Challenge.css';
 
 function Challenge() {
