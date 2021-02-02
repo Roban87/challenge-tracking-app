@@ -11,7 +11,7 @@
     flex-direction: column;
   }
 
-  nav {
+  .menu-container {
     width: 15vw;
     margin-right: 15px;
 
@@ -22,16 +22,18 @@
   }
 
   .message-board {
-    background-color: config.$light-grey;
     min-width: 180px;
     width: 20vw;
     max-width: 300px;
     margin: 15px;
     height: calc(100vh - 30px);
+    position: relative;
 
     @include config.tablet {
       height: 70vh;
-      width: 300px;
+      min-width: 300px;
+      width: 60vw;
+      max-width: 60vw;
       margin-bottom: 30px;
     }
   }

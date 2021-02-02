@@ -79,6 +79,7 @@ function MessageBoard() {
             sheetSize={64}
             style={{
               width: 'inherit',
+              minWidth: 'inherit',
             }}
           />
         )
@@ -92,16 +93,17 @@ function MessageBoard() {
           value={text}
           onChange={(event) => setText(event.target.value)}
         />
+        <div className="button-wrapper">
+          <button
+            type="button"
+            className="toggle-emoji btn"
+            onClick={toggleEmojiPicker}
+          >
+            <Smile />
+          </button>
 
-        <button
-          type="button"
-          className="toggle-emoji btn"
-          onClick={toggleEmojiPicker}
-        >
-          <Smile />
-        </button>
-
-        <input type="submit" className="btn send-btn" value="SEND" />
+          <input type="submit" className="btn send-btn" value="SEND" />
+        </div>
       </form>
     </div>
   );

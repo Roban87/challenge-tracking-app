@@ -16,7 +16,7 @@
 }
 @media (max-width: 700px) {
   .counter-container h1 {
-    font-size: 1.4em;
+    font-size: 1.2em;
   }
   .counter-container h1 span::before {
     content: "\a";

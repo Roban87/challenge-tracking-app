@@ -23,7 +23,7 @@ function Menu() {
   }
 
   return (
-    <nav>
+    <nav className="menu-container">
       <img src={logo} alt="accepted logo" />
 
       <button type="button" className="dropdown" onClick={setActive}>

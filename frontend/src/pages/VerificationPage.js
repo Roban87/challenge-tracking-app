@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Backdrop, CircularProgress, makeStyles } from '@material-ui/core';
 import GetEmail from '../components/GetEmail/GetEmail';
 import generalDataFetch from '../utilities/generalDataFetch';
-// import './VerificationPage.css';
+import '../styles/VerificationPage.css';
 
 const useStyle = makeStyles((theme) => ({
   backdrop: {
@@ -62,7 +62,7 @@ function VerificationPage() {
             setVerified(true);
             setTimeout(() => {
               history.push('/login');
-            }, 3500);
+            }, 5000);
           } else if (response.status === 401) {
             setVerificationStatus(data.message);
             setResendEmail(true);
@@ -81,7 +81,6 @@ function VerificationPage() {
       }
     }
     setUserVerified();
-    // eslint-disable-next-line
   }, []);
 
   const sendNewVerificationEmail = async (email) => {
@@ -98,7 +97,7 @@ function VerificationPage() {
   };
 
   return (
-    <div className="verificationPage">
+    <div className="verification-page">
       {showLoading && (
       <Backdrop className={classes.backdrop} open>
         <h1 className={classes.text}>
@@ -107,10 +106,17 @@ function VerificationPage() {
         <CircularProgress className={classes.circular} color="inherit" />
       </Backdrop>
       ) }
+
       {showLoading === false && resendEmail
-      && <GetEmail verificationStatus={verificationStatus} sendEmail={sendNewVerificationEmail} /> }
+      && (
+      <GetEmail
+        verificationStatus={verificationStatus}
+        sendEmail={sendNewVerificationEmail}
+      />
+      )}
+
       {showLoading === false && verificationStatus && resendEmail === false ? (
-        <div className="verificationError">
+        <div className="verification-error">
           {verified === false && <i className="fas fa-exclamation-triangle" />}
           <h1>{verificationStatus}</h1>
         </div>

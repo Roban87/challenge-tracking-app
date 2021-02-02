@@ -1,0 +1,52 @@
+.verification-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.verification-page i {
+  font-size: 2em;
+}
+.verification-page h1 {
+  margin: 20px;
+  font-size: 2em;
+}
+@media (max-width: 700px) {
+  .verification-page h1 {
+    font-size: 1.2em;
+  }
+}
+.verification-page form {
+  display: flex;
+  flex-direction: column;
+}
+.verification-page form label {
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-self: center;
+}
+.verification-page form label input {
+  margin-top: 15px;
+}
+.verification-page form button {
+  height: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+  transition: font-size 0.5s, background-color 0.5s;
+  background-color: #86c232;
+  width: 120px;
+}
+.verification-page form button:hover {
+  font-size: 1.2em;
+}
+.verification-page form button:hover {
+  background-color: #61892f;
+}
+
+/*# sourceMappingURL=VerificationPage.css.map */
