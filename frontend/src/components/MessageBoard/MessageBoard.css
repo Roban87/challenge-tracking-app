@@ -26,7 +26,7 @@
 
 .message-form textarea {
   resize: none;
-  width: 100%;
+  width: 300px;
   height: 80%;
   outline: none;
   border-radius: 6px;
@@ -47,4 +47,26 @@
 .send-btn:hover {
   background-color: #61892f;
   font-size: 20px;
+}
+
+.emoji-mart {
+  z-index: 4;
+  display: none;
+}
+
+.emoji-mart-anchors {
+  height: 100%;
+  width: 100%;
+}
+
+.emoji-mart-emoji {
+  outline: none;
+}
+
+.emoji-mart-anchors svg *, .emoji-mart-anchors img * {
+  fill: #474b4f;
+}
+
+.emoji-mart div:nth-of-type(3) {
+  display: none;
 }
