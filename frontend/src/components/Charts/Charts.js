@@ -13,10 +13,8 @@ function Charts() {
   const challenge = useSelector((state) => state.challenge.challenge);
   const [datesLabel, setDatesLabel] = useState([]);
   const { users } = useSelector((state) => state.users);
-  const [selectedUserId, setSelectedUserId] = useState(userId);
-  // have to change naming below
-  const [selectedUserIds, setSelectedUserIds] = useState([userId]);
-  const [chartDataset, setChartDataset] = useState([]);
+  const [usersToShow, setUsersToShow] = useState([userId]);
+  const [usersDataset, setUsersDataset] = useState([]);
   const machineDate = useSelector((state) => state.currentDate.currentDate);
 
   useEffect(() => {
@@ -35,50 +33,69 @@ function Charts() {
       }
       setDatesLabel(dateArray);
     }());
+    (function calculateTotalData() {
+      const totalCompletedPerDay = datesLabel.map((date) => {
+        const dailyComms = commitments
+          .filter((comm) => comm.endDate <= date);
+        const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+            / dailyComms.length)
+          * 100;
+        return percent;
+      });
+      setUsersDataset(totalCompletedPerDay);
+    }());
   }, []);
 
   const remaining = commitments
-    .filter((comm) => comm.userId === selectedUserId)
+    .filter((comm) => comm.userId === userId)
     .filter((commitment) => commitment.endDate >= dayjs(machineDate).format())
     .length;
   const missed = commitments
-    .filter((comm) => comm.userId === selectedUserId)
+    .filter((comm) => comm.userId === userId)
     .filter(
       (commitment) => commitment.endDate < dayjs(machineDate).format()
         && commitment.isDone === false,
     ).length;
   const completed = commitments
-    .filter((comm) => comm.userId === selectedUserId)
+    .filter((comm) => comm.userId === userId)
     .filter((commitment) => commitment.isDone === true).length;
 
-  const completedPerDay = datesLabel.map((date) => {
-    const dailyComms = commitments
-      .filter((comm) => comm.userId === selectedUserId)
-      .filter((comm) => comm.endDate <= date);
-    const percent = (dailyComms.filter((comm) => comm.isDone === true).length
-        / dailyComms.length)
-      * 100;
-    return percent;
-  });
+  function calculateUserData(selectedUserId) {
+    const completedPerDay = datesLabel.map((date) => {
+      const dailyComms = commitments
+        .filter((comm) => comm.userId === selectedUserId)
+        .filter((comm) => comm.endDate <= date);
+      const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+          / dailyComms.length)
+        * 100;
+      return percent;
+    });
+    const dataset = {
+      label: selectedUserId,
+      data: completedPerDay,
+      borderColor: '#86c232',
+      fill: false,
+    };
+    console.log(users.filter((user) => user.id === selectedUserId)[0].username);
+    console.log(usersDataset);
+    return dataset;
+  }
 
-  const totalCompletedPerDay = datesLabel.map((date) => {
-    const dailyComms = commitments
-      .filter((comm) => comm.endDate <= date);
-    const percent = (dailyComms.filter((comm) => comm.isDone === true).length
-        / dailyComms.length)
-      * 100;
-    return percent;
-  });
+  function createChartDataset() {
+    const calculatedData = usersToShow.map((user) => calculateUserData(user));
+    setUsersDataset(calculatedData);
+  }
 
   const handelUserSelection = (event) => {
     const { id } = users.filter((user) => user.username === event.target.value)[0];
-    setSelectedUserId(id);
-    if (selectedUserIds.includes(id)) {
-      setSelectedUserIds(selectedUserIds.filter((userid) => userid !== id));
+    if (usersToShow.includes(id)) {
+      setUsersToShow(usersToShow.filter((userid) => userid !== id));
     } else {
-      setSelectedUserIds([...selectedUserIds, id]);
+      setUsersToShow([...usersToShow, id]);
     }
+    createChartDataset();
   };
+  console.log(usersToShow);
 
   const userSelectButtons = users.map((user) => (
     <div className="user" key={user.username}>
@@ -104,20 +121,7 @@ function Charts() {
           <Line
             data={{
               labels: datesLabel,
-              datasets: [
-                {
-                  label: 'User Completition percentage',
-                  data: completedPerDay,
-                  borderColor: '#86c232',
-                  fill: false,
-                },
-                {
-                  label: 'Total Completition percentage',
-                  data: totalCompletedPerDay,
-                  borderColor: 'rgba(191, 188, 8)',
-                  fill: false,
-                },
-              ],
+              datasets: usersDataset,
             }}
             options={{
               responsive: true,
@@ -133,8 +137,7 @@ function Charts() {
               },
             }}
           />
-        </div>
-        <div className="charts-container">
+          <h2 className="pie-chart-header">Your results</h2>
           <Pie
             data={{
               datasets: [

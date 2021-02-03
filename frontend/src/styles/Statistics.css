@@ -5,17 +5,12 @@
   align-content: center;
   height: 100%;
 }
-<<<<<<< HEAD
-.statistics-main-container h1 {
-  font-size: 2em;
-=======
 
 input[type="checkbox"] {
   -ms-transform: scale(0.4); /* IE 9 */
   -webkit-transform: scale(0.4); /* Chrome, Safari, Opera */
   transform: scale(0.4);
   width: 35px;
->>>>>>> 80b156c... chart selection changed to checkbox
 }
 @media (max-width: 700px) {
   .statistics-main-container h1 {
