@@ -31,9 +31,6 @@ export const challengeRepo = {
         endDate,
         minCommit,
       ]);
-      const responseSqlQuery = 'SELECT * FROM challenge ORDER BY id DESC LIMIT 1';
-      const challengeQueryData = await db.query(responseSqlQuery);
-      return challengeQueryData;
     } catch (err) {
       throw {
         status: 500,
@@ -58,9 +55,6 @@ export const challengeRepo = {
         endDate,
         minCommit,
       ]);
-      const responseSqlQuery = 'SELECT * FROM challenge ORDER BY id DESC LIMIT 1';
-      const challengeQueryData = await db.query(responseSqlQuery);
-      return challengeQueryData.results[0];
     } catch (err) {
       throw {
         status: 500,

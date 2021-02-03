@@ -2,9 +2,8 @@ import dayjs from 'dayjs';
 import { commitmentsRepo } from '../repositories';
 
 export const commitmentsService = {
-  async getCommitments() {
-    const commitments = await commitmentsRepo.getCommitments();
-    const formattedCommitments = commitments.map((commitment) => ({
+  formatCommitment(commitment) {
+    return {
       id: commitment.id,
       name: commitment.name,
       userId: commitment.user_id,
@@ -12,22 +11,27 @@ export const commitmentsService = {
       startDate: dayjs(commitment.start_date).format('YYYY-MM-DD'),
       endDate: dayjs(commitment.end_date).format('YYYY-MM-DD'),
       isDone: Boolean(commitment.is_done),
-    }));
+    };
+  },
+
+  async getCommitments() {
+    const commitments = await commitmentsRepo.getCommitments();
+    if (commitments.length === 0) {
+      throw {
+        message: 'No commitments available',
+        status: 404,
+      };
+    }
+    const formattedCommitments = commitments.map((commitment) => (
+      this.formatCommitment(commitment)
+    ));
     return formattedCommitments;
   },
 
   async addCommitment(commitment) {
     const queryData = await commitmentsRepo.addCommitment(commitment);
     const newCommitment = await commitmentsRepo.getCommitment(queryData.results.insertId);
-    return {
-      id: newCommitment.id,
-      name: newCommitment.name,
-      userId: newCommitment.user_id,
-      challengeId: newCommitment.challenge_id,
-      startDate: dayjs(newCommitment.start_date).format('YYYY-MM-DD'),
-      endDate: dayjs(newCommitment.end_date).format('YYYY-MM-DD'),
-      isDone: Boolean(newCommitment.is_done),
-    };
+    return this.formatCommitment(newCommitment);
   },
   async removeCommitment(id, userId) {
     await commitmentsRepo.removeCommitment(id, userId);
@@ -44,14 +48,6 @@ export const commitmentsService = {
   async updateCommitment(commitment) {
     await commitmentsRepo.updateCommitment(commitment);
     const updatedCommitment = await commitmentsRepo.getCommitment(commitment.id);
-    return {
-      id: updatedCommitment.id,
-      name: updatedCommitment.name,
-      userId: updatedCommitment.user_id,
-      challengeId: updatedCommitment.challenge_id,
-      startDate: dayjs(updatedCommitment.start_date).format('YYYY-MM-DD'),
-      endDate: dayjs(updatedCommitment.end_date).format('YYYY-MM-DD'),
-      isDone: Boolean(updatedCommitment.is_done),
-    };
+    return this.formatCommitment(updatedCommitment);
   },
 };
