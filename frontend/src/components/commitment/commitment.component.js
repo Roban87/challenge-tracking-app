@@ -80,6 +80,7 @@ function Commitment({ commitment }) {
       <div
         onMouseEnter={showRemove}
         onMouseLeave={hideRemove}
+        onTouchStart={showRemove}
         className="commitment-item"
         id={`${id}`}
         style={style}
