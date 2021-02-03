@@ -12,8 +12,10 @@ function Charts() {
   const userId = useSelector((state) => state.user.userId);
   const challenge = useSelector((state) => state.challenge.challenge);
   const [datesLabel, setDatesLabel] = useState([]);
+  const [colorLabel, setColorLabel] = useState([]);
   const { users } = useSelector((state) => state.users);
   const [usersToShow, setUsersToShow] = useState([userId]);
+  // const [totalDataset, setTotalDataset] = useState({});
   const [usersDataset, setUsersDataset] = useState([]);
   const machineDate = useSelector((state) => state.currentDate.currentDate);
 
@@ -31,20 +33,61 @@ function Charts() {
         dateArray.push(dayjs(currentDate).format('YYYY-MM-DD'));
         currentDate = dayjs(currentDate).add(1, 'd');
       }
+      const colors = users.map(() => '#'.concat(Math.floor(Math.random() * 16777215).toString(16)));
+      setColorLabel(colors);
       setDatesLabel(dateArray);
     }());
-    (function calculateTotalData() {
-      const totalCompletedPerDay = datesLabel.map((date) => {
-        const dailyComms = commitments
-          .filter((comm) => comm.endDate <= date);
-        const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+  }, []);
+  console.log(colorLabel);
+
+  function calculateUserData(selectedUserId) {
+    const completedPerDay = datesLabel.map((date) => {
+      const dailyComms = commitments
+        .filter((comm) => comm.userId === selectedUserId)
+        .filter((comm) => comm.endDate <= date);
+      const percent = (dailyComms.filter((comm) => comm.isDone === true).length
             / dailyComms.length)
           * 100;
-        return percent;
-      });
-      setUsersDataset(totalCompletedPerDay);
-    }());
-  }, []);
+      return percent;
+    });
+    const userColor = colorLabel.filter((color) => color[0] === selectedUserId);
+    const dataset = {
+      label: users.filter((user) => user.id === selectedUserId)[0].username,
+      data: completedPerDay,
+      borderColor: userColor,
+      fill: false,
+      hidden: !usersToShow.includes(selectedUserId),
+    };
+    return dataset;
+  }
+
+  function calculateTotal() {
+    const totalCompletedPerDay = datesLabel.map((date) => {
+      const dailyComms = commitments
+        .filter((comm) => comm.endDate <= date);
+      const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+          / dailyComms.length)
+        * 100;
+      return percent;
+    });
+    const totalData = {
+      label: 'Total Completion',
+      data: totalCompletedPerDay,
+      borderColor: '#d11313',
+      fill: false,
+    };
+    return totalData;
+  }
+
+  useEffect(() => {
+    function createChartDataset() {
+      const calculatedData = users.map((user) => calculateUserData(user.id));
+      const totalData = calculateTotal();
+      calculatedData.push(totalData);
+      setUsersDataset(calculatedData);
+    }
+    createChartDataset();
+  }, [datesLabel]);
 
   const remaining = commitments
     .filter((comm) => comm.userId === userId)
@@ -60,32 +103,6 @@ function Charts() {
     .filter((comm) => comm.userId === userId)
     .filter((commitment) => commitment.isDone === true).length;
 
-  function calculateUserData(selectedUserId) {
-    const completedPerDay = datesLabel.map((date) => {
-      const dailyComms = commitments
-        .filter((comm) => comm.userId === selectedUserId)
-        .filter((comm) => comm.endDate <= date);
-      const percent = (dailyComms.filter((comm) => comm.isDone === true).length
-          / dailyComms.length)
-        * 100;
-      return percent;
-    });
-    const dataset = {
-      label: selectedUserId,
-      data: completedPerDay,
-      borderColor: '#86c232',
-      fill: false,
-    };
-    console.log(users.filter((user) => user.id === selectedUserId)[0].username);
-    console.log(usersDataset);
-    return dataset;
-  }
-
-  function createChartDataset() {
-    const calculatedData = usersToShow.map((user) => calculateUserData(user));
-    setUsersDataset(calculatedData);
-  }
-
   const handelUserSelection = (event) => {
     const { id } = users.filter((user) => user.username === event.target.value)[0];
     if (usersToShow.includes(id)) {
@@ -93,9 +110,7 @@ function Charts() {
     } else {
       setUsersToShow([...usersToShow, id]);
     }
-    createChartDataset();
   };
-  console.log(usersToShow);
 
   const userSelectButtons = users.map((user) => (
     <div className="user" key={user.username}>
