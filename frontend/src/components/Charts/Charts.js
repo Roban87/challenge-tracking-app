@@ -12,7 +12,7 @@ function Charts() {
   const userId = useSelector((state) => state.user.userId);
   const challenge = useSelector((state) => state.challenge.challenge);
   const [datesLabel, setDatesLabel] = useState([]);
-  const [colorLabel, setColorLabel] = useState([]);
+  // const [colorLabel, setColorLabel] = useState([['', '']]);
   const { users } = useSelector((state) => state.users);
   const [usersToShow, setUsersToShow] = useState([userId]);
   // const [totalDataset, setTotalDataset] = useState({});
@@ -22,7 +22,7 @@ function Charts() {
   useEffect(() => {
     dispatch(fetchCommitmentsAsync());
     dispatch(getUsersAsync());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     (function setChartDates() {
@@ -33,61 +33,55 @@ function Charts() {
         dateArray.push(dayjs(currentDate).format('YYYY-MM-DD'));
         currentDate = dayjs(currentDate).add(1, 'd');
       }
-      const colors = users.map(() => '#'.concat(Math.floor(Math.random() * 16777215).toString(16)));
-      setColorLabel(colors);
       setDatesLabel(dateArray);
     }());
   }, []);
-  console.log(colorLabel);
 
-  function calculateUserData(selectedUserId) {
-    const completedPerDay = datesLabel.map((date) => {
-      const dailyComms = commitments
-        .filter((comm) => comm.userId === selectedUserId)
-        .filter((comm) => comm.endDate <= date);
-      const percent = (dailyComms.filter((comm) => comm.isDone === true).length
-            / dailyComms.length)
-          * 100;
-      return percent;
-    });
-    const userColor = colorLabel.filter((color) => color[0] === selectedUserId);
-    const dataset = {
-      label: users.filter((user) => user.id === selectedUserId)[0].username,
-      data: completedPerDay,
-      borderColor: userColor,
-      fill: false,
-      hidden: !usersToShow.includes(selectedUserId),
-    };
-    return dataset;
-  }
+  // useEffect(() => {
+  // function calculateUserData(selectedUserId) {
+  //   const completedPerDay = datesLabel.map((date) => {
+  //     const dailyComms = commitments
+  //       .filter((comm) => comm.userId === selectedUserId)
+  //       .filter((comm) => comm.endDate <= date);
+  //     const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+  //     / dailyComms.length)
+  //     * 100;
+  //     return percent;
+  //   });
+  //   const colors = users.
+  //    map((user) => [user.id, '#'.concat(Math.floor(Math.random() * 16777215).toString(16))]);
+  //   const userColor = colors.filter((color) => color[0] === selectedUserId);
+  //   const dataset = {
+  //     label: users.filter((user) => user.id === selectedUserId)[0].username,
+  //     data: completedPerDay,
+  //     borderColor: userColor[0][1],
+  //     fill: false,
+  //     hidden: !usersToShow.includes(selectedUserId),
+  //   };
+  //   return dataset;
+  // }
+  // function createChartDataset() {
+  //   const calculatedData = users.map((user) => calculateUserData(user.id));
+  //   setUsersDataset(calculatedData);
+  //   console.log(...usersDataset);
+  // }
+  // createChartDataset();
+  // }, []);
 
-  function calculateTotal() {
-    const totalCompletedPerDay = datesLabel.map((date) => {
-      const dailyComms = commitments
-        .filter((comm) => comm.endDate <= date);
-      const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+  const totalCompletedPerDay = datesLabel.map((date) => {
+    const dailyComms = commitments
+      .filter((comm) => comm.endDate <= date);
+    const percent = (dailyComms.filter((comm) => comm.isDone === true).length
           / dailyComms.length)
         * 100;
-      return percent;
-    });
-    const totalData = {
-      label: 'Total Completion',
-      data: totalCompletedPerDay,
-      borderColor: '#d11313',
-      fill: false,
-    };
-    return totalData;
-  }
-
-  useEffect(() => {
-    function createChartDataset() {
-      const calculatedData = users.map((user) => calculateUserData(user.id));
-      const totalData = calculateTotal();
-      calculatedData.push(totalData);
-      setUsersDataset(calculatedData);
-    }
-    createChartDataset();
-  }, [datesLabel]);
+    return percent;
+  });
+  const totalData = {
+    label: 'Total Completion',
+    data: totalCompletedPerDay,
+    borderColor: '#d11313',
+    fill: false,
+  };
 
   const remaining = commitments
     .filter((comm) => comm.userId === userId)
@@ -103,11 +97,36 @@ function Charts() {
     .filter((comm) => comm.userId === userId)
     .filter((commitment) => commitment.isDone === true).length;
 
+  function calculateDatas(id) {
+    const completedPerDay = datesLabel.map((date) => {
+      const dailyComms = commitments
+        .filter((comm) => comm.userId === id)
+        .filter((comm) => comm.endDate <= date);
+      const percent = (dailyComms.filter((comm) => comm.isDone === true).length
+        / dailyComms.length)
+        * 100;
+      return percent;
+    });
+    const colors = users.map((user) => [user.id, '#'.concat(Math.floor(Math.random() * 16777215).toString(16))]);
+    const userColor = colors.filter((color) => color[0] === id);
+    const dataset = {
+      label: users.filter((user) => user.id === id)[0].username,
+      data: completedPerDay,
+      borderColor: userColor[0][1],
+      fill: false,
+      // hidden: !usersToShow.includes(id),
+    };
+    return dataset;
+  }
+
   const handelUserSelection = (event) => {
     const { id } = users.filter((user) => user.username === event.target.value)[0];
     if (usersToShow.includes(id)) {
+      setUsersDataset(usersDataset
+        .filter((datas) => (datas.label !== event.target.value)));
       setUsersToShow(usersToShow.filter((userid) => userid !== id));
     } else {
+      setUsersDataset([...usersDataset, calculateDatas(id)]);
       setUsersToShow([...usersToShow, id]);
     }
   };
@@ -134,9 +153,10 @@ function Charts() {
       <div className="charts-wrapper">
         <div className="charts-container">
           <Line
+            id="lineChart"
             data={{
               labels: datesLabel,
-              datasets: usersDataset,
+              datasets: [totalData, ...usersDataset],
             }}
             options={{
               responsive: true,
