@@ -15,4 +15,15 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+.quick-add:hover {
+  background-image: url('../../assets/plus-sign.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.calendar-block:active {
+  background-image: none;
+}
+
 /*# sourceMappingURL=CommitmentGroup.css.map */

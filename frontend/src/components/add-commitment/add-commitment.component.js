@@ -12,12 +12,12 @@ function AddCommitment(props) {
   const {
     startDate, endDate, commitments, targetGroup,
   } = props;
+  const minStartDate = dayjs(startDate).diff(dayjs(currentDate).format('YYYY-MM-DD'), 'd') > 0 ? startDate : dayjs(currentDate).format('YYYY-MM-DD');
   const [commitmentName, setCommitmentName] = useState(targetGroup);
   const [commitmentLength, setCommitmentLength] = useState(1);
-  const [commitmentStartDate, setCommitmentStartDate] = useState(startDate);
+  const [commitmentStartDate, setCommitmentStartDate] = useState(minStartDate);
   const [commitmentRepeat, setCommitmentRepeat] = useState('single');
   const [errorMessage, setErrorMessage] = useState('');
-  const minStartDate = dayjs(startDate).diff(dayjs(currentDate).format('YYYY-MM-DD'), 'd') > 0 ? startDate : currentDate;
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -103,7 +103,7 @@ function AddCommitment(props) {
           id="start-date"
           type="date"
           onChange={handleChange}
-          value={commitmentStartDate && commitmentStartDate}
+          value={commitmentStartDate}
           max={`${dayjs(endDate).format('YYYY-MM-DD')}`}
           min={`${dayjs(minStartDate).format('YYYY-MM-DD')}`}
         />

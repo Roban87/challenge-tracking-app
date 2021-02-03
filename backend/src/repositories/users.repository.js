@@ -33,6 +33,15 @@ export const usersRepo = {
     }
   },
 
+  async getUserById(id) {
+    const sqlQuery = 'SELECT * FROM users WHERE id = ?';
+    try {
+      const queryData = await db.query(sqlQuery, [id]);
+      return queryData;
+    } catch (err) {
+      throw { status: 500, message: err.sqlMessage };
+    }
+  },
   async getUsers() {
     const sqlQuery = 'SELECT * FROM users';
     try {
