@@ -55,6 +55,7 @@ export const registerService = {
     sendEmail({
       receiver: email, template: 'validation', username, link: `${baseUrl}/verification/:${userId}/:${tokenMailVerification}`,
     });
+    return null;
   },
 
   async verifyUserValidation(userId) {
