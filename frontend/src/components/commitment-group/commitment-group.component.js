@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -73,7 +74,18 @@ function CommitmentGroup(props) {
     }
   };
 
-  const quickAdd = () => {
+  const quickAdd = (e) => {
+    const date = e.target.getAttribute('date');
+    if (date) {
+      if (isSlotFree(date, blockedDatesObj) && isBeforeEndDate(date) && isAfterCurrentDate(date)) {
+        dispatch(addCommitmentAsync({
+          startDate: date,
+          endDate: dayjs(date).add(numOfDays, 'd').format('YYYY-MM-DD'),
+          name,
+        }));
+      }
+      return null;
+    }
     for (let i = 0; i < dateArray.length; i++) {
       if (isSlotFree(dateArray[i], blockedDatesObj)
       && isBeforeEndDate(dateArray[i]) && isAfterCurrentDate(dateArray[i])) {
@@ -90,7 +102,7 @@ function CommitmentGroup(props) {
 
   return (
     <div className="commitment-group-container">
-      <div className="table-header" date={new Date()}>
+      <div className="table-header">
         <h4 className="group-title">{name}</h4>
         <i role="button" tabIndex="0" name={name} onClick={quickAdd} className="fas fa-plus" />
       </div>
@@ -102,9 +114,10 @@ function CommitmentGroup(props) {
               key={`${name}-${index}`}
               container-name={`${name}`}
               date={`${date}`}
-              className="calendar-block"
+              className={`calendar-block ${!blockedDatesObj[date] ? 'quick-add' : null}`}
               onDrop={drop}
               onDragOver={allowDrop}
+              onClick={!blockedDatesObj[date] ? quickAdd : null}
             >
               {
                 commitment ? <Commitment commitment={commitment} /> : null
