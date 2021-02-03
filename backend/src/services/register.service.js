@@ -3,8 +3,7 @@ import jwt from 'jsonwebtoken';
 import { usersRepo } from '../repositories';
 import { loginService } from './login.service';
 import config from '../config';
-
-const { sendEmail } = require('./emailService');
+import { emailService } from './emailService';
 
 export const registerService = {
   validateUsernameAndPassword(username, password, email) {
@@ -52,10 +51,9 @@ export const registerService = {
       created: date.toString(),
     };
     const tokenMailVerification = jwt.sign(mailToken, config.secret || 'someOtherSecret', { expiresIn: '540s' });
-    sendEmail({
+    await emailService.sendEmail({
       receiver: email, template: 'validation', username, link: `${baseUrl}/verification/:${userId}/:${tokenMailVerification}`,
     });
-    return null;
   },
 
   async verifyUserValidation(userId) {
@@ -63,11 +61,11 @@ export const registerService = {
       throw { status: 403, message: 'We were unable to find a user for this verification. Please register!' };
     }
     const getUserById = await usersRepo.getUserById(userId);
-    if (getUserById.results[0] === undefined) {
+    if (getUserById.results.length === 0) {
       throw { status: 403, message: 'We were unable to find a user for this verification. Please register!' };
     }
-    const userStatus = getUserById.results[0].status;
-    if (userStatus === 'verified') {
+    const userStatus = getUserById.results[0].is_validated;
+    if (userStatus) {
       throw { status: 200, message: 'User has been already verified. Please Log In!' };
     }
   },
@@ -77,7 +75,7 @@ export const registerService = {
   },
   async getVerificationEmail(email) {
     const getUserByEmail = await usersRepo.getUserByEmail(email);
-    if (getUserByEmail.results[0] === undefined) {
+    if (getUserByEmail.results.length === 0) {
       throw { status: 403, message: 'You haven\'t registered with this email address. Please register!' };
     }
     const { username } = getUserByEmail.results[0];

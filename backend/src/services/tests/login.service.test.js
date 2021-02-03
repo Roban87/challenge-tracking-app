@@ -30,8 +30,8 @@ describe('validateUser tests', () => {
 });
 
 describe('getToken test', () => {
-  const testToken = jwt.sign({ id: 1 }, 'somesecret');
   test('returns token when ID is provided', async () => {
+    const testToken = jwt.sign({ id: 1 }, 'somesecret');
     const token = await loginService.getToken(1);
     expect(token).toEqual(testToken);
   });
