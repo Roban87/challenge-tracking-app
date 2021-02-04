@@ -8,11 +8,12 @@ import './Counter.css';
 function Counter() {
   dayjs.extend(duration);
   const challenge = useSelector((state) => state.challenge.challenge);
+  const currentDate = useSelector((state) => state.currentDate.currentDate);
   const [until, setUntil] = useState();
 
   const challengeStartTimestamp = dayjs(challenge.startDate);
   const challengeEndTimestamp = dayjs(challenge.endDate);
-  const currentTimestamp = dayjs();
+  const currentTimestamp = dayjs(currentDate);
 
   const convertTime = (timestamp) => {
     const seconds = dayjs.duration(timestamp).seconds();
@@ -34,8 +35,7 @@ function Counter() {
         const untilTimestamp = challengeStartTimestamp - currentTimestamp;
         const time = convertTime(untilTimestamp);
         setUntil(time);
-      }
-      if (currentTimestamp < challengeEndTimestamp) {
+      } else if (currentTimestamp < challengeEndTimestamp) {
         const untilTimestamp = challengeEndTimestamp - currentTimestamp;
         const time = convertTime(untilTimestamp);
         setUntil(time);
