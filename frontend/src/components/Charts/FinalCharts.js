@@ -59,11 +59,16 @@ function FinalCharts() {
               {
                 label: 'User Completition percentage',
                 data: sortedResults.map((user) => user[1]),
+                backgroundColor: '#86c232',
               },
             ],
           }}
           options={{
-            backgroundColor: '#86c232',
+            legend: {
+              labels: {
+                fontColor: 'white',
+              },
+            },
             responsive: true,
             scales: {
               yAxes: [
