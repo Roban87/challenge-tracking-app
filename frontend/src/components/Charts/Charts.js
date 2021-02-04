@@ -97,7 +97,7 @@ function Charts() {
     }
   };
 
-  const userSelectButtons = users.map((user) => (
+  const userSelectButtons = users.filter((user) => user.id !== userId).map((user) => (
     <div className="user" key={user.username}>
       <input
         type="checkbox"
@@ -110,9 +110,23 @@ function Charts() {
     </div>
   ));
 
+  const personalButton = users.filter((user) => user.id === userId).map((user) => (
+    <div className="user" key={user.username}>
+      <input
+        type="checkbox"
+        id={user.username}
+        name="user"
+        value={user.username}
+        onChange={handelUserSelection}
+      />
+      <label htmlFor={user.username}>Personal stats</label>
+    </div>
+  ));
+
   return (
     <section className="charts-main-container">
       <div className="form-wrapper">
+        <form className="user-select-form">{personalButton}</form>
         <form className="user-select-form">{userSelectButtons}</form>
       </div>
       <div className="charts-wrapper">
@@ -124,13 +138,32 @@ function Charts() {
               datasets: [totalData, ...usersDataset],
             }}
             options={{
+              legend: {
+                labels: {
+                  fontColor: 'white',
+                },
+              },
               responsive: true,
               scales: {
                 yAxes: [
                   {
+                    gridLines: {
+                      color: 'grey',
+                    },
                     ticks: {
+                      fontColor: 'white',
                       suggestedMin: 0,
                       suggestedMax: 100,
+                    },
+                  },
+                ],
+                xAxes: [
+                  {
+                    gridLines: {
+                      color: 'grey',
+                    },
+                    ticks: {
+                      fontColor: 'white',
                     },
                   },
                 ],
@@ -153,7 +186,14 @@ function Charts() {
               ],
               labels: ['Done', 'Remaining', 'Missed'],
             }}
-            options={{ responsive: true }}
+            options={{
+              legend: {
+                labels: {
+                  fontColor: 'white',
+                },
+              },
+              responsive: true,
+            }}
           />
         </div>
       </div>
