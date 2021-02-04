@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: fit-content;
 }
 @media (max-width: 700px) {
   .charts-main-container {
@@ -73,8 +73,9 @@
 .charts-main-container .charts-wrapper .charts-container {
   position: relative;
   width: 37vw;
-  height: 50%;
+  height: fit-content;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -85,6 +86,10 @@
 }
 .charts-main-container .charts-wrapper .charts-container canvas {
   padding: 5px;
+}
+
+label {
+  text-align: start;
 }
 
 /*# sourceMappingURL=Charts.css.map */

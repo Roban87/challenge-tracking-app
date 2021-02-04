@@ -63,13 +63,28 @@ function FinalCharts() {
             ],
           }}
           options={{
+            backgroundColor: '#86c232',
             responsive: true,
             scales: {
               yAxes: [
                 {
+                  gridLines: {
+                    color: 'grey',
+                  },
                   ticks: {
+                    fontColor: 'white',
                     suggestedMin: 0,
                     suggestedMax: 100,
+                  },
+                },
+              ],
+              xAxes: [
+                {
+                  gridLines: {
+                    color: 'grey',
+                  },
+                  ticks: {
+                    fontColor: 'white',
                   },
                 },
               ],
