@@ -50,23 +50,23 @@
 
   .login-btn {
     background-color: config.$primary-green;
+    border: none;
   }
 
   .register-btn {
+    border: none;
     background-color: config.$secondary-green;
   }
 }
 
 .landing-admin-btn {
+  border: none;
   margin: 30px 40px;
   align-self: flex-end;
   background-color: config.$dark-grey;
+  color: config.$light-grey;
 
-  a {
-    color: config.$light-grey;
-  }
-
-  &:hover * {
+  &:hover {
     color: config.$text-color;
   }
 }

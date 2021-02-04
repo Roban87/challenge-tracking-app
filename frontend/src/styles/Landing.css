@@ -52,20 +52,21 @@
 }
 .landing-main-content .login-btn {
   background-color: #86c232;
+  border: none;
 }
 .landing-main-content .register-btn {
+  border: none;
   background-color: #61892f;
 }
 
 .landing-admin-btn {
+  border: none;
   margin: 30px 40px;
   align-self: flex-end;
   background-color: #474b4f;
-}
-.landing-admin-btn a {
   color: #6b6e70;
 }
-.landing-admin-btn:hover * {
+.landing-admin-btn:hover {
   color: #fff;
 }
 
