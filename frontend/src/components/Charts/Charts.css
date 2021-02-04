@@ -54,7 +54,7 @@
 .charts-main-container .charts-wrapper {
   width: max-content;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(65, 65, 65, 0.7);
   display: flex;
   justify-content: flex-end;
   align-items: center;

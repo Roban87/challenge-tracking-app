@@ -170,7 +170,7 @@ function Charts() {
               },
             }}
           />
-          <h2 className="pie-chart-header">Your results</h2>
+          {/* <h2 className="pie-chart-header">Your results</h2> */}
           <Pie
             data={{
               datasets: [
