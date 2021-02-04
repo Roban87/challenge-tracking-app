@@ -35,14 +35,17 @@ function Charts() {
     }());
   }, []);
 
-  const totalCompletedPerDay = datesLabel.map((date) => {
-    const dailyComms = commitments
-      .filter((comm) => comm.endDate <= date);
-    const percent = (dailyComms.filter((comm) => comm.isDone === true).length
-          / dailyComms.length)
+  const totalCompletedPerDay = datesLabel
+    // .filter((date) => date <= dayjs(machineDate).format())  --> optional display
+    .map((date) => {
+      const totalDoneComms = commitments
+        .filter((comm) => comm.isDone === true)
+        .filter((comm) => comm.endDate <= date);
+      const percent = (totalDoneComms.length
+          / commitments.length)
         * 100;
-    return percent;
-  });
+      return percent;
+    });
   const totalData = {
     label: 'Total Completion',
     data: totalCompletedPerDay,
@@ -52,28 +55,32 @@ function Charts() {
 
   const remaining = commitments
     .filter((comm) => comm.userId === userId)
-    .filter((commitment) => commitment.endDate >= dayjs(machineDate).format())
+    .filter((comm) => comm.endDate >= dayjs(machineDate).format())
     .length;
   const missed = commitments
     .filter((comm) => comm.userId === userId)
     .filter(
-      (commitment) => commitment.endDate < dayjs(machineDate).format()
-        && commitment.isDone === false,
+      (comm) => comm.endDate < dayjs(machineDate).format()
+        && comm.isDone === false,
     ).length;
   const completed = commitments
     .filter((comm) => comm.userId === userId)
-    .filter((commitment) => commitment.isDone === true).length;
+    .filter((comm) => comm.isDone === true).length;
 
   function calculateDatas(id) {
-    const completedPerDay = datesLabel.map((date) => {
-      const dailyComms = commitments
-        .filter((comm) => comm.userId === id)
-        .filter((comm) => comm.endDate <= date);
-      const percent = (dailyComms.filter((comm) => comm.isDone === true).length
-        / dailyComms.length)
+    const completedPerDay = datesLabel
+      // .filter((date) => date <= dayjs(machineDate).format())  --> optional display
+      .map((date) => {
+        const userTotalComms = commitments
+          .filter((comm) => comm.userId === id);
+        const doneComms = userTotalComms
+          .filter((comm) => comm.endDate <= date)
+          .filter((comm) => comm.isDone === true);
+        const percent = (doneComms.length
+        / userTotalComms.length)
         * 100;
-      return percent;
-    });
+        return percent;
+      });
     const colors = users.map((user) => [user.id, '#'.concat(Math.floor(Math.random() * 16777215).toString(16))]);
     const userColor = colors.filter((color) => color[0] === id);
     const dataset = {
