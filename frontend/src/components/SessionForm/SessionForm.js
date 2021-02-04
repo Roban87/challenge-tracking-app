@@ -182,9 +182,6 @@ function SessionForm({ formType }) {
           placeholder="Password"
           onChange={onPasswordChange}
         />
-        {/* {formType === 'register' && (
-          <PasswordStrengthMeter password={password} />
-        )} */}
 
         <p className="error-message">{loginError && loginError}</p>
 

@@ -1,21 +1,31 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import '../styles/Landing.css';
 
 function Landing() {
   const challenge = useSelector((state) => state.challenge.challenge);
   const currentTime = useSelector((state) => state.currentDate.currentDate);
+  const history = useHistory();
 
   const challengeStartTimestamp = new Date(challenge.startDate).getTime();
   const challengeEndTimestamp = new Date(challenge.endDate).getTime();
   const currentTimestamp = currentTime;
 
+  const onClickHandler = (path) => {
+    history.push(path);
+  };
+
   return (
     <div className="landing-container">
 
-      <div className="btn landing-admin-btn">
-        <a href="/login">ADMIN LOGIN</a>
-      </div>
+      <button
+        type="button"
+        className="btn landing-admin-btn"
+        onClick={() => onClickHandler('/login')}
+      >
+        ADMIN LOGIN
+      </button>
 
       <section className="landing-main-content">
 
@@ -35,15 +45,23 @@ function Landing() {
               </div>
 
               <div className="landing-user-btns">
-                <div className="btn login-btn">
-                  <a href="/login">LOGIN</a>
-                </div>
+                <button
+                  type="button"
+                  className="btn login-btn"
+                  onClick={() => onClickHandler('/login')}
+                >
+                  LOGIN
+                </button>
 
                 {currentTimestamp < challengeStartTimestamp
                   ? (
-                    <div className="btn register-btn">
-                      <a href="/register">JOIN CHALLENGE</a>
-                    </div>
+                    <button
+                      type="button"
+                      className="btn register-btn"
+                      onClick={() => onClickHandler('/register')}
+                    >
+                      JOIN CHALLENGE
+                    </button>
                   )
                   : null }
               </div>
