@@ -1,3 +1,14 @@
+## Challenge Tracking Application
+- GFA FedEx week application. Created with a small team (3 people).
+- Application for challenge tracking: Challenge is created by an admin. Users can sign up for the challenge. Creating and tracking commitments related to the challenge. Following the overall evolution of the commitments by charts.
+
+ Main Stack:
+  Frontend: React, Redux
+  Backend: NodeJS, ExpressJS, MySQL
+  Socket.io
+  ...and more
+
+# Installation
 Instructions:
 1. Clone  / fork this repository
 2. Go into frontend folder and run 'yarn'
