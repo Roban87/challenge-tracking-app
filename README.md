@@ -3,9 +3,9 @@
 - Application for challenge tracking: Challenge is created by an admin. Users can sign up for the challenge. Creating and tracking commitments related to the challenge. Following the overall evolution of the commitments by charts.
 
  Main Stack:
-  Frontend: React, Redux
-  Backend: NodeJS, ExpressJS, MySQL
-  Socket.io
+  - Frontend: React, Redux
+  - Backend: NodeJS, ExpressJS, MySQL
+  - Socket.io
   ...and more
 
 # Installation
