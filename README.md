@@ -1,5 +1,5 @@
 ## Challenge Tracking Application
-- GFA FedEx week application. Created with a small team (3 people).
+- GFA FedEx week application. Created by a small team (3 people).
 - Application for challenge tracking: Challenge is created by an admin. Users can sign up for the challenge. Creating and tracking commitments related to the challenge. Following the overall evolution of the commitments by charts.
 
  Main Stack:
